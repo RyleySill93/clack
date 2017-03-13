@@ -3,21 +3,21 @@
 ##Minimum Viable Product
 Clack is a clone of the popular web application Slack built using Ruby on Rails and React/Redux. By the end of Week 9, this app will, at a minimum, satisfy the following criteria with smooth, bug-free navigation, adequate seed data and sufficient CSS styling:
 
--Hosting on Heroku
--New account creation, login, and guest/demo login
--Production README
--Live chat
--Channels
--Direct Messages
--Teams or multi-person DM
+* Hosting on Heroku
+* New account creation, login, and guest/demo login
+* Production README
+* Live chat
+* Channels
+* Direct Messages
+* Teams or multi-person DM
 
 ##Design Docs
 
--[View Wireframes](/Wireframes)
--[React Components](/component-hierarchy)
--[API endpoints](/api-endpoints)
--[DB schema](/schema)
--[Sample State](/sample-state)
+* [View Wireframes](/docs/wireframes)
+* [React Components](/docs/component-hierarchy)
+* [API endpoints](/docs/api-endpoints)
+* [DB schema](/docs/schema)
+* [Sample State](/docs/sample-state)
 
 ##Implementation Timeline
 
@@ -37,8 +37,8 @@ Objective: Users can send private one-on-one messages to each other
 ####Phase 5: Multi-person DMs (1 day, W2 Th 6pm)
 Objective: Users can send private messages to multi people
 
-Bonus Features (TBD)
-Search Messages
-Notifications
-Links & Giphy messages
-Messages with attachments
+####Bonus Features (TBD)
+* Search Messages
+* Notifications
+* Links & Giphy messages
+* Messages with attachments
