@@ -32,7 +32,6 @@ class Greeting extends React.Component {
 
     return (
       <div>
-        Greeting:
         {this.props.currentUser ? logged() : unlogged()}
       </div>
     );
