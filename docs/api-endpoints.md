@@ -1,33 +1,35 @@
-HTML API
+#API Endpoints
 
-Root
-GET /
+##HTML API
 
-JSON API
+###Root
+-GET /
 
-Users
-POST /api/users
-PATCH /api/users
+##JSON API
 
-Session
-POST /api/session
-DELETE /api/session
+###Users
+-POST /api/users
+-PATCH /api/users
 
-Channels
-GET /api/channels/:id
-GET /api/channels/
-POST /api/channels
-DELETE /api/channels
+###Session
+-POST /api/session
+-DELETE /api/session
 
-Direct Messages
-GET /api/direct_messages/:id
-GET /api/direct_messages/
-POST /api/direct_messages
-DELETE /api/direct_messages
+###Channels
+-GET /api/channels/:id
+-GET /api/channels/
+-POST /api/channels
+-DELETE /api/channels
 
-Messages
-GET /api/messages/:id
-PATCH /api/messages/:id
-GET /api/messages/
-POST /api/messages
-DELETE /api/messages
+###Direct Messages
+-GET /api/direct_messages/:id
+-GET /api/direct_messages/
+-POST /api/direct_messages
+-DELETE /api/direct_messages
+
+###Messages
+-GET /api/messages/:id
+-PATCH /api/messages/:id
+-GET /api/messages/
+-POST /api/messages
+-DELETE /api/messages

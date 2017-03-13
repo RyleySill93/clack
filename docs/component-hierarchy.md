@@ -1,22 +1,22 @@
-Component Hierarchy
+#Component Hierarchy
 
-AuthFormContainer
+###AuthFormContainer
 
-AuthForm
-HomeContainer
+###AuthForm
+-HomeContainer
 
-Home
-SidebarContainer
-  SidebarHeader
-  Channels
-  DirectMessages
-MainContainer
-  HeaderContainer
-    ChannelTitle
-  Chatbox
-    MessagesContainer
-    MessageContainer
-      MessageHeader
-      MessageContent
-  FooterContainer
-    InputField
+###Home
+###SidebarContainer
+  -SidebarHeader
+  -Channels
+  -DirectMessages
+###MainContainer
+  -HeaderContainer
+    -ChannelTitle
+  -Chatbox
+    -MessagesContainer
+    -MessageContainer
+      -MessageHeader
+      -MessageContent
+  -FooterContainer
+    -InputField

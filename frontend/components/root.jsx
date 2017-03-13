@@ -1,11 +1,29 @@
 import React from 'react';
-import App from './App';
 import { Provider } from 'react-redux';
+import App from './app';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import SessionFormContainer from './session_form_container';
 
-const Root = ( { store } ) => (
-  <Provider store={store} >
-    <App />
-  </Provider>
-);
+const Root = (props) => {
+
+  const _redirectIfLoggedIn = (nextState, replace) => {
+    if (props.store.getState().session.currentUser) {
+      replace('/');
+    }
+  };
+
+  return (
+    <Provider store={props.store} >
+      <Router history={hashHistory} >
+        <Route path='/' component={ App } >
+          <Route path="/login" component={ SessionFormContainer }
+            />
+          <Route path="/signup" component={ SessionFormContainer }
+            />
+        </Route>
+      </Router>
+    </Provider>
+  );
+};
 
 export default Root;
