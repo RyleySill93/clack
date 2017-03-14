@@ -3,7 +3,18 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
 
+//temp
+import { requestPostMessage,
+  requestGetMessages,
+  requestRemoveMessage } from './actions/message_actions';
+// end temp
+
 document.addEventListener('DOMContentLoaded', () => {
+  //temp
+  window.requestPostMessage = requestPostMessage;
+  window.requestGetMessages = requestGetMessages;
+  window.requestRemoveMessage = requestRemoveMessage;
+  //end temp
 
   let store;
   if (window.currentUser) {

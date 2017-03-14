@@ -6,10 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.destroy_all
+User.create(username: 'ryley1', password_digest: '101', session_token: '101')
+User.create(username: 'ryley2', password_digest: '102', session_token: '102')
+User.create(username: 'ryley3', password_digest: '103', session_token: '103')
+
 Channel.destroy_all
-channel_one = Channel.create({title: "music"})
-channel_two = Channel.create({title: "outdoors"})
-channel_three = Channel.create({title: "food"})
+Channel.create({title: "music"})
+Channel.create({title: "outdoors"})
+Channel.create({title: "food"})
 
 Message.destroy_all
 Message.create({body: 'I love music!', author_id: 1, channel_id: 1})
