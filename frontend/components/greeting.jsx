@@ -14,7 +14,6 @@ class Greeting extends React.Component {
   }
 
   render () {
-    // debugger
     const logged = () => (
       <div>
         <h1>Welcome to Clack, {this.props.currentUser.username}</h1>

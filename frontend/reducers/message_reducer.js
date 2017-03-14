@@ -4,11 +4,7 @@ import { RECEIVE_MESSAGE,
 
 import merge from 'lodash/merge';
 
-const noMessages = {
-    messages: null
-};
-
-const messageReducer = (state = noMessages, action) => {
+const messageReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_MESSAGE:
       const message = action.message;

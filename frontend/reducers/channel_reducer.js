@@ -4,11 +4,7 @@ import { RECEIVE_CHANNEL,
 
 import merge from 'lodash/merge';
 
-const noChannel = {
-    channels: null
-};
-
-const channelReducer = (state = noChannel, action) => {
+const channelReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_CHANNEL:
       const channel = action.channel;
