@@ -7,6 +7,9 @@ import Root from './components/root';
 import { requestPostMessage,
   requestGetMessages,
   requestRemoveMessage } from './actions/message_actions';
+import { requestPostChannel,
+  requestGetChannels,
+  requestRemoveChannel } from './actions/channel_actions';
 // end temp
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
   window.requestPostMessage = requestPostMessage;
   window.requestGetMessages = requestGetMessages;
   window.requestRemoveMessage = requestRemoveMessage;
+  window.requestPostChannel = requestPostChannel;
+  window.requestGetChannels = requestGetChannels;
+  window.requestRemoveChannel = requestRemoveChannel;
   //end temp
 
   let store;
