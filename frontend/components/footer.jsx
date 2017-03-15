@@ -19,13 +19,13 @@ class Footer extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault();
-    this.setState({ body: "", author_id: 1, channel_id: this.props.params.channelId });
+    this.setState({ body: "", channel_id: this.props.params.channelId });
     this.props.requestPostMessage(this.state);
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.params.channelId !== this.props.params.channelId) {
-      this.setState({ body: "", author_id: 1, channel_id: nextProps.params.channelId });
+      this.setState({ body: "", channel_id: nextProps.params.channelId });
     }
   }
 

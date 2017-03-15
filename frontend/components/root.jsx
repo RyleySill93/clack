@@ -9,7 +9,7 @@ const Root = (props) => {
 
   const _redirectIfLoggedIn = (nextState, replace) => {
     if (props.store.getState().session.currentUser) {
-      replace('/messages');
+      replace('/messages/1');
     }
   };
 
@@ -20,8 +20,8 @@ const Root = (props) => {
   };
 
   return (
-    <Provider store={props.store} >
-      <Router history={hashHistory} >
+    <Provider store={ props.store } >
+      <Router history={ hashHistory } >
         <Route path='/' component={ App } onEnter={ _redirectIfLoggedIn }>
           <Route path="/login" component={ SessionFormContainer }
             onEnter={ _redirectIfLoggedIn }/>

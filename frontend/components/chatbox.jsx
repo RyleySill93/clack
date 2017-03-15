@@ -15,7 +15,9 @@ class Chatbox extends React.Component {
   }
 
   render () {
-    const list = this.props.messages.map((message, idx) => <ChatItem key={idx} message={message}/>);
+    const list = this.props.messages.map((message, idx) => (
+      <ChatItem key={idx} message={message}/>));
+        
     return (
       <ul id="chats">
         {list}
