@@ -7,14 +7,18 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.destroy_all
-User.create(username: 'ryley1', password_digest: '101', session_token: '101')
-User.create(username: 'ryley2', password_digest: '102', session_token: '102')
-User.create(username: 'ryley3', password_digest: '103', session_token: '103')
+u1 = User.create(username: 'ryley1', password_digest: '101', session_token: '101')
+u2 = User.create(username: 'ryley2', password_digest: '102', session_token: '102')
+u3 = User.create(username: 'ryley3', password_digest: '103', session_token: '103')
 
 Channel.destroy_all
-Channel.create({title: "music"})
-Channel.create({title: "outdoors"})
-Channel.create({title: "food"})
+c1 = Channel.create({title: "music", kind: 'channel'})
+c2 = Channel.create({title: "outdoors", kind: 'channel'})
+c3 = Channel.create({title: "food", kind: 'channel'})
+
+c4 = Channel.create({title: "bob", kind: 'direct'})
+c5 = Channel.create({title: "billy", kind: 'direct'})
+c7 = Channel.create({title: "joe", kind: 'direct'})
 
 Message.destroy_all
 Message.create({body: 'I love music!', author_id: 1, channel_id: 1})
@@ -31,3 +35,18 @@ Message.create({body: 'I love food!', author_id: 1, channel_id: 3})
 Message.create({body: 'I love crab legs!', author_id: 2, channel_id: 3})
 Message.create({body: 'I love bacon cheeseburgers!', author_id: 2, channel_id: 3})
 Message.create({body: 'I love au gratin!', author_id: 1, channel_id: 3})
+
+Message.create({body: 'I love food!', author_id: 1, channel_id: 4})
+Message.create({body: 'I love crab legs!', author_id: 2, channel_id: 4})
+Message.create({body: 'I love bacon cheeseburgers!', author_id: 2, channel_id: 4})
+Message.create({body: 'I love au gratin!', author_id: 1, channel_id: 4})
+
+Message.create({body: 'I love food!', author_id: 1, channel_id: 5})
+Message.create({body: 'I love crab legs!', author_id: 2, channel_id: 5})
+Message.create({body: 'I love bacon cheeseburgers!', author_id: 2, channel_id: 5})
+Message.create({body: 'I love au gratin!', author_id: 1, channel_id: 5})
+
+Message.create({body: 'I love food!', author_id: 1, channel_id: 6})
+Message.create({body: 'I love crab legs!', author_id: 2, channel_id: 6})
+Message.create({body: 'I love bacon cheeseburgers!', author_id: 2, channel_id: 6})
+Message.create({body: 'I love au gratin!', author_id: 1, channel_id: 6})

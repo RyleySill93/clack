@@ -18,6 +18,58 @@
   display: flex;
 }*/
 
+#lookup-info {
+  width: 44%;
+}
+
+#DM-lookup-container {
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+#DM-lookup-container h1 {
+  align-items: left;
+  font-weight: 800;
+  font-size: 34px;
+  margin-bottom: 30px;
+  color: #2C2D30;
+}
+
+#member-lookup {
+  display: flex;
+  justify-content: center;
+
+}
+
+#member-input {
+  border: 1px solid #E0E0E0;
+  color: #3D3C40;
+  border-radius: 6px;
+  height: 54px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 20px;
+  font-weight: 300;
+  padding-left: 10px;
+  outline-width: 0;
+}
+
+#DM-submit {
+  background-color: #2ab27b;
+  border: none;
+  width: 63px;
+  height: 54px;
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: Lato;
+  color: #fff;
+  margin-left: 16px;
+}
+
 #selected-channel {
   background-color: #38978D;
   padding: 2.7px 0px 2.7px 20px;
@@ -163,7 +215,7 @@ body {
   display: flex;
   margin: 0px 16px 1px 16px;
   align-items: center;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
 }
 
 #channel-title:hover {
@@ -205,10 +257,21 @@ body {
   font-weight: 500;
   color: #AB9BA9;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 0px 16px 1px 16px;
 }
 
-#messages-title:hover {
+#add-message {
+  display: flex;
+}
+
+#add-message:hover {
+  display: flex;
+  cursor: pointer;
+}
+
+#messages-title-name:hover {
   color: #fff;
   cursor: pointer;
 }

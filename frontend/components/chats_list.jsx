@@ -1,11 +1,11 @@
 import React from 'react';
 import ChannelListContainer from './channel_list_container';
-import MessageList from './message_list';
+import MessageListContainer from './message_list_container';
 
 const ChatsList = () => (
   <div id="chats-list">
     <ChannelListContainer />
-    <MessageList />
+    <MessageListContainer />
   </div>
 );
 
