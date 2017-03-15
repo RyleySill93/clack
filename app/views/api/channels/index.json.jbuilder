@@ -1,1 +1,1 @@
-json.array! @channels, :title
+json.array! @channels, :id, :title

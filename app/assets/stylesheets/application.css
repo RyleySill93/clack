@@ -23,8 +23,39 @@
   height: auto;
   min-height: 100%;
   z-index: -100;
-  background: transparent url(video-bg.jpg) no-repeat;
   background-size: cover;
+}
+
+#splash-header {
+  height: 70px;
+  width: 100%;
+  background-color: #78D4B6;
+  opacity: 0.99;
+  font-size: 45px;
+  color: #fff;
+  display: flex;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: flex-end;
+  justify-content: space-between;
+  vertical-align: middle;
+}
+
+#login-signup {
+  line-height: 70px;
+}
+
+#login-signup button {
+  background-color: #293037;
+  color: #fff;
+  border: 1px solid #293037;
+  border-radius: 5px;
+  height: 50px;
+  width: 90px;
+  margin: 0px 10px 20px 10px;
+  font-size: 18px;
 }
 
 body {

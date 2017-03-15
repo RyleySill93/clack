@@ -30,6 +30,8 @@ const Root = (props) => {
         </Route>
         <Route path="/messages" component={ Client }
           onEnter={ _redirectIfLoggedOut }/>
+        <Route path="/messages/:channelId" component={ Client }
+          onEnter={ _redirectIfLoggedOut }/>
       </Router>
     </Provider>
   );

@@ -7,8 +7,10 @@ const Main = () => (
   <div id="main">
     <HeaderContainer />
     <ChatboxContainer />
-    <Footer />
   </div>
 );
 
 export default Main;
+
+
+// <Footer />

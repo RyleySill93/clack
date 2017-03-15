@@ -1,11 +1,11 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import ChatItem from './chat_item';
 
 class Chatbox extends React.Component {
 
   componentWillMount () {
-    /////////NEED TO FIND OUT HOW TO GET CURRENT CHANNEL
-    this.props.requestGetMessages()
+    this.props.requestGetMessages(this.props.params.channelId);
   }
 
   render () {
@@ -19,4 +19,4 @@ class Chatbox extends React.Component {
   }
 }
 
-export default Chatbox;
+export default withRouter(Chatbox);

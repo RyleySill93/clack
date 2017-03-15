@@ -3,20 +3,22 @@ import React from 'react';
 const ChatItem = (props) => (
   <li id="chat-item">
     <div id="pic-holder">
-      <img src="./icon.png" width="36px" height="36px">
+      <img src="./icon.png" width="36px" height="36px" />
     </div>
     <div id="chat-content">
       <div id="chat-info">
         <div id="chat-sender">
-          ryley sill
+          ryley
         </div>
         <a id="chat-time">
-          4:07 PM
+          {props.message.created_at}
         </a>
       </div>
       <div id="chat-body">
-        8-bit occupy mixtape, leg
+        {props.message.body}
       </div>
     </div>
   </li>
-)
+);
+
+export default ChatItem;

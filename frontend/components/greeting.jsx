@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-redux';
-import {Link} from 'react-router';
+import {Link, hashHistory} from 'react-router';
 
 class Greeting extends React.Component {
   constructor (props) {
     super(props);
     this.logout = this.logout.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   logout (e) {
@@ -13,19 +14,30 @@ class Greeting extends React.Component {
     this.props.logout();
   }
 
+  handleClick (e) {
+    console.log('handling click');
+    e.preventDefault();
+    if (e.target.id === 'login') {
+      hashHistory.push("/login");
+    } else {
+      hashHistory.push("/signup");
+    }
+  }
+
+
+
   render () {
     const logged = () => (
       <div>
-        <h1>Welcome to Clack, {this.props.currentUser.username}</h1>
-        <button onClick={this.logout}>Logout</button>
+        
       </div>
     );
 
     const unlogged = () => (
-      <nav className="login-signup">
-        <Link to="/login" activeClassName="current">Login</Link>
-        &nbsp;or&nbsp;
-        <Link to="/signup" activeClassName="current">Sign up!</Link>
+      <nav id="login-signup">
+        <button onClick={this.handleClick} id="login">Login</button>
+
+        <button onClick={this.handleClick} id="signup">Sign up</button>
       </nav>
     );
 
