@@ -5,10 +5,7 @@ const App = (props) => {
   return (
     <div>
       <header id="splash-header">
-        <div>
-          <img src={'http://res.cloudinary.com/dwqeotsx5/image/upload/v1489531049/view_ijvafi.png'} width="68px" height="68px" />
-          Clack
-        </div>
+        <img id="logo" src={'http://res.cloudinary.com/dwqeotsx5/image/upload/v1489542773/clack_monochrome_white_n5w0fo.png'} height="68px" />
         <GreetingContainer />
       </header>
 

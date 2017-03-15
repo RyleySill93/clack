@@ -8,8 +8,13 @@ class Chatbox extends React.Component {
     this.props.requestGetMessages(this.props.params.channelId);
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.params.channelId !== this.props.params.channelId) {
+      this.props.requestGetMessages(nextProps.params.channelId);
+    }
+  }
+
   render () {
-    //////////NEED TO GET MESSAGES THO
     const list = this.props.messages.map((message, idx) => <ChatItem key={idx} message={message}/>);
     return (
       <ul id="chats">

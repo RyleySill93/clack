@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-redux';
-import {Link, hashHistory} from 'react-router';
+import { Link, hashHistory } from 'react-router';
 
 class Greeting extends React.Component {
   constructor (props) {
@@ -24,19 +24,16 @@ class Greeting extends React.Component {
     }
   }
 
-
-
   render () {
     const logged = () => (
       <div>
-        
+
       </div>
     );
 
     const unlogged = () => (
       <nav id="login-signup">
         <button onClick={this.handleClick} id="login">Login</button>
-
         <button onClick={this.handleClick} id="signup">Sign up</button>
       </nav>
     );
