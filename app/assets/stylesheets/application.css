@@ -14,6 +14,15 @@
  *= require_self
  */
 
+#selected-channel {
+  background-color: #38978D;
+  padding: 2.7px 0px 2.7px 20px;
+  margin-right: 16px;
+  color: white;
+  border-radius: 0px 4px 4px 0px;
+  cursor: pointer;
+}
+
  #hidden {
    display: none;
  }
@@ -51,14 +60,18 @@
 }
 
 #login-signup button {
-  background-color: #293037;
+  background: transparent;
   color: #fff;
-  border: 1px solid #293037;
-  border-radius: 5px;
+  border: 3px solid #fff;
+  border-radius: 7px;
   height: 35px;
   width: 70px;
   margin-right: 5px;
   font-size: 14px;
+  cursor: pointer;
+}
+#login-signup button:focus {
+  outline: none;
 }
 
 body {

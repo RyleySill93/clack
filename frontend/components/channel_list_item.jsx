@@ -1,5 +1,5 @@
 import React from 'react';
-import { hashHistory } from 'react-router';
+import { hashHistory, withRouter } from 'react-router';
 
 class ChannelListItem extends React.Component {
   constructor (props) {
@@ -12,11 +12,11 @@ class ChannelListItem extends React.Component {
     hashHistory.push(`/messages/${this.props.channel.id}`);
   }
 
-
   render () {
     return (
-      <li id="channel">
-        <div id="message-name" onClick={this.handleClick}>
+      <li id={this.props.params.channelId == this.props.channel.id ? "selected-channel" : "channel"}>
+        <div id="message-name"
+             onClick={this.handleClick}>
           {this.props.channel.title}
         </div>
       </li>
@@ -24,4 +24,4 @@ class ChannelListItem extends React.Component {
   }
 }
 
-export default ChannelListItem;
+export default withRouter(ChannelListItem);
