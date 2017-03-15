@@ -5,7 +5,7 @@ import { requestGetChannels } from '../actions/channel_actions';
 
 const mapStateToProps = (state) => {
   const channels = state.channels || {};
-  return {channels: values(channels)};
+  return { channels: values(channels) };
 };
 
 const mapDispatchToProps = (dispatch) => ({

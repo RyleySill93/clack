@@ -9,7 +9,7 @@ const Root = (props) => {
 
   const _redirectIfLoggedIn = (nextState, replace) => {
     if (props.store.getState().session.currentUser) {
-      replace('/messages/1');
+      replace(`/messages/1`);
     }
   };
 
