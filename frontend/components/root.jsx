@@ -15,19 +15,14 @@ const Root = (props) => {
 
   const _redirectIfLoggedOut = (nextState, replace) => {
     if (props.store.getState().session.currentUser === null) {
-      replace('/login');
+      replace('/');
     }
   };
 
   return (
     <Provider store={ props.store } >
       <Router history={ hashHistory } >
-        <Route path='/' component={ App } onEnter={ _redirectIfLoggedIn }>
-          <Route path="/login" component={ SessionFormContainer }
-            onEnter={ _redirectIfLoggedIn }/>
-          <Route path="/signup" component={ SessionFormContainer }
-            onEnter={ _redirectIfLoggedIn }/>
-        </Route>
+        <Route path='/' component={ App } onEnter={ _redirectIfLoggedIn } />
         <Route path="/messages" component={ Client }
           onEnter={ _redirectIfLoggedOut }/>
         <Route path="/messages/:channelId" component={ Client }

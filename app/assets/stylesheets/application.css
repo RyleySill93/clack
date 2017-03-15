@@ -13,6 +13,10 @@
  *= require_tree .
  *= require_self
  */
+/*
+#channel-add {
+  display: flex;
+}*/
 
 #selected-channel {
   background-color: #38978D;
@@ -158,6 +162,8 @@ body {
   color: #AB9BA9;
   display: flex;
   margin: 0px 16px 1px 16px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #channel-title:hover {
