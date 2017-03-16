@@ -52,7 +52,7 @@ class MessageList extends React.Component {
 
   afterOpenModal() {
     // references are now sync'd and can be accessed.
-    this.refs.subtitle.style.color = '#f00';
+    // this.refs.subtitle.style.color = '#f00';
   }
 
   closeModal() {
@@ -64,12 +64,12 @@ class MessageList extends React.Component {
     this.props.requestGetUsers();
   }
 
-
   handleSubmit(e) {
     e.preventDefault();
     const title = this.state.title;
 
     this.props.requestPostChannel({title, kind: 'direct'})
+      .then(() => this.props.requestGetChannels())
       // .then(() => hashHistory.push(newChannel))
       .then(() => this.closeModal())
       .then(() => this.setState({title: ""}));
@@ -104,8 +104,11 @@ class MessageList extends React.Component {
           onRequestClose={this.closeModal}
           style={customStyles}
           contentLabel="Example Modal">
-
+          <div id="exit-user-lookup" onClick={this.closeModal}>
+            <i className="fa fa-times fa-3x" aria-hidden="true"></i>
+          </div>
           <div id="DM-lookup-container">
+
             <div id="lookup-info">
               <h1>Direct Messages</h1>
                 <form id="member-lookup" onSubmit={this.handleSubmit}>

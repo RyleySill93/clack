@@ -18,11 +18,34 @@
   display: flex;
 }*/
 
+#exit-user-lookup {
+  position: absolute;
+  right: 65px;
+  top: 65px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #717274;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+#exit-user-lookup i {
+  margin: auto;
+}
+
+
+#exit-user-lookup:hover {
+  background-color: #E8E8E8;
+}
+
 #user-lookup-matches {
   list-style: none;
   overflow: scroll;
   padding: 0px;
-  height: 540px;
+  height: 500px;
 }
 
 #user-list-item {
@@ -36,6 +59,7 @@
   padding-left: 16px;
   cursor: pointer;
 }
+
 #user-list-item:hover {
   background-color: #edf7fd;
   border-radius: 6px;
@@ -113,6 +137,7 @@
   flex-direction: column;
   align-items: center;
   flex: 1;
+  position: relative;
 }
 
 #DM-lookup-container h1 {
