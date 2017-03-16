@@ -5,6 +5,9 @@ class User < ApplicationRecord
   attr_reader :password
 
   has_many :messages
+  has_many :channels,
+    through: :memberships,
+    source: :channel
 
   def password=(password)
     @password = password

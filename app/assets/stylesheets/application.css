@@ -74,7 +74,6 @@
 
 #login-form {
   text-align: center;
-
 }
 
 #login-form h1 {
@@ -147,22 +146,73 @@
   color: #2C2D30;
 }
 
-#member-lookup {
+#member-lookup-form {
   display: flex;
-  justify-content: center;
+  /*justify-content: center;*/
+}
+
+/*#member-lookup-field {
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
+  height: 54px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}*/
+
+#member-lookup-field {
+  display: flex;
+  padding: 8px 12px 12px 12px;
+  flex-wrap: wrap;
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
+  /*height: 54px;*/
+  box-sizing: border-box;
+  width: 100%;
+
+  /*align-items: center;*/
+}
+
+#member-token {
+  height: 26px;
+  display: flex;
+  color: #fff;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 15px;
+  font-weight: 400;
+  background-color: #2D9EE0;
+  border-radius: 3px;
+  margin: 4px 6px 0px 0px;
+}
+
+#member-token img {
+  width: 24px;
+  height: 24px;
+  border-radius: 3px 0px 0px 3px;
+  padding-left: 1px;
+}
+#member-token i {
+  padding-left: 6px;
+  padding-right: 4px;
+}
+
+#member-token-name {
+  display: inline-block;
+  padding-left: 6px;
+}
+
+#remove-member-token {
+  display: inline-block;
 }
 
 #member-input {
-  border: 1px solid #E0E0E0;
   color: #3D3C40;
-  border-radius: 6px;
-  height: 54px;
-  width: 100%;
-  box-sizing: border-box;
   font-size: 20px;
   font-weight: 300;
   padding-left: 10px;
-  outline-width: 0;
+  /*outline-width: 0;*/
 }
 
 #DM-submit {

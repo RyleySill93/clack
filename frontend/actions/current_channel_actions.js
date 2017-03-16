@@ -6,7 +6,7 @@ export const receiveChannel = (channel) => ({
   channel
 });
 
-export const requestGetCurrentChannel = (channelId) => (dispatch) => {
+export const requestCurrentChannel = (channelId) => (dispatch) => {
   return (
     getCurrentChannel(channelId)
     .then(channel => dispatch(receiveChannel(channel)))

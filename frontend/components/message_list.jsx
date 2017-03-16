@@ -3,6 +3,7 @@ import MessageListItem from './message_list_item';
 import Modal from 'react-modal';
 import { hashHistory } from 'react-router';
 import UserListItem from './user_list_item';
+import MemberToken from './member_token';
 
 
 const customStyles = {
@@ -22,12 +23,13 @@ class MessageList extends React.Component {
   constructor (props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.selectMember = this.selectMember.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
-    this.state = { modalIsOpen: false, title: "" };
+    this.state = { modalIsOpen: false, title: "", selectedMembers: [] };
   }
 
   handleChange (e) {
@@ -42,6 +44,17 @@ class MessageList extends React.Component {
     } else {
       this.openModal();
     }
+  }
+
+  selectMember (member) {
+    return (e) => {
+      e.preventDefault();
+      const memberIds = this.state.selectedMembers.map(m => m.id);
+      if (!memberIds.includes(member.id)) {
+        const selectedMembers = this.state.selectedMembers.concat([member]);
+        this.setState({ selectedMembers });
+      }
+    };
   }
 
   openModal() {
@@ -66,7 +79,6 @@ class MessageList extends React.Component {
       // .then(() => hashHistory.push(newChannel))
       .then(() => this.closeModal())
       .then(() => this.setState({title: ""}));
-
   }
 
   render () {
@@ -75,7 +87,11 @@ class MessageList extends React.Component {
 
     //need to filter these first
     const userMatches = this.props.users.map((user, idx) =>
-      <UserListItem user={user} key={idx} /> );
+      <UserListItem key={idx} user={user} selectMember={this.selectMember(user)} /> );
+
+    const selectedMembers = this.state.selectedMembers.map((member) =>
+      <MemberToken member={member}/>
+    );
 
     return (
       <div id="messages">
@@ -103,17 +119,15 @@ class MessageList extends React.Component {
 
             <div id="lookup-info">
               <h1>Direct Messages</h1>
-                <form id="member-lookup" onSubmit={this.handleSubmit}>
-                  <input id="member-input"
-                         type="text"
-                         onChange={this.handleChange}
-                         placeholder="Find or start a conversation"
-                         value={this.state.title}></input>
-                  <input id="DM-submit" type="submit" value="Go"></input>
-                </form>
-                <ul id="user-lookup-matches">
-                  {userMatches}
-                </ul>
+              <form id="member-lookup-form" onSubmit={this.handleSubmit}>
+                <div id="member-lookup-field">
+                  {selectedMembers}
+                </div>
+                <input id="DM-submit" type="submit" value="Go"></input>
+              </form>
+              <ul id="user-lookup-matches">
+                {userMatches}
+              </ul>
             </div>
           </div>
         </Modal>
@@ -122,5 +136,10 @@ class MessageList extends React.Component {
     );
   }
 }
+// <input id="member-input"
+//        type="text"
+//        onChange={this.handleChange}
+//        placeholder="Find or start a conversation"
+//        value={this.state.title}></input>
 
 export default MessageList;

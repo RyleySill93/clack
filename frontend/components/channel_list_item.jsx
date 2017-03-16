@@ -10,7 +10,6 @@ class ChannelListItem extends React.Component {
   handleClick (e) {
     e.preventDefault();
     hashHistory.push(`/messages/${this.props.channel.id}`);
-    this.props.requestGetCurrentChannel(this.props.channel.id);
   }
 
   render () {
