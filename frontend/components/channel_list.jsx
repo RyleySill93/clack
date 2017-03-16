@@ -11,7 +11,6 @@ class ChannelList extends React.Component {
   }
 
   render () {
-    // debugger
     const channelItems = this.props.channels.map((channel, idx) => (
       <ChannelListItem channel={channel} key={idx}/>));
 

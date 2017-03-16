@@ -24,7 +24,6 @@ class SessionForm extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
@@ -67,11 +66,6 @@ class SessionForm extends React.Component {
     this.setState({modalIsOpen: true});
   }
 
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    this.refs.subtitle.style.color = '#f00';
-  }
-
   closeModal() {
     this.setState({modalIsOpen: false});
   }
@@ -93,7 +87,6 @@ class SessionForm extends React.Component {
           <button onClick={this.handleClick} id="signup">Sign up</button>
           <Modal
             isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
             style={customStyles}
             contentLabel="Example Modal">
@@ -111,6 +104,9 @@ class SessionForm extends React.Component {
                        placeholder="Password"></input>
                      <input id="login-button" type="submit" value={this.state.modalType}></input>
               </form>
+              <div>
+                {(this.props.session ? this.props.session.errors.responseText : "")}
+              </div>
             </div>
           </Modal>
         </nav>

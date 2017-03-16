@@ -503,17 +503,23 @@ body {
   margin: 0px 10px 0px 20px;
 }
 
+#pic-holder img {
+  border-radius: 4px;
+}
+
 #chat-content {
   color: #2C2D30;
 }
 
 #chat-info {
   display: flex;
+  align-items: baseline;
 }
 
 #chat-sender {
-  font-weight: 800;
-  margin-right: 4px;
+  font-weight: 700;
+  margin-right: 7px;
+
 }
 
 #chat-sender:hover {
@@ -528,11 +534,6 @@ body {
   vertical-align: bottom;
   display: block;
   line-height: 19px;
-}
-
-#chat-time:hover {
-  text-decoration: underline;
-  cursor: pointer;
 }
 
 #chat-body{
