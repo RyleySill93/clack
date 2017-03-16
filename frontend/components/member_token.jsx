@@ -6,7 +6,7 @@ const MemberToken = (props) => (
     <div id="member-token-name">
       {props.member.username}
     </div>
-    <i className="fa fa-times" aria-hidden="true"></i>
+    <i className="fa fa-times" aria-hidden="true" onClick={props.deselectMember}></i>
   </div>
 );
 

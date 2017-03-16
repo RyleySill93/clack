@@ -24,17 +24,18 @@ class MessageList extends React.Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.selectMember = this.selectMember.bind(this);
+    this.deselectMember = this.deselectMember.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
-    this.state = { modalIsOpen: false, title: "", selectedMembers: [] };
+    this.state = { modalIsOpen: false, searchName: "", selectedMembers: [] };
   }
 
   handleChange (e) {
     e.preventDefault();
-    this.setState({title: e.target.value});
+    this.setState({searchName: e.target.value});
   }
 
   handleClick (e) {
@@ -57,6 +58,16 @@ class MessageList extends React.Component {
     };
   }
 
+  deselectMember (member) {
+    return (e) => {
+      e.preventDefault();
+      const selectedMembers = this.state.selectedMembers;
+      let i = selectedMembers.indexOf(member);
+      selectedMembers.splice(i, 1);
+      this.setState({ selectedMembers });
+    };
+  }
+
   openModal() {
     this.setState({modalIsOpen: true});
   }
@@ -72,16 +83,17 @@ class MessageList extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const title = this.state.title;
+    const searchName = this.state.searchName;
 
-    this.props.requestPostChannel({title, kind: 'direct'})
+    this.props.requestPostChannel({searchName, kind: 'direct'})
       .then(() => this.props.requestGetChannels())
       // .then(() => hashHistory.push(newChannel))
       .then(() => this.closeModal())
-      .then(() => this.setState({title: ""}));
+      .then(() => this.setState({searchName: ""}));
   }
 
   render () {
+    console.log(this.state);
     const directMessages = this.props.directMessages.map((message, idx) =>
       <MessageListItem message={message} key={idx}/> );
 
@@ -89,8 +101,8 @@ class MessageList extends React.Component {
     const userMatches = this.props.users.map((user, idx) =>
       <UserListItem key={idx} user={user} selectMember={this.selectMember(user)} /> );
 
-    const selectedMembers = this.state.selectedMembers.map((member) =>
-      <MemberToken member={member}/>
+    const selectedMembers = this.state.selectedMembers.map((member, idx) =>
+      <MemberToken key={idx} member={member} deselectMember={this.deselectMember(member)}/>
     );
 
     return (
@@ -122,6 +134,11 @@ class MessageList extends React.Component {
               <form id="member-lookup-form" onSubmit={this.handleSubmit}>
                 <div id="member-lookup-field">
                   {selectedMembers}
+                  <input id="member-input"
+                         type="text"
+                         onChange={this.handleChange}
+                         placeholder={selectedMembers.length === 0 ? "Find or start a conversation" : ""}
+                         value={this.state.searchName}></input>
                 </div>
                 <input id="DM-submit" type="submit" value="Go"></input>
               </form>
@@ -136,10 +153,6 @@ class MessageList extends React.Component {
     );
   }
 }
-// <input id="member-input"
-//        type="text"
-//        onChange={this.handleChange}
-//        placeholder="Find or start a conversation"
-//        value={this.state.title}></input>
+
 
 export default MessageList;

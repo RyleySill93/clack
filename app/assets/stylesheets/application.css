@@ -196,6 +196,7 @@
 #member-token i {
   padding-left: 6px;
   padding-right: 4px;
+  cursor: pointer;
 }
 
 #member-token-name {
@@ -211,7 +212,11 @@
   color: #3D3C40;
   font-size: 20px;
   font-weight: 300;
-  padding-left: 10px;
+  border: none;
+  outline: none;
+  margin-top: 4px;
+  display: flex;
+  flex-grow: 1;
   /*outline-width: 0;*/
 }
 
