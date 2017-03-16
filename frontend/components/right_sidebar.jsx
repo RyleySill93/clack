@@ -4,8 +4,8 @@ import MemberListItem from './member_list_item';
 class RightSidebar extends React.Component {
 
   render () {
-    const memberList = this.props.currentChannelMembers.map((member) => (
-      <MemberListItem member={member} />));
+    const memberList = this.props.currentChannel.members.map((member, idx) => (
+      <MemberListItem member={member} key={idx} />));
     return (
       <div id="right-sidebar">
         <div id="right-sidebar-header">
@@ -13,9 +13,11 @@ class RightSidebar extends React.Component {
         </div>
         <div id="channel-members">
           <div id="channel-members-title">
-            <i id="member-icon" className="fa fa-user-o" aria-hidden="true"></i> 89 Members
+            <i id="member-icon" className="fa fa-user-o" aria-hidden="true"></i>
+            {this.props.currentChannel.members.length}&nbsp;
+            Members
           </div>
-          <ul>
+          <ul id="member-list">
             {memberList}
           </ul>
         </div>

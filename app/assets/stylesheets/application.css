@@ -520,7 +520,8 @@ body {
   align-items: center;
   padding-left: 12px;
   background-color: #F7F7F7;
-  height: 62px;
+  height: 56px;
+  color: #2C2D30;
 }
 
 #channel-members-title {
@@ -536,13 +537,29 @@ body {
   margin-right: 8px;
 }
 
-#member-list-item {
+#member-list {
+  padding-left: 13px;
+  margin: 0;
+}
 
+#member-list-item {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+#member-username {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 #member-list-item img {
   width: 20px;
   height: 20px;
+  border-radius: 3px;
+  margin-right: 9px;
+  cursor: pointer;
 }
 
 #main-content {
@@ -643,6 +660,9 @@ body {
   padding-left: 0px;
   overflow: auto;
   height: 700px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 #chat-item {
