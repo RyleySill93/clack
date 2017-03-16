@@ -10,6 +10,7 @@ class ChannelListItem extends React.Component {
   handleClick (e) {
     e.preventDefault();
     hashHistory.push(`/messages/${this.props.channel.id}`);
+    this.props.requestGetCurrentChannel(this.props.channel.id);
   }
 
   render () {
@@ -19,8 +20,7 @@ class ChannelListItem extends React.Component {
         <div id="hash-symbol">
           #&nbsp;
         </div>
-        <div id="message-name"
-             >
+        <div id="message-name">
           {this.props.channel.title}
         </div>
       </li>

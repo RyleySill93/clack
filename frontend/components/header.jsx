@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Header = () => (
+const Header = (props) => (
   <div id="header">
     <div id="header-content">
       <div id="main-title">
-        #2017-01-23-sf
+        {`#${props.channelTitle}`}
       </div>
       <div id="channel-attributes">
       </div>
