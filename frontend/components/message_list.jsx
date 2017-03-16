@@ -3,6 +3,7 @@ import MessageListItem from './message_list_item';
 import FontAwesome from 'react-fontawesome';
 import Modal from 'react-modal';
 import { hashHistory } from 'react-router';
+import UserListItem from './user_list_item';
 
 
 const customStyles = {
@@ -60,6 +61,7 @@ class MessageList extends React.Component {
 
   componentWillMount () {
     this.props.requestGetChannels();
+    this.props.requestGetUsers();
   }
 
 
@@ -77,6 +79,11 @@ class MessageList extends React.Component {
   render () {
     const directMessages = this.props.directMessages.map((message, idx) =>
       <MessageListItem message={message} key={idx}/> );
+
+    //need to filter these first
+    const userMatches = this.props.users.map((user, idx) =>
+      <UserListItem user={user} key={idx} /> );
+
     return (
       <div id="messages">
         <div id="messages-title">
@@ -109,6 +116,9 @@ class MessageList extends React.Component {
                          value={this.state.title}></input>
                   <input id="DM-submit" type="submit" value="Go"></input>
                 </form>
+                <ul id="user-lookup-matches">
+                  {userMatches}
+                </ul>
             </div>
           </div>
         </Modal>
