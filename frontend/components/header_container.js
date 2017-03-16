@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Header from './header';
 
 const mapStateToProps = (state) => ({
-  channelTitle: state.currentChannel.title
+  currentChannel: state.currentChannel,
 });
 
 const mapDispatchToProps = (dispatch) => ({

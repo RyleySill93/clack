@@ -509,9 +509,45 @@ body {
 }
 
 #channel-attributes {
-  font-size: 13px;
   font-weight: 300;
   color: #717274;
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+}
+
+#channel-users {
+  font-size: 13px;
+  font-weight: 300;
+  padding-right: 6px;
+  padding-left: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+#channel-users:hover {
+  color: #007AB8;
+}
+
+#user-icon {
+  font-size: 10px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+}
+
+#favorite-channel {
+  font-size: 13px;
+  padding-right: 6px;
+  padding-left: 0px;
+  cursor: pointer;
+}
+
+#favorite-channel:hover {
+  font-size: 13px;
+  padding-right: 6px;
+  padding-left: 0px;
+  color: #FFCC00;
 }
 
 #footer {
