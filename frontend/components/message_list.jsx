@@ -1,6 +1,5 @@
 import React from 'react';
 import MessageListItem from './message_list_item';
-import FontAwesome from 'react-fontawesome';
 import Modal from 'react-modal';
 import { hashHistory } from 'react-router';
 import UserListItem from './user_list_item';

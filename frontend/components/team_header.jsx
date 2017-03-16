@@ -3,7 +3,8 @@ import React from 'react';
 const TeamHeader = (props) => (
   <div id="team-header">
     <div id="team-name">
-      App Academy
+      <div>App Academy</div>
+      <i className="fa fa-bars" aria-hidden="true"></i>
     </div>
     <div id="current-user">
       <div id="active-icon">

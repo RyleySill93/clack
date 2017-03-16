@@ -36,7 +36,6 @@
   margin: auto;
 }
 
-
 #exit-user-lookup:hover {
   background-color: #E8E8E8;
 }
@@ -267,6 +266,16 @@ body {
   font-size: 18px;
   color: #fff;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#team-name i {
+  color: #a09a9f;
+}
+#team-name i:hover {
+  color: #fff;
 }
 
 #current-user {
@@ -376,6 +385,7 @@ body {
   justify-content: space-between;
   align-items: center;
   margin: 0px 16px 1px 16px;
+  cursor: pointer;
 }
 
 #add-message {
@@ -389,7 +399,6 @@ body {
 
 #messages-title-name:hover {
   color: #fff;
-  cursor: pointer;
 }
 
 #messages {
