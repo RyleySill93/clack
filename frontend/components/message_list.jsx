@@ -68,7 +68,10 @@ class MessageList extends React.Component {
     const title = this.state.title;
 
     this.props.requestPostChannel({title, kind: 'direct'})
-      .then(() => hashHistory.push('/messages/1'));
+      // .then(() => hashHistory.push(newChannel))
+      .then(() => this.closeModal())
+      .then(() => this.setState({title: ""}));
+
   }
 
   render () {

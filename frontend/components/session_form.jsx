@@ -9,7 +9,9 @@ const customStyles = {
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    width                 : '30%',
+    height                 : '30%'
   }
 };
 
@@ -97,17 +99,17 @@ class SessionForm extends React.Component {
             contentLabel="Example Modal">
 
             <div>
-              <h1>{this.state.modalType}</h1>
-              <form onSubmit={this.handleSubmit}>
-                <label>
-                  Username
-                  <input type="text" onChange={this.handleChange} id="username"></input>
-                </label>
-                <label>
-                  Password
-                  <input type="text" onChange={this.handleChange} id="password"></input>
-                </label>
-                <input type="submit" value="submit"></input>
+              <form id="login-form" onSubmit={this.handleSubmit}>
+                <h1>{this.state.modalType}</h1>
+                <input type="text"
+                       onChange={this.handleChange}
+                       id="username"
+                       placeholder="Username"></input>
+                     <input type="password"
+                       onChange={this.handleChange}
+                       id="password"
+                       placeholder="Password"></input>
+                     <input id="login-button" type="submit" value={this.state.modalType}></input>
               </form>
             </div>
           </Modal>

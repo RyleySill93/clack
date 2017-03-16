@@ -11,7 +11,7 @@ const ChatItem = (props) => (
           {props.message.author.username}
         </div>
         <a id="chat-time">
-          {props.message.created_at}
+          {props.message.post_time}
         </a>
       </div>
       <div id="chat-body">
