@@ -487,15 +487,66 @@ body {
 
 /*main container below*/
 #main {
-  flex: auto;
+  display: flex;
   margin: 0px;
   box-sizing: border-box;
-
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 #header {
   height: 62px;
   border-bottom: 1px solid #E8E8E8;
+  display: flex;
+}
+
+#chatbox {
+  display: flex;
+  flex-grow: 1;
+}
+
+#right-sidebar {
+  height: 763px;
+  display: flex;
+  flex-direction: column;
+  width: 364px;
+  border-left: 1px solid #E8E8E8;
+}
+
+#right-sidebar-header {
+  display: flex;
+  font-size: 18px;
+  font-weight: 800;
+  align-items: center;
+  padding-left: 12px;
+  background-color: #F7F7F7;
+  height: 62px;
+}
+
+#channel-members-title {
+  height: 62px;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  color: #555459;
+}
+
+#member-icon {
+  color: #8BCD99;
+  margin-right: 8px;
+}
+
+#member-list-item {
+
+}
+
+#member-list-item img {
+  width: 20px;
+  height: 20px;
+}
+
+#main-content {
+  display: flex;
 }
 
 #header-content {
@@ -554,8 +605,10 @@ body {
   position:fixed;
   bottom: 0px;
   height: 64px;
-  width: calc(100% - 220px);
   background-color: white;
+  display: flex;
+  flex-grow: 1;
+  width: 855px;
 }
 
 #message-input-holder {
@@ -563,6 +616,8 @@ body {
   height: 42px;
   margin-left: 20px;
   margin-right: 20px;
+  display: flex;
+  flex-grow: 1;
 }
 
 #message-input {
@@ -574,8 +629,9 @@ body {
   box-sizing: border-box;
   font-size: 14px;
   font-weight: 300;
-  padding-left: 5px;
+  padding-left: 9px;
   outline-width: 0;
+
 }
 
 #message-input:focus {

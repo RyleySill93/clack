@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import ChatItem from './chat_item';
+import FooterContainer from './footer_container.js';
 
 class Chatbox extends React.Component {
 
@@ -19,9 +20,12 @@ class Chatbox extends React.Component {
       <ChatItem key={idx} message={message}/>));
 
     return (
-      <ul id="chats">
-        {list}
-      </ul>
+      <div id="chatbox">
+        <ul id="chats">
+          {list}
+        </ul>
+        <FooterContainer />
+      </div>
     );
   }
 }
