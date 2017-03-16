@@ -98,8 +98,9 @@ class MessageList extends React.Component {
       <MessageListItem message={message} key={idx}/> );
 
     //need to filter these first
-    const userMatches = this.props.users.map((user, idx) =>
-      <UserListItem key={idx} user={user} selectMember={this.selectMember(user)} /> );
+    const userMatches = this.props.users.filter(user => (
+      user.username.startsWith(this.state.searchName))).map((user, idx) => (
+        <UserListItem key={idx} user={user} selectMember={this.selectMember(user)} /> ));
 
     const selectedMembers = this.state.selectedMembers.map((member, idx) =>
       <MemberToken key={idx} member={member} deselectMember={this.deselectMember(member)}/>
