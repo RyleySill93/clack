@@ -7,7 +7,9 @@ import { requestGetChannels } from '../actions/channel_actions';
 const mapStateToProps = (state) => {
   const channels = values(state.channels).filter(
     (channel) => channel.kind === "channel") || {};
-  return { channels: channels };
+  const currentUser = state.session.currentUser;
+  return { channels,
+           currentUser };
 };
 
 const mapDispatchToProps = (dispatch) => ({

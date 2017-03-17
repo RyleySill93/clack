@@ -11,8 +11,12 @@ class ChannelList extends React.Component {
   }
 
   render () {
-    const channelItems = this.props.channels.map((channel, idx) => (
-      <ChannelListItem channel={channel} key={idx}/>));
+    const channelIds = this.props.currentUser.channels.map(channel => (
+      channel.id
+    ));
+    const channelItems = this.props.channels
+      .filter(channel => channelIds.includes(channel.id))
+      .map((channel, idx) => (<ChannelListItem channel={channel} key={idx}/>));
 
     return (
       <div id="channels">

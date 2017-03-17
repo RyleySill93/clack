@@ -35,7 +35,7 @@ class MessageList extends React.Component {
     this.state = { modalIsOpen: false,
                    searchName: "",
                    selectedMembers: [],
-                   title: [] };
+                 };
   }
 
   handleChange (e) {
@@ -59,8 +59,7 @@ class MessageList extends React.Component {
       const memberIds = this.state.selectedMembers.map(m => m.id);
       if (!memberIds.includes(member.id)) {
         const selectedMembers = this.state.selectedMembers.concat([member]);
-        const title = that.state.title.concat([member.username]);
-        this.setState({ selectedMembers, title });
+        this.setState({ selectedMembers });
       }
     };
   }
@@ -81,7 +80,7 @@ class MessageList extends React.Component {
 
   closeModal() {
     this.setState({modalIsOpen: false});
-    this.setState({searchName: "", selectedMembers: [], title: []});
+    this.setState({searchName: "", selectedMembers: []});
   }
 
   componentWillMount () {
@@ -91,8 +90,8 @@ class MessageList extends React.Component {
 
   createChannel(e) {
     e.preventDefault();
-    const title = this.state.title.join(", ");
-    let channelId;
+    const title = this.state.selectedMembers.map(member => (
+      member.username)).join(", ");
 
     this.props.requestPostChannel({title, kind: 'direct'})
       .then((obj) => (this.createMemberships(obj.channel.id)));
