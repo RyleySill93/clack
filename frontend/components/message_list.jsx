@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import { hashHistory } from 'react-router';
 import UserListItem from './user_list_item';
 import MemberToken from './member_token';
+import { postMembership } from '../util/membership_api_util';
 
 
 const customStyles = {
@@ -25,6 +26,7 @@ class MessageList extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.selectMember = this.selectMember.bind(this);
     this.deselectMember = this.deselectMember.bind(this);
+    this.createMemberships = this.createMemberships.bind(this);
     this.createChannel = this.createChannel.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.openModal = this.openModal.bind(this);
@@ -51,18 +53,14 @@ class MessageList extends React.Component {
   }
 
   selectMember (member) {
-    // debugger
     const that = this;
     return (e) => {
       e.preventDefault();
       const memberIds = this.state.selectedMembers.map(m => m.id);
       if (!memberIds.includes(member.id)) {
         const selectedMembers = this.state.selectedMembers.concat([member]);
-        // debugger
         const title = that.state.title.concat([member.username]);
-        // debugger
         this.setState({ selectedMembers, title });
-        // debugger
       }
     };
   }
@@ -83,6 +81,7 @@ class MessageList extends React.Component {
 
   closeModal() {
     this.setState({modalIsOpen: false});
+    this.setState({searchName: "", selectedMembers: [], title: []});
   }
 
   componentWillMount () {
@@ -93,25 +92,37 @@ class MessageList extends React.Component {
   createChannel(e) {
     e.preventDefault();
     const title = this.state.title.join(", ");
+    let channelId;
 
     this.props.requestPostChannel({title, kind: 'direct'})
-      .then(() => this.props.requestGetChannels())
-      // .then(() => hashHistory.push(newChannel))
-      .then(() => this.closeModal())
-      .then(() => this.setState({searchName: ""}));
+      .then((obj) => (this.createMemberships(obj.channel.id)));
+  }
+
+  createMemberships (channelId) {
+    const members = this.state.selectedMembers.concat([this.props.currentUser]);
+    members.forEach((member) => (
+      postMembership({user_id: member.id, channel_id: channelId})
+    ));
+    hashHistory.push(`/messages/${channelId}`);
+    this.props.requestGetChannels();
+    this.closeModal();
+    this.setState({searchName: "", selectedMembers: [], title: []});
   }
 
   render () {
     const directMessages = this.props.directMessages.map((message, idx) =>
       <MessageListItem message={message} key={idx}/> );
 
-    //need to filter these first
     const userMatches = this.props.users.filter(user => (
       user.username.startsWith(this.state.searchName))).map((user, idx) => (
-        <UserListItem key={idx} user={user} selectMember={this.selectMember(user)} /> ));
+        <UserListItem key={idx}
+                      user={user}
+                      selectMember={this.selectMember(user)} /> ));
 
     const selectedMembers = this.state.selectedMembers.map((member, idx) =>
-      <MemberToken key={idx} member={member} deselectMember={this.deselectMember(member)}/>
+      <MemberToken key={idx}
+                   member={member}
+                   deselectMember={this.deselectMember(member)}/>
     );
 
     return (

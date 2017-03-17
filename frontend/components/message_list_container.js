@@ -4,12 +4,17 @@ import MessageList from './message_list';
 import { requestPostChannel, requestGetChannels } from '../actions/channel_actions';
 import { requestGetUsers } from '../actions/user_actions';
 
+
 const mapStateToProps = (state) => {
   const channels = values(state.channels).filter(
     (channel) => channel.kind === "direct") || {};
   const users = values(state.users);
+  const currentUser = state.session.currentUser;
+  const currentChannel = state.currentChannel;
   return { directMessages: channels,
-           users
+           users,
+           currentUser,
+           currentChannel
   };
 };
 
