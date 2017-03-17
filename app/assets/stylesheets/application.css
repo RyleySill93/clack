@@ -155,27 +155,14 @@
   /*justify-content: center;*/
 }
 
-/*#member-lookup-field {
-  border: 1px solid #E0E0E0;
-  border-radius: 6px;
-  height: 54px;
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  align-items: center;
-}*/
-
 #member-lookup-field {
   display: flex;
   padding: 8px 12px 12px 12px;
   flex-wrap: wrap;
   border: 1px solid #E0E0E0;
   border-radius: 6px;
-  /*height: 54px;*/
   box-sizing: border-box;
   width: 100%;
-
-  /*align-items: center;*/
 }
 
 #member-token {
@@ -221,7 +208,6 @@
   margin-top: 4px;
   display: flex;
   flex-grow: 1;
-  /*outline-width: 0;*/
 }
 
 #DM-submit {
@@ -384,16 +370,53 @@ body {
   display: flex;
   margin: 0px 16px 1px 16px;
   align-items: center;
-  /*justify-content: space-between;*/
+  justify-content: space-between;
 }
 
-#channel-title:hover {
+#channel-title-name:hover {
   color: #fff;
   cursor: pointer;
 }
 
-#channel-title:hover div {
+#channel-title-name:hover div {
   color: #AB9BA9;
+}
+
+#channel-title-name {
+  display: flex;
+}
+
+#add-channel:hover {
+  cursor: pointer;
+  color: #fff;
+}
+
+#add-message:hover {
+  cursor: pointer;
+  color: #fff;
+}
+
+#channel-input {
+  color: #3D3C40;
+  font-size: 34px;
+  font-weight: 800;
+  border: none;
+  outline: none;
+  margin-top: 4px;
+  display: flex;
+  flex-grow: 1;
+  margin-bottom: 30px;
+}
+
+#member-input {
+  color: #3D3C40;
+  font-size: 20px;
+  font-weight: 300;
+  border: none;
+  outline: none;
+  margin-top: 4px;
+  display: flex;
+  flex-grow: 1;
 }
 
 #channel-count {
@@ -445,20 +468,16 @@ body {
   justify-content: space-between;
   align-items: center;
   margin: 0px 16px 1px 16px;
-  cursor: pointer;
 }
 
 #add-message {
-  display: flex;
-}
-
-#add-message:hover {
   display: flex;
   cursor: pointer;
 }
 
 #messages-title-name:hover {
   color: #fff;
+  cursor: pointer;
 }
 
 #messages {
@@ -687,7 +706,6 @@ body {
 #chat-item {
   display: flex;
   padding: 3px 0px 3px 7px;
-
 }
 
 #chat-item:last-child {

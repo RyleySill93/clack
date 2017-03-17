@@ -36,7 +36,12 @@ class ChannelList extends React.Component {
     this.createMemberships = this.createMemberships.bind(this);
     this.createChannel = this.createChannel.bind(this);
 
-    this.state = { modalIsOpen: false, searchName: "", selectedMembers: [] };
+    this.state = { modalIsOpen: false,
+                   searchName: "",
+                   selectedMembers: [],
+                   channelType: "",
+                   channelName: ""
+                  };
   }
 
   componentWillMount () {
@@ -46,16 +51,26 @@ class ChannelList extends React.Component {
 
   handleClick (e) {
     e.preventDefault();
+    if (e.target.parentElement.id === 'add-channel') {
+      this.state.channelType = "channel";
+    } else {
+      this.state.channelType = "direct";
+    }
     if (this.state.modalIsOpen) {
       this.closeModal();
     } else {
       this.openModal();
     }
+
   }
 
   handleChange (e) {
     e.preventDefault();
-    this.setState({searchName: e.target.value});
+    if (e.target.id === 'member-input') {
+      this.setState({ searchName: e.target.value });
+    } else {
+      this.setState({ channelName: e.target.value });
+    }
   }
 
   openModal() {
@@ -90,10 +105,16 @@ class ChannelList extends React.Component {
 
   createChannel(e) {
     e.preventDefault();
-    const title = this.state.selectedMembers.map(member => (
-      member.username)).join(", ");
 
-    this.props.requestPostChannel({title, kind: 'direct'})
+    let title = "";
+    if (this.state.channelType === "direct") {
+      title = this.state.selectedMembers.map(member => (
+        member.username)).join(", ");
+    } else {
+      title = this.state.channelName;
+    }
+
+    this.props.requestPostChannel({ title, kind: this.state.channelType })
       .then((obj) => (this.createMemberships(obj.channel.id)));
   }
 
@@ -102,10 +123,10 @@ class ChannelList extends React.Component {
     members.forEach((member) => (
       postMembership({ user_id: member.id, channel_id: channelId })
     ));
-    hashHistory.push(`/messages/${channelId}`);
     this.props.requestGetChannels();
     this.closeModal();
     this.setState({ searchName: "", selectedMembers: [], title: [] });
+    hashHistory.push(`/messages/${channelId}`);
   }
 
   render () {
@@ -128,13 +149,29 @@ class ChannelList extends React.Component {
                    member={member}
                    deselectMember={this.deselectMember(member)}/>);
 
+    const addChannel = (
+        <input id="channel-input"
+               type="text"
+               onChange={this.handleChange}
+               placeholder={selectedMembers.length === 0 ? "Create new Channel" : ""}
+               value={this.state.channelName}>
+        </input>
+    );
+
+    const modalTitle = this.state.channelType === "channel" ? addChannel : <h1>Direct Messages</h1>;
+
     return (
       <div id="chats-list">
         <div id="channels">
           <div id="channel-title">
-            CHANNELS
-            <div id="channel-count">
-              (51)
+            <div id="channel-title-name">
+              CHANNELS
+              <div id="channel-count">
+                &nbsp;({this.props.currentUser.channels.filter((channel) => channel.kind === "channel").length })
+              </div>
+            </div>
+            <div id="add-channel" onClick={this.handleClick}>
+              <i className="fa fa-plus-square" aria-hidden="true"></i>
             </div>
           </div>
           <ul id="channel-list">
@@ -153,6 +190,7 @@ class ChannelList extends React.Component {
           <ul id="messages-list">
             {directMessages}
           </ul>
+        </div>
 
           <Modal
             isOpen={this.state.modalIsOpen}
@@ -165,7 +203,7 @@ class ChannelList extends React.Component {
             <div id="DM-lookup-container">
 
               <div id="lookup-info">
-                <h1>Direct Messages</h1>
+                {modalTitle}
                 <form id="member-lookup-form" onSubmit={this.createChannel}>
                   <div id="member-lookup-field">
                     {selectedMembers}
@@ -183,7 +221,7 @@ class ChannelList extends React.Component {
               </div>
             </div>
           </Modal>
-        </div>
+
       </div>
     );
   }
