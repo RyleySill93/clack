@@ -25,10 +25,9 @@ class MessageListItem extends React.Component {
     return (
       <li onClick={this.handleClick}
           id={this.props.params.channelId == this.props.message.id ? "selected-channel" : "channel"}>
-        <div id="message-name"
-             >
+        <span id="message-name">
           {this.props.message.title}
-        </div>
+        </span>
       </li>
     );
   }

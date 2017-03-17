@@ -31,16 +31,16 @@ class Footer extends React.Component {
 
   render () {
     return (
-      <div id="footer">
-        <form id="message-input-holder" onSubmit={this.handleSubmit}>
-          <input id="message-input"
-                 onChange={this.handleChange}
-                 type="text"
-                 value={this.state.body}
-                 placeholder={`Message #${this.props.channelTitle}`} />
-          <input id="hidden" type="submit" />
-        </form>
-      </div>
+        <div id="footer">
+          <form id="message-input-holder" onSubmit={this.handleSubmit}>
+            <input id="message-input"
+                   onChange={this.handleChange}
+                   type="text"
+                   value={this.state.body}
+                   placeholder={`Message #${this.props.channelTitle}`} />
+            <input id="hidden" type="submit" />
+          </form>
+        </div>
     );
   }
 }

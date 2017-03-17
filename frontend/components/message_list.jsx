@@ -25,12 +25,15 @@ class MessageList extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.selectMember = this.selectMember.bind(this);
     this.deselectMember = this.deselectMember.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.createChannel = this.createChannel.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
-    this.state = { modalIsOpen: false, searchName: "", selectedMembers: [] };
+    this.state = { modalIsOpen: false,
+                   searchName: "",
+                   selectedMembers: [],
+                   title: [] };
   }
 
   handleChange (e) {
@@ -48,12 +51,18 @@ class MessageList extends React.Component {
   }
 
   selectMember (member) {
+    // debugger
+    const that = this;
     return (e) => {
       e.preventDefault();
       const memberIds = this.state.selectedMembers.map(m => m.id);
       if (!memberIds.includes(member.id)) {
         const selectedMembers = this.state.selectedMembers.concat([member]);
-        this.setState({ selectedMembers });
+        // debugger
+        const title = that.state.title.concat([member.username]);
+        // debugger
+        this.setState({ selectedMembers, title });
+        // debugger
       }
     };
   }
@@ -81,11 +90,11 @@ class MessageList extends React.Component {
     this.props.requestGetUsers();
   }
 
-  handleSubmit(e) {
+  createChannel(e) {
     e.preventDefault();
-    const searchName = this.state.searchName;
+    const title = this.state.title.join(", ");
 
-    this.props.requestPostChannel({searchName, kind: 'direct'})
+    this.props.requestPostChannel({title, kind: 'direct'})
       .then(() => this.props.requestGetChannels())
       // .then(() => hashHistory.push(newChannel))
       .then(() => this.closeModal())
@@ -93,7 +102,6 @@ class MessageList extends React.Component {
   }
 
   render () {
-    console.log(this.state);
     const directMessages = this.props.directMessages.map((message, idx) =>
       <MessageListItem message={message} key={idx}/> );
 
@@ -132,7 +140,7 @@ class MessageList extends React.Component {
 
             <div id="lookup-info">
               <h1>Direct Messages</h1>
-              <form id="member-lookup-form" onSubmit={this.handleSubmit}>
+              <form id="member-lookup-form" onSubmit={this.createChannel}>
                 <div id="member-lookup-field">
                   {selectedMembers}
                   <input id="member-input"
