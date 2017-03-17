@@ -1,11 +1,11 @@
 import React from 'react';
 import TeamHeaderContainer from './team_header_container';
-import ChatsList from './chats_list';
+import ChannelListContainer from './channel_list_container';
 
 const Sidebar = () => (
   <div id="sidebar">
     <TeamHeaderContainer />
-    <ChatsList />
+    <ChannelListContainer />
   </div>
 );
 
