@@ -1,6 +1,7 @@
 import { postChannel,
          getChannels,
          deleteChannel } from '../util/channel_api_util';
+import { hashHistory } from 'react-router';
 
 export const RECEIVE_CHANNEL = 'RECEIVE_CHANNEL';
 export const RECEIVE_ALL_CHANNELS = 'RECEIVE_ALL_CHANNELS';
@@ -10,7 +11,10 @@ export const REMOVE_CHANNEL = 'REMOVE_CHANNEL';
 //thunk actions - database facing
 export const requestPostChannel = (channel) => (dispatch) => (
   postChannel(channel)
-    .then(channel => dispatch(receiveChannel(channel)))
+    .then(channel => {
+      dispatch(receiveChannel(channel));
+      hashHistory.push(`/messages/${channel.id}`);
+    })
 );
 
 export const requestGetChannels = () => (dispatch) => (

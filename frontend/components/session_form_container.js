@@ -5,7 +5,7 @@ import SessionForm from './session_form';
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: (state.session.currentUser ? true : false),
-  errors: values(state.errors)
+  errors: values(values(state.session.errors.responseJSON))
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

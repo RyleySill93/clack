@@ -33,7 +33,6 @@ class ChannelList extends React.Component {
 
     this.selectMember = this.selectMember.bind(this);
     this.deselectMember = this.deselectMember.bind(this);
-    this.createMemberships = this.createMemberships.bind(this);
     this.createChannel = this.createChannel.bind(this);
 
     this.state = { modalIsOpen: false,
@@ -47,6 +46,14 @@ class ChannelList extends React.Component {
   componentWillMount () {
     this.props.requestGetChannels();
     this.props.requestGetUsers();
+
+  }
+
+  componentWillReceiveProps (nextProps) {
+    // debugger
+    if (nextProps.channels.length !== this.props.channels.length) {
+      this.props.requestGetChannels();
+    }
   }
 
   handleClick (e) {
@@ -78,17 +85,24 @@ class ChannelList extends React.Component {
   }
 
   closeModal() {
-    this.setState({ modalIsOpen: false, searchName: "", selectedMembers: [] });
+    this.props.requestGetChannels();
+    this.setState({
+                    modalIsOpen: false,
+                    channelName: "",
+                    searchName: "",
+                    selectedMembers: [],
+                    title: []
+                  });
   }
 
   selectMember (member) {
     const that = this;
     return (e) => {
       e.preventDefault();
-      const memberIds = this.state.selectedMembers.map(m => m.id);
+      const memberIds = that.state.selectedMembers.map(m => m.id);
       if (!memberIds.includes(member.id)) {
-        const selectedMembers = this.state.selectedMembers.concat([member]);
-        this.setState({ selectedMembers });
+        const selectedMembers = that.state.selectedMembers.concat([member]);
+        that.setState({ selectedMembers });
       }
     };
   }
@@ -114,19 +128,11 @@ class ChannelList extends React.Component {
       title = this.state.channelName;
     }
 
-    this.props.requestPostChannel({ title, kind: this.state.channelType })
-      .then((obj) => (this.createMemberships(obj.channel.id)));
-  }
-
-  createMemberships (channelId) {
-    const members = this.state.selectedMembers.concat([this.props.currentUser]);
-    members.forEach((member) => (
-      postMembership({ user_id: member.id, channel_id: channelId })
-    ));
-    this.props.requestGetChannels();
+    const kind =  this.state.channelType;
+    const members = this.state.selectedMembers.concat([this.props.currentUser])
+      .map(member => parseInt(member.id));
+    this.props.requestPostChannel({ title, kind, members });
     this.closeModal();
-    this.setState({ searchName: "", selectedMembers: [], title: [] });
-    hashHistory.push(`/messages/${channelId}`);
   }
 
   render () {
@@ -135,8 +141,9 @@ class ChannelList extends React.Component {
       .filter(channel => channelIds.includes(channel.id))
       .map((channel, idx) => (<ChannelListItem channel={ channel } key={ idx }/>));
 
-    const directMessages = this.props.directMessages.map((message, idx) =>
-      <MessageListItem message={message} key={idx}/> );
+    const directMessages = this.props.directMessages
+    .filter(message => channelIds.includes(message.id))
+    .map((message, idx) => <MessageListItem message={message} key={idx}/> );
 
     const userMatches = this.props.users.filter(user => (
       user.username.startsWith(this.state.searchName))).map((user, idx) => (

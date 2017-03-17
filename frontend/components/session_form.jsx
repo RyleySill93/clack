@@ -10,8 +10,8 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
-    width                 : '30%',
-    height                 : '30%'
+    width                 : '615px',
+    height                 : '385px'
   }
 };
 
@@ -38,26 +38,30 @@ class SessionForm extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     const user = Object.assign({}, this.state);
-    if (this.state.modalType === 'Login') {
-      this.props.login({username: this.state.username, password: this.state.password})
-        .then(() => hashHistory.push('/messages/1'));
-    } else {
+    if (this.state.modalType === 'Sign Up') {
       this.props.signup({username: this.state.username, password: this.state.password})
       .then(() => hashHistory.push('/messages/1'));
+    } else {
+      this.props.login({username: this.state.username, password: this.state.password})
+        .then(() => hashHistory.push('/messages/1'));
     }
   }
 
   handleClick (e) {
     e.preventDefault();
     if (e.target.id === 'login') {
-      // hashHistory.push("/login");
       this.state.modalType = 'Login';
       this.openModal();
-    } else {
-      // hashHistory.push("/signup");
+    } else if (e.target.id === 'signup') {
       this.state.modalType = 'Sign Up';
+      this.openModal();
+    } else {
+      this.state.modalType = 'Demo Login';
+      this.setState({username: 'hellohi', password: 'hellohi'});
       this.openModal();
     }
   }
@@ -71,13 +75,14 @@ class SessionForm extends React.Component {
   }
 
   render () {
-    const log = (
-      <Link to="/">Log In</Link>
-    );
+    const log = <Link to="/">Log In</Link>;
+    const sign = <Link to="/">Sign Up</Link>;
+    let errors = this.props.errors.map((error) => (
+      <li>
+        <i className="fa fa-exclamation-circle" aria-hidden="true"></i>&nbsp;
+        {error}
+      </li>));
 
-    const sign = (
-      <Link to="/">Sign Up</Link>
-    );
 
     return (
       <header id="splash-header">
@@ -85,15 +90,17 @@ class SessionForm extends React.Component {
         <nav id="login-signup">
           <button onClick={this.handleClick} id="login">Login</button>
           <button onClick={this.handleClick} id="signup">Sign up</button>
+          <button onClick={this.handleClick} id="demo">Demo</button>
           <Modal
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}
             style={customStyles}
             contentLabel="Example Modal">
 
-            <div>
+            <div id="login-modal">
               <form id="login-form" onSubmit={this.handleSubmit}>
                 <h1>{this.state.modalType}</h1>
+                <p>Enter your <b>username</b> and <b>password</b>.</p>
                 <input type="text"
                        onChange={this.handleChange}
                        id="username"
@@ -103,10 +110,8 @@ class SessionForm extends React.Component {
                        id="password"
                        placeholder="Password"></input>
                      <input id="login-button" type="submit" value={this.state.modalType}></input>
+                     <ul id="login-errors">{errors}</ul>
               </form>
-              <div>
-                {(this.props.session ? this.props.session.errors.responseText : "")}
-              </div>
             </div>
           </Modal>
         </nav>

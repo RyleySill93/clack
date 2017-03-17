@@ -8,13 +8,13 @@ import Client from './client';
 const Root = (props) => {
 
   const _redirectIfLoggedIn = (nextState, replace) => {
-    if (props.store.getState().session.currentUser) {
+    if (props.store.getState().session.currentUser.id) {
       replace(`/messages/1`);
     }
   };
 
   const _redirectIfLoggedOut = (nextState, replace) => {
-    if (props.store.getState().session.currentUser === null) {
+    if (!props.store.getState().session.currentUser.id) {
       replace('/');
     }
   };
