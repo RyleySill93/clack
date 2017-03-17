@@ -24,6 +24,11 @@ class Api::ChannelsController < ApplicationController
 
   def index
     @channels = Channel.all
+    @channels = @channels.select { |channel| has_member?(channel, params[:id].to_i) }
+  end
+
+  def has_member?(channel, id)
+    channel.members.any? { |member| member.id === id }
   end
 
   def destroy

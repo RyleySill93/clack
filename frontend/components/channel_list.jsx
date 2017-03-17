@@ -44,15 +44,14 @@ class ChannelList extends React.Component {
   }
 
   componentWillMount () {
-    this.props.requestGetChannels();
+    this.props.requestGetChannels(this.props.currentUser.id);
     this.props.requestGetUsers();
 
   }
 
   componentWillReceiveProps (nextProps) {
-    // debugger
     if (nextProps.channels.length !== this.props.channels.length) {
-      this.props.requestGetChannels();
+      this.props.requestGetChannels(this.props.currentUser.id);
     }
   }
 
@@ -85,7 +84,7 @@ class ChannelList extends React.Component {
   }
 
   closeModal() {
-    this.props.requestGetChannels();
+    this.props.requestGetChannels(this.props.currentUser.id);
     this.setState({
                     modalIsOpen: false,
                     channelName: "",
@@ -131,22 +130,23 @@ class ChannelList extends React.Component {
     const kind =  this.state.channelType;
     const members = this.state.selectedMembers.concat([this.props.currentUser])
       .map(member => parseInt(member.id));
-    this.props.requestPostChannel({ title, kind, members });
-    this.closeModal();
+    this.props.requestPostChannel({ title, kind, members })
+      .then(() => this.closeModal());
+
   }
 
   render () {
-    const channelIds = this.props.currentUser.channels.map(channel => (channel.id));
-    const channelItems = this.props.channels
-      .filter(channel => channelIds.includes(channel.id))
-      .map((channel, idx) => (<ChannelListItem channel={ channel } key={ idx }/>));
+    const channelItems = this.props.channels.map((channel, idx) => (
+      <ChannelListItem channel={ channel } key={ idx }/>
+    ));
 
-    const directMessages = this.props.directMessages
-    .filter(message => channelIds.includes(message.id))
-    .map((message, idx) => <MessageListItem message={message} key={idx}/> );
+    const directMessages = this.props.directMessages.map((message, idx) => (
+      <MessageListItem message={message} key={idx}/>
+    ));
 
     const userMatches = this.props.users.filter(user => (
-      user.username.startsWith(this.state.searchName))).map((user, idx) => (
+      user.username.startsWith(this.state.searchName) &&
+      user.username !== this.props.currentUser.username)).map((user, idx) => (
         <UserListItem key={idx}
                       user={user}
                       selectMember={this.selectMember(user)} /> ));
@@ -160,7 +160,7 @@ class ChannelList extends React.Component {
         <input id="channel-input"
                type="text"
                onChange={this.handleChange}
-               placeholder={selectedMembers.length === 0 ? "Create new Channel" : ""}
+               placeholder={"Create new Channel"}
                value={this.state.channelName}>
         </input>
     );
@@ -198,7 +198,6 @@ class ChannelList extends React.Component {
             {directMessages}
           </ul>
         </div>
-
           <Modal
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}

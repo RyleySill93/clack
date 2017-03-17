@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  requestGetChannels: () => dispatch(requestGetChannels()),
+  requestGetChannels: (id) => dispatch(requestGetChannels(id)),
   requestPostChannel: (channel) => dispatch(requestPostChannel(channel)),
   requestGetUsers: () => dispatch(requestGetUsers())
 });

@@ -12,10 +12,6 @@ const sessionReducer = (state = nullUser, action) => {
     case RECEIVE_CURRENT_USER:
       const currentUser = action.currentUser;
       return merge({}, state, {currentUser});
-    case RECEIVE_CHANNEL:
-      return {
-        errors: [state.errors],
-      }
     case RECEIVE_ERRORS:
       const errors = action.errors;
       return merge({}, state, {errors});

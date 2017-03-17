@@ -6,6 +6,8 @@ import { hashHistory } from 'react-router';
 export const RECEIVE_CHANNEL = 'RECEIVE_CHANNEL';
 export const RECEIVE_ALL_CHANNELS = 'RECEIVE_ALL_CHANNELS';
 export const REMOVE_CHANNEL = 'REMOVE_CHANNEL';
+export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+
 
 
 //thunk actions - database facing
@@ -17,9 +19,8 @@ export const requestPostChannel = (channel) => (dispatch) => (
     })
 );
 
-export const requestGetChannels = () => (dispatch) => (
-  getChannels()
-    .then(channels => dispatch(receiveAllChannels(channels)))
+export const requestGetChannels = (id) => (dispatch) => (
+  getChannels(id).then(channels => dispatch(receiveAllChannels(channels)))
 );
 
 export const requestRemoveChannel = (channel) => (dispatch) => (
@@ -41,4 +42,9 @@ export const receiveAllChannels = (channels) => ({
 export const removeChannel = (channel) => ({
   type: REMOVE_CHANNEL,
   channel
+});
+
+export const receiveErrors = (errors) => ({
+  type: RECEIVE_ERRORS,
+  errors
 });

@@ -6,10 +6,11 @@ export const postChannel = (channel) => (
   })
 );
 
-export const getChannels = () => (
+export const getChannels = (id) => (
   $.ajax({
     method: 'GET',
-    url: 'api/channels'
+    url: 'api/channels',
+    data: {id}
   })
 );
 
