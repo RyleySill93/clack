@@ -174,7 +174,7 @@ class ChannelList extends React.Component {
             <div id="channel-title-name">
               CHANNELS
               <div id="channel-count">
-                &nbsp;({this.props.currentUser.channels.filter((channel) => channel.kind === "channel").length })
+                &nbsp;({ channelItems.length })
               </div>
             </div>
             <div id="add-channel" onClick={this.handleClick}>

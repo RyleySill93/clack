@@ -18,6 +18,11 @@
   display: flex;
 }*/
 
+#exit-user-detail {
+  color: #555459;
+  margin-right: 10px;
+  cursor: pointer;
+}
 
 #logout {
   border-radius: 5px;
@@ -31,6 +36,11 @@
 #logout:hover {
   background-color: #2D9EE0;
   color: #fff;
+}
+
+#user-info {
+  display: flex;
+  align-items: center;
 }
 
 #user-detail {
@@ -50,6 +60,7 @@
   display: flex;
   margin-top: 22px;
   align-items: center;
+  justify-content: space-between;
   padding-bottom: 22px;
   padding-left: 22px;
   border-bottom: 1px solid #E0E0E0;
@@ -86,6 +97,11 @@
   display: flex;
   align-items: center;
   text-align: center;
+}
+
+#prompt div {
+  text-decoration: underline;
+  color: blue;
 }
 
 #exit-user-lookup i {
@@ -146,8 +162,21 @@
   margin-left: 10px;
 }
 
+#login {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+#signup {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
 #login-form {
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  align-items: center;
   width: 375px;
 }
 
@@ -331,6 +360,11 @@
   min-height: 100%;
   z-index: -100;
   background-size: cover;
+}
+
+#prompt {
+  margin-top: 10px;
+  display: flex;
 }
 
 #splash-header {

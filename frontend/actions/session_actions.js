@@ -41,5 +41,5 @@ export const requestLogin = (user) => (dispatch) => (
 
 export const requestLogout = () => (dispatch) => (
   logout().then(success =>  dispatch(receiveLogout()))
-    .then(() => hashHistory.push("/"))
+    .then(() => hashHistory.push("/")).then(() => hashHistory.push("/"))
 );

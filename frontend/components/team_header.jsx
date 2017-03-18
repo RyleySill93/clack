@@ -14,11 +14,12 @@ class TeamHeader extends React.Component {
   }
 
   openModal (e) {
+    console.log('modal');
     e.preventDefault();
     if (this.state.modalIsOpen) {
-      this.setState({modalIsOpen: false});
+      this.setState({ modalIsOpen: false });
     } else {
-      this.setState({modalIsOpen: true});
+      this.setState({ modalIsOpen: true });
     }
   }
 
@@ -31,14 +32,19 @@ class TeamHeader extends React.Component {
     const modal = (
       <div id="user-detail">
         <span id="user-detail-header">
-          <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1489538729/icon_jlo9le.png" />
-          <div id="username-info">
-            <div id="normal-username">
-              {this.props.currentUser.username}
+          <div id="user-info">
+            <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1489538729/icon_jlo9le.png" />
+            <div id="username-info">
+              <div id="normal-username">
+                { this.props.currentUser.username }
+              </div>
+              <div id="at-username">
+                @{ this.props.currentUser.username }
+              </div>
             </div>
-            <div id="at-username">
-              @{this.props.currentUser.username}
-            </div>
+          </div>
+          <div id="exit-user-detail"  onClick={this.openModal}>
+            <i className="fa fa-times" aria-hidden="true"></i>
           </div>
         </span>
           <span id="logout" onClick={ this.handleClick }>
@@ -60,7 +66,7 @@ class TeamHeader extends React.Component {
               </div>
             </div>
             <div id="current-user-name">
-              {this.props.currentUser.username}
+              { this.props.currentUser.username }
             </div>
           </div>
 

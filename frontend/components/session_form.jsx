@@ -83,6 +83,25 @@ class SessionForm extends React.Component {
         {error}
       </li>));
 
+    const login = (
+      <div id="prompt">
+        Already have an account?
+        <div id="login" onClick={ this.handleClick }>
+          Login here
+        </div>
+      </div>
+    );
+
+    const signup = (
+      <div id="prompt">
+        Don't have an account?
+        <div id="signup" onClick={ this.handleClick }>
+          Sign Up here
+        </div>
+      </div>
+    );
+
+    const prompt = this.state.modalType ==='Login' ? signup : login;
 
     return (
       <header id="splash-header">
@@ -94,7 +113,7 @@ class SessionForm extends React.Component {
           <Modal
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}
-            style={customStyles}
+            style={ customStyles }
             contentLabel="Example Modal">
 
             <div id="login-modal">
@@ -110,7 +129,8 @@ class SessionForm extends React.Component {
                        id="password"
                        placeholder="Password"></input>
                      <input id="login-button" type="submit" value={this.state.modalType}></input>
-                     <ul id="login-errors">{errors}</ul>
+                     { prompt }
+                     <ul id="login-errors">{ errors }</ul>
               </form>
             </div>
           </Modal>
