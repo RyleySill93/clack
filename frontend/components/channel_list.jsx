@@ -102,7 +102,12 @@ class ChannelList extends React.Component {
       e.preventDefault();
       const memberIds = that.state.selectedMembers.map(m => m.id);
       if (!memberIds.includes(member.id)) {
-        const selectedMembers = that.state.selectedMembers.concat([member]);
+        let selectedMembers = that.state.selectedMembers.concat([member]);
+        that.setState({ selectedMembers });
+      } else {
+        let index = memberIds.indexOf(member.id);
+        that.state.selectedMembers.splice(index, 1);
+        let selectedMembers = that.state.selectedMembers;
         that.setState({ selectedMembers });
       }
     };
@@ -137,7 +142,6 @@ class ChannelList extends React.Component {
   }
 
   selectedUser(user) {
-    console.log(user);
     let selectedMemberIds = this.state.selectedMembers.map((member) => member.id);
     if (selectedMemberIds.includes(user.id)) {
       return "selected-user-item";

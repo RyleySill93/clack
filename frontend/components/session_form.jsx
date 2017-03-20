@@ -77,7 +77,7 @@ class SessionForm extends React.Component {
   }
 
   demoLogin () {
-
+    console.log('demo login');
     window.setTimeout(() => this.setState({username: 'hellohi', password: 'hellohi'}), 1000);
 
     // const user = "GuestUser";

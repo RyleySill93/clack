@@ -18,12 +18,17 @@ class Chatbox extends React.Component {
   render () {
     const list = this.props.messages.map((message, idx) => (
       <ChatItem key={idx} message={message}/>));
+    const defaultMessage = (
+      <li id="default-message">
+        This is the very beginning of your message history
+      </li>
+    );
 
     return (
       <div id="chatbox">
         <div id="chats">
           <ul id="chat-list">
-            {list}
+            { list.length > 0 ? list : defaultMessage }
           </ul>
         </div>
         <FooterContainer />
