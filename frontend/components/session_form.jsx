@@ -77,17 +77,35 @@ class SessionForm extends React.Component {
   }
 
   demoLogin () {
-    console.log('demo login');
-    window.setTimeout(() => this.setState({username: 'hellohi', password: 'hellohi'}), 1000);
+    console.log('demo');
+    const username = "GuestUser";
+    const password = "password";
+    if (username.length > this.state.username.length) {
+      const idx = this.state.username.length;
+      window.setTimeout(() => (
+        this.setState({username: this.state.username + username[idx]})
+      ), 100);
+      window.setTimeout(() => (
+        this.demoLogin()
+      ), 100);
 
-    // const user = "GuestUser";
-    // if (usernameField.value === user) {
-    //   console.log("im done");
-    // } else {
-    //   let idx = usernameField.value.length;
-    //   this.setState({ username: usernameField.value + user[idx] });
-    // }
+    }
 
+    if (password.length > this.state.password.length &&
+      username.length === this.state.username.length) {
+      const idx = this.state.password.length;
+      window.setTimeout(() => (
+        this.setState({password: this.state.password + password[idx]})
+      ), 100);
+      window.setTimeout(() => (
+        this.demoLogin()
+      ), 100);
+    }
+
+    if (password.length === this.state.password.length &&
+      username.length === this.state.username.length) {
+        this.handleSubmit();
+    }
   }
 
   render () {
@@ -139,11 +157,13 @@ class SessionForm extends React.Component {
                 <input type="text"
                        onChange={this.handleChange}
                        id="username"
-                       placeholder="Username"></input>
+                       placeholder="Username"
+                       value={this.state.username}></input>
                      <input type="password"
                        onChange={this.handleChange}
                        id="password"
-                       placeholder="Password"></input>
+                       placeholder="Password"
+                       value={this.state.password}></input>
                      <input id="login-button" type="submit" value={this.state.modalType}></input>
                      { prompt }
                      <ul id="login-errors">{ errors }</ul>
