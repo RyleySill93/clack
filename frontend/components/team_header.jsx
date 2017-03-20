@@ -33,7 +33,7 @@ class TeamHeader extends React.Component {
       <div id="user-detail">
         <span id="user-detail-header">
           <div id="user-info">
-            <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1489538729/icon_jlo9le.png" />
+            <img src={this.props.currentUser.image} />
             <div id="username-info">
               <div id="normal-username">
                 { this.props.currentUser.username }

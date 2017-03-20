@@ -19,6 +19,12 @@
 }*/
 
 #default-message {
+  padding-left: 16px;
+  font-size: 17px;
+  color: #555459;
+}
+
+#default-message {
   color: #555459;
   font-size: 17px;
   padding-left: 16px;
@@ -709,6 +715,8 @@ body {
   margin: 0;
   color: #555459;
   font-weight: 300;
+  overflow: scroll;
+  height: 550px;
 }
 
 #member-list-item {

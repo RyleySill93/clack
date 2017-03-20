@@ -7,11 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.destroy_all
+User.create(username: 'GuestUser', password: 'password', image: Faker::Avatar.image)
 
-u1 = User.create(username: 'ryley', password_digest: '101', session_token: '101')
-u2 = User.create(username: 'natalie', password_digest: '102', session_token: '102')
-u3 = User.create(username: 'baron', password_digest: '103', session_token: '103')
-u4 = User.create(username: 'zoe', password_digest: '104', session_token: '104')
+50.times do
+  User.create(username: Faker::Internet.user_name, image: Faker::Avatar.image, password: 'password')
+end
+
 
 Channel.destroy_all
 c1 = Channel.create(title: "general", kind: 'channel')
@@ -24,37 +25,37 @@ c6 = Channel.create(title: "baron", kind: 'direct')
 c7 = Channel.create(title: "zoe", kind: 'direct')
 
 Membership.destroy_all
-#general
-Membership.create(user: u1, channel: c1)
-Membership.create(user: u2, channel: c1)
-Membership.create(user: u3, channel: c1)
-Membership.create(user: u4, channel: c1)
-#music
-Membership.create(user: u1, channel: c2)
-Membership.create(user: u2, channel: c2)
-Membership.create(user: u4, channel: c2)
-#outdoors
-Membership.create(user: u1, channel: c3)
-Membership.create(user: u3, channel: c3)
-Membership.create(user: u4, channel: c3)
-#food
-Membership.create(user: u1, channel: c4)
-Membership.create(user: u2, channel: c4)
-Membership.create(user: u3, channel: c4)
-Membership.create(user: u4, channel: c4)
-#natalie
-Membership.create(user: u1, channel: c5)
-Membership.create(user: u2, channel: c5)
-#baron
-Membership.create(user: u1, channel: c6)
-Membership.create(user: u3, channel: c6)
-#zoe
-Membership.create(user: u1, channel: c7)
-Membership.create(user: u4, channel: c7)
+c1.member_ids = [1]
+c2.member_ids = [1]
+c3.member_ids = [1]
+c4.member_ids = [1]
+c5.member_ids = [1]
+c6.member_ids = [1]
+c7.member_ids = [1]
+
+200.times do
+  Membership.create(user_id: (1..50).to_a.sample, channel_id: (1..4).to_a.sample)
+end
+
+(1..4).each do |num|
+  (25..40).to_a.sample.times do
+    user_id = (1..50).to_a.sample
+    channel = Channel.find(num)
+    unless (channel.member_ids.include?(user_id))
+      Membership.create(user_id: user_id, channel_id: num)
+    end
+  end
+end
+
 
 Message.destroy_all
-Message.create(body: 'I love music!', author_id: 1, channel_id: 1)
 
-50.times do
-  Message.create(body: Faker::Hipster.sentence, author_id: 1, channel_id: 1)
+200.times do
+  Message.create(body: Faker::Hipster.sentence, author_id: (1..10).to_a.sample, channel_id: 1)
+  Message.create(body: Faker::Hipster.sentence, author_id: (1..10).to_a.sample, channel_id: 2)
+  Message.create(body: Faker::Hipster.sentence, author_id: (1..10).to_a.sample, channel_id: 3)
+  Message.create(body: Faker::Hipster.sentence, author_id: (1..10).to_a.sample, channel_id: 4)
+  Message.create(body: Faker::Hipster.sentence, author_id: c5.member_ids.sample, channel_id: 4)
+  Message.create(body: Faker::Hipster.sentence, author_id: c6.member_ids.sample, channel_id: 4)
+  Message.create(body: Faker::Hipster.sentence, author_id: c7.member_ids.sample, channel_id: 4)
 end

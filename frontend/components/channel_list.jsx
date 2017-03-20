@@ -250,8 +250,3 @@ class ChannelList extends React.Component {
 }
 
 export default ChannelList;
-
-
-// <div id="channel-add">
-//   <img src={'http://res.cloudinary.com/dwqeotsx5/image/upload/v1489609782/add-tool_1_it2jrq.png'} width="14px" height="14px"/>
-// </div>
