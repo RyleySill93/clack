@@ -35,6 +35,8 @@ class ChannelList extends React.Component {
     this.deselectMember = this.deselectMember.bind(this);
     this.createChannel = this.createChannel.bind(this);
 
+    this.selectedUser = this.selectedUser.bind(this);
+
     this.state = { modalIsOpen: false,
                    searchName: "",
                    selectedMembers: [],
@@ -132,7 +134,16 @@ class ChannelList extends React.Component {
       .map(member => parseInt(member.id));
     this.props.requestPostChannel({ title, kind, members })
       .then(() => this.closeModal());
+  }
 
+  selectedUser(user) {
+    console.log(user);
+    let selectedMemberIds = this.state.selectedMembers.map((member) => member.id);
+    if (selectedMemberIds.includes(user.id)) {
+      return "selected-user-item";
+    } else {
+      return "user-list-item";
+    }
   }
 
   render () {
@@ -149,7 +160,8 @@ class ChannelList extends React.Component {
       user.username !== this.props.currentUser.username)).map((user, idx) => (
         <UserListItem key={idx}
                       user={user}
-                      selectMember={this.selectMember(user)} /> ));
+                      selectMember={this.selectMember(user)}
+                      id={this.selectedUser(user)}/> ));
 
     const selectedMembers = this.state.selectedMembers.map((member, idx) =>
       <MemberToken key={idx}

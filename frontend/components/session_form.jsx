@@ -25,9 +25,10 @@ class SessionForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.demoLogin = this.demoLogin.bind(this);
   }
 
-  handleChange(e) {
+  handleChange (e) {
     if (e.target.id === 'username') {
       const username = e.target.value;
       this.setState({username});
@@ -37,7 +38,7 @@ class SessionForm extends React.Component {
     }
   }
 
-  handleSubmit(e) {
+  handleSubmit (e) {
     if (e) {
       e.preventDefault();
     }
@@ -61,17 +62,32 @@ class SessionForm extends React.Component {
       this.openModal();
     } else {
       this.state.modalType = 'Demo Login';
-      this.setState({username: 'hellohi', password: 'hellohi'});
+      // this.setState({username: 'hellohi', password: 'hellohi'});
       this.openModal();
+      this.demoLogin();
     }
   }
 
-  openModal() {
-    this.setState({modalIsOpen: true});
+  openModal () {
+    this.setState({ modalIsOpen: true });
   }
 
-  closeModal() {
-    this.setState({modalIsOpen: false});
+  closeModal () {
+    this.setState({ modalIsOpen: false });
+  }
+
+  demoLogin () {
+
+    window.setTimeout(() => this.setState({username: 'hellohi', password: 'hellohi'}), 1000);
+
+    // const user = "GuestUser";
+    // if (usernameField.value === user) {
+    //   console.log("im done");
+    // } else {
+    //   let idx = usernameField.value.length;
+    //   this.setState({ username: usernameField.value + user[idx] });
+    // }
+
   }
 
   render () {

@@ -21,9 +21,11 @@ class Chatbox extends React.Component {
 
     return (
       <div id="chatbox">
-        <ul id="chats">
-          {list}
-        </ul>
+        <div id="chats">
+          <ul id="chat-list">
+            {list}
+          </ul>
+        </div>
         <FooterContainer />
       </div>
     );

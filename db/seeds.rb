@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.destroy_all
+
 u1 = User.create(username: 'ryley', password_digest: '101', session_token: '101')
 u2 = User.create(username: 'natalie', password_digest: '102', session_token: '102')
 u3 = User.create(username: 'baron', password_digest: '103', session_token: '103')
@@ -53,31 +54,7 @@ Membership.create(user: u4, channel: c7)
 
 Message.destroy_all
 Message.create(body: 'I love music!', author_id: 1, channel_id: 1)
-Message.create(body: 'I love 21 Savage!', author_id: 2, channel_id: 1)
-Message.create(body: 'I love Armin Van Buuren!', author_id: 2, channel_id: 1)
-Message.create(body: 'I love Thomas Jack!', author_id: 1, channel_id: 1)
 
-Message.create(body: 'I love outdoors!', author_id: 1, channel_id: 2)
-Message.create(body: 'I love Yosemite!', author_id: 2, channel_id: 2)
-Message.create(body: 'I love Big Sur!', author_id: 2, channel_id: 2)
-Message.create(body: 'I love Yellowstone!', author_id: 1, channel_id: 2)
-
-Message.create(body: 'I love food!', author_id: 1, channel_id: 3)
-Message.create(body: 'I love crab legs!', author_id: 2, channel_id: 3)
-Message.create(body: 'I love bacon cheeseburgers!', author_id: 2, channel_id: 3)
-Message.create(body: 'I love au gratin!', author_id: 1, channel_id: 3)
-
-Message.create(body: 'I love food!', author_id: 1, channel_id: 4)
-Message.create(body: 'I love crab legs!', author_id: 2, channel_id: 4)
-Message.create(body: 'I love bacon cheeseburgers!', author_id: 2, channel_id: 4)
-Message.create(body: 'I love au gratin!', author_id: 1, channel_id: 4)
-
-Message.create(body: 'I love food!', author_id: 1, channel_id: 5)
-Message.create(body: 'I love crab legs!', author_id: 2, channel_id: 5)
-Message.create(body: 'I love bacon cheeseburgers!', author_id: 2, channel_id: 5)
-Message.create(body: 'I love au gratin!', author_id: 1, channel_id: 5)
-
-Message.create(body: 'I love food!', author_id: 1, channel_id: 6)
-Message.create(body: 'I love crab legs!', author_id: 2, channel_id: 6)
-Message.create(body: 'I love bacon cheeseburgers!', author_id: 2, channel_id: 6)
-Message.create(body: 'I love au gratin!', author_id: 1, channel_id: 6)
+50.times do
+  Message.create(body: Faker::Hipster.sentence, author_id: 1, channel_id: 1)
+end
