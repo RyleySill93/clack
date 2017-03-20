@@ -425,7 +425,7 @@ body {
 #sidebar {
   background-color: #4D394B;
   width: 220px;
-  height: 826px;
+  height: 820px;
 }
 
 #client {
@@ -716,7 +716,7 @@ body {
   color: #555459;
   font-weight: 300;
   overflow: scroll;
-  height: 550px;
+  height: 520px;
 }
 
 #member-list-item {

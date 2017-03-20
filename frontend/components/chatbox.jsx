@@ -5,14 +5,36 @@ import FooterContainer from './footer_container.js';
 
 class Chatbox extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
+  }
+
   componentWillMount () {
     this.props.requestGetMessages(this.props.params.channelId);
+  }
+
+  componentDidMount () {
+    this.scrollToBottom();
+  }
+
+  componentWillUpdate () {
+    console.log('scrolling to bottom');
+    this.scrollToBottom();
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.params.channelId !== this.props.params.channelId) {
       this.props.requestGetMessages(nextProps.params.channelId);
+      this.scrollToBottom();
     }
+  }
+
+  scrollToBottom () {
+    setTimeout(() => (
+      $('#chat-list').scrollTop($('#chat-list')[0]
+        .scrollHeight - $('#chat-list')[0].clientHeight)
+    ), 0);
   }
 
   render () {
