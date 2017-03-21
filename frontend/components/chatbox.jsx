@@ -19,7 +19,6 @@ class Chatbox extends React.Component {
   }
 
   componentWillUpdate () {
-    console.log('scrolling to bottom');
     this.scrollToBottom();
   }
 

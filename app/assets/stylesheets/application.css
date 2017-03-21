@@ -912,6 +912,59 @@ html, body, root {
 #chat-item {
   display: flex;
   padding: 3px 0px 3px 7px;
+  justify-content: space-between;
+}
+
+#inner-chat-content {
+  display: flex;
+}
+
+#chat-buttons-holder {
+  display: none;
+
+  position: relative;
+  bottom: 16px;
+  margin-right: 16px;
+}
+
+#chat-buttons {
+  width: 99px;
+  height: 31px;
+  border-radius: 7px;
+  border: 1px solid #E0E0E0;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  /*position: absolute;*/
+  color: #555459;
+  align-items: center;
+}
+
+#chat-buttons:hover {
+  box-shadow: 1px 1px 1px #999999;
+  border: 1px solid #999999;
+}
+
+.chat-button:hover {
+  color: #007AB8;
+}
+
+.chat-button {
+  font-size: 17px;
+  width: 33px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.chat-button:nth-of-type(2) {
+  border-left: 1px solid #E0E0E0;
+  border-right: 1px solid #E0E0E0;
+}
+
+.chat-button i {
+  padding-left: 8px;
 }
 
 #chat-item:last-child {
@@ -920,6 +973,10 @@ html, body, root {
 
 #chat-item:hover {
   background-color: #F9F9F9;
+}
+
+#chat-item:hover #chat-buttons-holder {
+  display: block;
 }
 
 #pic-holder {
