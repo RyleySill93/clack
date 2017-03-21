@@ -14,7 +14,7 @@ class ChatItem extends React.Component {
   handleClick (e) {
     e.preventDefault();
     if (e.currentTarget.id === "emoji-button") {
-      //do nothing right now
+      this.showAlert("emojis coming soon...");
     } else if (e.currentTarget.id === "trash-button") {
       if (this.props.message.author_id === this.props.currentUser.id) {
         this.props.removeMessage(this.props.message.id);
