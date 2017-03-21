@@ -1,4 +1,5 @@
 import React from 'react';
+import AlertContainer from 'react-alert';
 
 class ChatItem extends React.Component {
   constructor (props) {
@@ -7,6 +8,7 @@ class ChatItem extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = { editMode: false, body: this.props.message.body };
+    this.showAlert = this.showAlert.bind(this);
   }
 
   handleClick (e) {
@@ -14,10 +16,27 @@ class ChatItem extends React.Component {
     if (e.currentTarget.id === "emoji-button") {
       //do nothing right now
     } else if (e.currentTarget.id === "trash-button") {
-      this.props.removeMessage(this.props.message.id);
+      if (this.props.message.author_id === this.props.currentUser.id) {
+        this.props.removeMessage(this.props.message.id);
+      } else {
+        this.showAlert('You are not the author of this message');
+      }
     } else if (e.currentTarget.id === "edit-button") {
-      this.setState( { editMode: true } );
+      if (this.props.message.author_id === this.props.currentUser.id) {
+        this.setState( { editMode: true } );
+      } else {
+        this.showAlert('You are not the author of this message');
+      }
     }
+
+  }
+
+  showAlert(message){
+    msg.show(message, {
+      time: 2000,
+      type: 'success',
+      icon: <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
+    });
   }
 
   handleChange (e) {

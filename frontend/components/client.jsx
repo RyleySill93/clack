@@ -22,7 +22,6 @@ class Client extends React.Component {
       <div id="client">
         <Sidebar />
         <Main />
-
       </div>
     );
   }

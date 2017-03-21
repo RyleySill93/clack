@@ -3,7 +3,8 @@ import ChatItem from './chat_item';
 import { requestRemoveMessage, requestUpdateMessage } from '../actions/message_actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  message: ownProps.message
+  message: ownProps.message,
+  currentUser: state.session.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({

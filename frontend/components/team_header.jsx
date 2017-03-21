@@ -40,7 +40,7 @@ class TeamHeader extends React.Component {
     msg.show('Some text or component', {
       time: 2000,
       type: 'success',
-      icon: <img src="path/to/some/img/32x32.png" />
+      icon: <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
     });
   }
 
@@ -89,7 +89,6 @@ class TeamHeader extends React.Component {
         </div>
         {this.state.modalIsOpen ? modal : ""}
         <AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
-        <button onClick={this.showAlert}>Show Alert</button>
       </div>
     );
   }
