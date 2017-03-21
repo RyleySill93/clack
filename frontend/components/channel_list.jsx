@@ -128,8 +128,15 @@ class ChannelList extends React.Component {
 
     let title = "";
     if (this.state.channelType === "direct") {
-      title = this.state.selectedMembers.map(member => (
-        member.username)).join(", ");
+      let members = this.state.selectedMembers
+        .filter(member => member.id !== this.props.currentUser.id)
+        .map(member => member.username);
+      if (members.length < 5) {
+        title = members.slice(0, members.length).join(", ");
+      } else {
+        let first = members.slice(0, 3).join(", ");
+        title = `${first} and ${members.length - 3} others`;
+      }
     } else {
       title = this.state.channelName;
     }
