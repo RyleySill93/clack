@@ -37,7 +37,8 @@ class Footer extends React.Component {
                    onChange={this.handleChange}
                    type="text"
                    value={this.state.body}
-                   placeholder={`Message #${this.props.channelTitle}`} />
+                   placeholder={`Message #${this.props.channelTitle}`}
+                   />
             <input id="hidden" type="submit" />
           </form>
         </div>
