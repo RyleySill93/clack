@@ -77,7 +77,6 @@ class SessionForm extends React.Component {
   }
 
   demoLogin () {
-    console.log('demo');
     const username = "GuestUser";
     const password = "password";
     if (username.length > this.state.username.length) {
@@ -88,7 +87,6 @@ class SessionForm extends React.Component {
       window.setTimeout(() => (
         this.demoLogin()
       ), 100);
-
     }
 
     if (password.length > this.state.password.length &&
