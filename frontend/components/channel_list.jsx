@@ -69,7 +69,6 @@ class ChannelList extends React.Component {
     } else {
       this.openModal();
     }
-
   }
 
   handleChange (e) {

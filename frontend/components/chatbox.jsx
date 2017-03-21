@@ -40,9 +40,12 @@ class Chatbox extends React.Component {
   render () {
     const list = this.props.messages.map((message, idx) => (
       <ChatItem key={idx} message={message}/>));
+    const firstMembers = this.props.currentChannel.members.slice(0, 7)
+      .map((member, idx) => <img key={idx} id="default-image" src={member.image} /> );
     const defaultMessage = (
       <li id="default-message">
-        This is the very beginning of your message history
+        <ul id="first-images">{firstMembers}</ul>
+        This is the very beginning of your message history.
       </li>
     );
 

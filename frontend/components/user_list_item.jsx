@@ -8,7 +8,7 @@ class UserListItem extends React.Component {
     return (
       <li id={this.props.id} onClick={ this.props.selectMember }>
         <div id="user-image">
-          <img src={'http://res.cloudinary.com/dwqeotsx5/image/upload/v1489538729/icon_jlo9le.png'} width="36px" height="36px" />
+          <img src={this.props.user.image} width="36px" height="36px" />
         </div>
         <div id="user-item-username">
           {this.props.user.username}

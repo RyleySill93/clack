@@ -5,7 +5,11 @@ import values from 'lodash/values';
 
 const mapStateToProps = (state) => {
   const messages = state.messages || {};
-  return { messages: values(messages) };
+  const currentChannel = state.currentChannel;
+  return {
+           messages: values(messages),
+           currentChannel
+         };
 };
 
 const mapDispatchToProps = (dispatch) => ({
