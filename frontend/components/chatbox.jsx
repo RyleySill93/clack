@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import ChatItem from './chat_item';
+import ChatItemContainer from './chat_item_container';
 import FooterContainer from './footer_container.js';
 
 class Chatbox extends React.Component {
@@ -38,7 +38,7 @@ class Chatbox extends React.Component {
 
   render () {
     const list = this.props.messages.map((message, idx) => (
-      <ChatItem key={idx} message={message}/>));
+      <ChatItemContainer key={idx} message={message}/>));
     const firstMembers = this.props.currentChannel.members.slice(0, 7)
       .map((member, idx) => <img key={idx} id="default-image" src={member.image} /> );
     const defaultMessage = (

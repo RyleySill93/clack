@@ -12,6 +12,7 @@ class Api::MessagesController < ApplicationController
   def update
     @message = Message.find(params[:id])
     if @message.update(message_params)
+      @messages = Message.where(channel_id: message_params[:channel_id])
       render :index
     else
       render json: @message.errors.full_messages, status: 422

@@ -17,7 +17,14 @@ export const getMessages = (channel_id) => (
 export const deleteMessage = (message) => (
   $.ajax({
     method: 'DELETE',
-    url: 'api/messages',
-    data:  { message }
+    url: `api/messages/${message}`
+  })
+);
+
+export const updateMessage = (message) => (
+  $.ajax({
+    method: 'PATCH',
+    url: `api/messages/${message.id}`,
+    data: {message}
   })
 );

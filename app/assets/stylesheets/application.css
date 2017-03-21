@@ -879,7 +879,27 @@ html, body, root {
   font-weight: 300;
   padding-left: 9px;
   outline-width: 0;
+}
 
+#edit-input-holder {
+  box-sizing: border-box;
+  height: 20px;
+  display: flex;
+  flex-grow: 1;
+}
+
+#edit-input {
+  width: 100%;
+  border: 2px solid #E0E0E0;
+  color: #3D3C40;
+  border-radius: 6px;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 300;
+  padding-left: 9px;
+  outline-width: 0;
 }
 
 #message-name {
@@ -896,8 +916,8 @@ html, body, root {
 #chat-list {
   list-style: none;
   padding-left: 0px;
-  overflow: scroll;
   width: 100%;
+  overflow: scroll;
   margin: 0px 0px 16px 0px;
   padding-top: 8px;
 }
@@ -917,6 +937,7 @@ html, body, root {
 
 #inner-chat-content {
   display: flex;
+  flex-grow: 1;
 }
 
 #chat-buttons-holder {
@@ -989,6 +1010,7 @@ html, body, root {
 
 #chat-content {
   color: #2C2D30;
+  flex-grow: 1;
 }
 
 #chat-info {

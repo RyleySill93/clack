@@ -4,20 +4,49 @@ class ChatItem extends React.Component {
   constructor (props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = { editMode: false, body: this.props.message.body };
   }
 
   handleClick (e) {
     e.preventDefault();
-    if (e.target.id === "emoji-button") {
+    if (e.currentTarget.id === "emoji-button") {
       //do nothing right now
-    } else if (e.target.id === "trash-button") {
-      //if not yours, do nothing, else delete it
-    } else if (e.target.id === "edit-button") {
-      //if not yours, do nothing, else delete it
+    } else if (e.currentTarget.id === "trash-button") {
+      this.props.removeMessage(this.props.message.id);
+    } else if (e.currentTarget.id === "edit-button") {
+      this.setState( { editMode: true } );
     }
   }
 
+  handleChange (e) {
+    e.preventDefault();
+    this.setState({ body: e.target.value });
+  }
+
+  handleSubmit (e) {
+    console.log('handling submit');
+    e.preventDefault();
+    let message = this.props.message;
+    message.body = this.state.body;
+    this.props.updateMessage(message);
+    this.setState({ editMode: false });
+  }
+
   render () {
+    const edit = (
+      <form id="edit-input-holder" onSubmit={this.handleSubmit}>
+        <input id="edit-input"
+               onChange={this.handleChange}
+               type="text"
+               value={this.state.body}
+               placeholder={`Message #${this.props.channelTitle}`}/>
+        <input id="hidden" type="submit" />
+      </form>
+    );
+
+
     return (
       <li id="chat-item">
         <div id="inner-chat-content">
@@ -34,12 +63,12 @@ class ChatItem extends React.Component {
               </a>
             </div>
             <div id="chat-body">
-              {this.props.message.body}
+              {this.state.editMode ? edit : this.props.message.body}
             </div>
           </div>
         </div>
         <div id="chat-buttons-holder">
-          <div id="chat-buttons">
+          <span id="chat-buttons">
             <div className="chat-button" id="emoji-button" onClick={this.handleClick}>
               <i className="fa fa-smile-o" aria-hidden="true"></i>
             </div>
@@ -49,7 +78,7 @@ class ChatItem extends React.Component {
             <div className="chat-button" id="edit-button" onClick={this.handleClick}>
               <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
             </div>
-          </div>
+          </span>
         </div>
       </li>
     );

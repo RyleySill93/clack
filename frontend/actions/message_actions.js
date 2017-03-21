@@ -1,6 +1,7 @@
 import { postMessage,
          getMessages,
-         deleteMessage } from '../util/message_api_util';
+         deleteMessage,
+         updateMessage } from '../util/message_api_util';
 
 export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 export const RECEIVE_ALL_MESSAGES = 'RECEIVE_ALL_MESSAGES';
@@ -18,9 +19,14 @@ export const requestGetMessages = (channelId) => (dispatch) => (
     .then(messages => dispatch(receiveAllMessages(messages)))
 );
 
-export const requestRemoveMessage = (message) => (dispatch) => (
-  deleteMessage(message)
-    .then(message => dispatch(removeMessage(message)))
+export const requestRemoveMessage = (messageId) => (dispatch) => (
+  deleteMessage(messageId)
+    .then(() => dispatch(removeMessage(messageId)))
+);
+
+export const requestUpdateMessage = (message) => (dispatch) => (
+  updateMessage(message)
+    .then(() => dispatch(receiveMessage(message)))
 );
 
 //actions - state facing
@@ -34,7 +40,7 @@ export const receiveAllMessages = (messages) => ({
   messages
 });
 
-export const removeMessage = (message) => ({
+export const removeMessage = (messageId) => ({
   type: REMOVE_MESSAGE,
-  message
+  messageId
 });
