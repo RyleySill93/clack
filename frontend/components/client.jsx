@@ -4,6 +4,7 @@ import Main from './main';
 import { connect } from 'react-redux';
 import { requestCurrentChannel } from '../actions/current_channel_actions';
 
+
 class Client extends React.Component {
 
   componentWillReceiveProps (nextProps) {
@@ -21,6 +22,7 @@ class Client extends React.Component {
       <div id="client">
         <Sidebar />
         <Main />
+
       </div>
     );
   }

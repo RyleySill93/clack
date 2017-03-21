@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import { hashHistory } from 'react-router';
 import { logout } from '../util/session_api_util';
+import AlertContainer from 'react-alert';
 
 class TeamHeader extends React.Component {
 
@@ -11,6 +12,13 @@ class TeamHeader extends React.Component {
     this.handleClick = this.handleClick.bind(this);
 
     this.state = { modalIsOpen: false };
+    this.alertOptions = {
+      offset: 14,
+      position: 'bottom left',
+      theme: 'dark',
+      time: 5000,
+      transition: 'scale'
+    };
   }
 
   openModal (e) {
@@ -26,6 +34,14 @@ class TeamHeader extends React.Component {
   handleClick (e) {
     e.preventDefault();
     this.props.requestLogout();
+  }
+
+  showAlert(){
+    msg.show('Some text or component', {
+      time: 2000,
+      type: 'success',
+      icon: <img src="path/to/some/img/32x32.png" />
+    });
   }
 
   render () {
@@ -72,6 +88,8 @@ class TeamHeader extends React.Component {
 
         </div>
         {this.state.modalIsOpen ? modal : ""}
+        <AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
+        <button onClick={this.showAlert}>Show Alert</button>
       </div>
     );
   }
