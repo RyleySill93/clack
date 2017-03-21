@@ -15,12 +15,21 @@ class RightSidebar extends React.Component {
   }
 
   render () {
+    let currentChannel = this.props.currentChannel;
+    let title;
+    if (currentChannel) {
+      if (currentChannel.kind === "channel") {
+        title = `About ${currentChannel.title}`;
+      } else {
+        title = 'About this conversation';
+      }
+    }
     const memberList = this.props.currentChannel.members.map((member, idx) => (
       <MemberListItem member={member} key={idx} />));
     return (
       <div id="right-sidebar">
         <div id="right-sidebar-header">
-          About #{this.props.currentChannel ? this.props.currentChannel.title : ""}
+          {title}
           <i className="fa fa-times" onClick={this.exitSidebar} aria-hidden="true"></i>
         </div>
         <div id="channel-members">

@@ -678,6 +678,7 @@ html, body, root {
   display: flex;
   flex-direction: column;
   min-width: 364px;
+  max-width: 364px;
   border-left: 1px solid #E8E8E8;
   z-index: 1;
   background-color: #fff;

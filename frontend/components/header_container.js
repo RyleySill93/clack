@@ -3,6 +3,7 @@ import Header from './header';
 
 const mapStateToProps = (state) => ({
   currentChannel: state.currentChannel,
+  currentUser: state.session.currentUser
 });
 
 const mapDispatchToProps = (dispatch) => ({
