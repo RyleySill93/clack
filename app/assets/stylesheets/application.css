@@ -23,6 +23,7 @@
 #default-message {
   padding-left: 16px;
   font-size: 17px;
+  margin: 10px 0px;
   color: #555459;
 }
 
@@ -428,6 +429,7 @@ html, body, root {
 #sidebar {
   background-color: #4D394B;
   min-width: 220px;
+  max-width: 220px;
   min-height: 100%;
 }
 
@@ -803,6 +805,7 @@ html, body, root {
 #user-tip {
   background-color: black;
   position: absolute;
+  font-weight: 400;
   color: #fff;
   font-size: 13px;
   padding: 8px 12px;
@@ -882,17 +885,18 @@ html, body, root {
 }
 
 #chat-list {
+
   list-style: none;
   padding-left: 0px;
-  overflow: auto;
+  overflow: scroll;
   width: 100%;
   margin: 0px 0px 16px 0px;
+  padding-top: 8px;
 }
 
 #chats {
   display: flex;
   flex-grow: 1;
-  overflow: scroll;
   height: 94%;
 }
 
