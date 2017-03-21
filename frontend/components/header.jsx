@@ -1,5 +1,5 @@
 import React from 'react';
-import { hashHistory } from 'react-router';
+import { hashHistory, withRouter } from 'react-router';
 
 class Header extends React.Component {
 
@@ -10,7 +10,11 @@ class Header extends React.Component {
 
   openRightSidebar (e) {
     e.preventDefault();
-    hashHistory.push(`/messages/${this.props.currentChannel.id}/details`);
+    if (this.props.router.location.pathname.endsWith('details')) {
+      hashHistory.push(`/messages/${this.props.currentChannel.id}`);
+    } else {
+      hashHistory.push(`/messages/${this.props.currentChannel.id}/details`);
+    }
   }
 
   render () {
@@ -26,6 +30,9 @@ class Header extends React.Component {
             <div id="channel-users" onClick={this.openRightSidebar}>
               <i id="user-icon" className="fa fa-user-o" aria-hidden="true"></i>
               {this.props.currentChannel.members.length}
+              <div id="user-tip-holder">
+                <div id="user-tip">View member list</div>
+              </div>
             </div>
           </div>
         </div>
@@ -34,4 +41,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);

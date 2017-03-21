@@ -18,6 +18,8 @@
   display: flex;
 }*/
 
+
+
 #default-message {
   padding-left: 16px;
   font-size: 17px;
@@ -417,15 +419,16 @@
   outline: none;
 }
 
-body {
+html, body, root {
   margin: 0px;
   font-family: Lato, sans-serif;
+  height: 100%;
 }
 
 #sidebar {
   background-color: #4D394B;
   min-width: 220px;
-  height: 820px;
+  min-height: 100%;
 }
 
 #client {
@@ -657,9 +660,10 @@ body {
 }
 
 #header {
-  height: 62px;
+  min-height: 62px;
   border-bottom: 1px solid #E8E8E8;
   display: flex;
+  background-color: #fff;
 }
 
 #chatbox {
@@ -674,6 +678,7 @@ body {
   min-width: 364px;
   border-left: 1px solid #E8E8E8;
   z-index: 1;
+  background-color: #fff;
 }
 
 #right-sidebar-header {
@@ -783,6 +788,27 @@ body {
   color: #007AB8;
 }
 
+#channel-users:hover div {
+  display: block
+}
+
+#user-tip-holder {
+  display: none;
+  position: relative;
+  top: 5px;
+  right: 70px;
+  width: 200px;
+}
+
+#user-tip {
+  background-color: black;
+  position: absolute;
+  color: #fff;
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
 #user-icon {
   font-size: 10px;
   padding-right: 5px;
@@ -860,13 +886,14 @@ body {
   padding-left: 0px;
   overflow: auto;
   width: 100%;
+  margin: 0px 0px 16px 0px;
 }
 
 #chats {
   display: flex;
   flex-grow: 1;
   overflow: scroll;
-  height: 700px;
+  height: 94%;
 }
 
 #chat-item {
@@ -920,5 +947,5 @@ body {
 }
 
 #chat-body{
-  margin-right: 32px;
+  margin-right: 40px;
 }
