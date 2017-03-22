@@ -22,13 +22,16 @@
   cursor: pointer;
   font-size: 20px;
   color: #717274;
-  margin-right: 10px;
-
+  -webkit-transition: font-size .05s; /* Safari */
+  transition: font-size .05s;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 40px;
 }
 
 #add-emoji:hover {
   font-size: 24px;
-  margin-right: 8px;
 }
 
 #first-images {

@@ -8,9 +8,10 @@ class Footer extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
     const channel_id = this.props.params.channelId || "";
     const author_id = this.props.currentUser.id || "";
-    this.state = { body: "", author_id, channel_id };
+    this.state = { body: "", author_id, channel_id, isOpen: false };
   }
 
   handleChange (e) {
@@ -18,9 +19,9 @@ class Footer extends React.Component {
     this.setState({body: e.target.value});
   }
 
-  handleClick (e) {
+  toggleEmojiPicker (e) {
     e.preventDefault();
-
+    this.setState({ isOpen: !this.state.isOpen });
   }
 
   handleSubmit (e) {
@@ -36,7 +37,7 @@ class Footer extends React.Component {
   }
 
   render () {
-    const emojis = <MyEmojiInput />;
+    const emojis = <MyEmojiInput isOpen={this.state.isOpen}/>;
     return (
         <div id="footer">
           <form id="message-input-holder" onSubmit={this.handleSubmit} data-behavior="room_speaker">
@@ -47,11 +48,12 @@ class Footer extends React.Component {
                    value={this.state.body}
                    placeholder={`Message #${this.props.channelTitle}`}
                    />
-                 <div id="add-emoji" onClick={this.handleClick}>
+                 <div id="add-emoji" onClick={this.toggleEmojiPicker}>
                   <i className="fa fa-smile-o" aria-hidden="true"></i>
                 </div>
               </div>
             <input id="hidden" type="submit" />
+            {emojis}
           </form>
         </div>
     );
