@@ -7,8 +7,9 @@ import merge from 'lodash/merge';
 const messageReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_MESSAGE:
-      const message = action.message;
-      const stateOne = merge({}, state, message);
+      const message = action.message.message;
+      const stateOne = merge({}, state);
+      stateOne[message.id] = message;
       return stateOne;
     case RECEIVE_ALL_MESSAGES:
       return action.messages;

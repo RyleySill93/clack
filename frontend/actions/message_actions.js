@@ -11,7 +11,6 @@ export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
 //thunk actions - database facing
 export const requestPostMessage = (message) => (dispatch) => (
   postMessage(message)
-    .then(message => dispatch(receiveMessage(message)))
 );
 
 export const requestGetMessages = (channelId) => (dispatch) => (
