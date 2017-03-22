@@ -60,7 +60,7 @@
 #giphy-search {
   width: 312px;
   height: 300px;
-  left: 30px;
+  left: 22px;
   bottom: 70px;
   background-color: #000;
   position: absolute;
@@ -599,7 +599,9 @@ html, body, root {
 }
 
 #chats-list {
+  max-height: calc(100% - 81px);
   margin-top: 10px;
+  overflow: scroll;
 }
 
 #channels {
@@ -772,7 +774,7 @@ html, body, root {
 }
 
 #right-sidebar {
-  height: 763px;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   min-width: 364px;
