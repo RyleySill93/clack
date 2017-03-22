@@ -4,34 +4,44 @@ import GiphyItem from './giphy_item';
 class GiphysSearch extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { searchTerm: "" };
+    this.state = { searchTerm: "", giphysOpen: this.props.giphysOpen };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showGiphysSearch = this.showGiphysSearch.bind(this);
+    this.selectGiphy = this.selectGiphy.bind(this);
 
     this.props.fetchSearchGiphys("gif");
   }
 
   handleChange (e) {
-    console.log('handling change');
     e.preventDefault();
     this.setState({ searchTerm: e.target.value });
   }
 
   handleSubmit (e) {
-    console.log('handling submit');
     e.preventDefault();
     this.props.fetchSearchGiphys(this.state.searchTerm);
   }
 
+  selectGiphy (giphy) {
+    return () => {
+      this.props.addGiphy(giphy);
+      this.setState({ giphysOpen: false });
+    };
+  }
 
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.giphysOpen !== this.props.giphysOpen) {
+      this.setState({ giphysOpen: nextProps.giphysOpen });
+    }
+  }
 
   showGiphysSearch () {
     const giphys = this.props.giphys.map((giphy, idx) =>
-      <GiphyItem key={idx} giphyUrl={giphy.images.fixed_height.url}/>
+      <GiphyItem key={idx} giphyUrl={giphy.images.fixed_height.url} selectGiphy={this.selectGiphy}/>
     );
 
-    if (this.props.giphysOpen) {
+    if (this.state.giphysOpen) {
       return (
         <form id="giphy-search" onSubmit={this.handleSubmit}>
           <img id="giphy-logo"

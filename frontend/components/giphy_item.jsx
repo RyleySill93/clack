@@ -9,7 +9,8 @@ class GiphyItem extends React.Component {
 
     return (
       <li id="giphy-item">
-        <img src={this.props.giphyUrl} />
+        <img src={this.props.giphyUrl}
+             onClick={this.props.selectGiphy(this.props.giphyUrl)}/>
       </li>
     );
   }

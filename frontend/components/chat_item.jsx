@@ -29,7 +29,6 @@ class ChatItem extends React.Component {
         this.showAlert('You are not the author of this message');
       }
     }
-
   }
 
   showAlert(message){

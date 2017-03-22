@@ -12,6 +12,7 @@ class Footer extends React.Component {
     this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
     this.toggleGiphysSearch = this.toggleGiphysSearch.bind(this);
     this.addEmoji = this.addEmoji.bind(this);
+    this.addGiphy = this.addGiphy.bind(this);
     const channel_id = this.props.params.channelId || "";
     const author_id = this.props.currentUser.id || "";
     this.state = { body: "",
@@ -41,6 +42,11 @@ class Footer extends React.Component {
     $("#message-input").focus();
   }
 
+  addGiphy (giphy) {
+    this.setState({ body: this.state.body + `giphy:${giphy}` });
+    $("#message-input").focus();
+  }
+
   handleSubmit (e) {
     e.preventDefault();
     this.setState({ body: "", channel_id: this.props.params.channelId });
@@ -56,7 +62,7 @@ class Footer extends React.Component {
   render () {
     return (
         <div id="footer">
-          <form id="message-input-holder" onSubmit={this.handleSubmit} data-behavior="room_speaker">
+          <form id="message-input-holder" onSubmit={this.handleSubmit}>
             <div id="message-input-field">
               <div id="add-giphy" onClick={this.toggleGiphysSearch}>
                 <i className="fa fa-plus" aria-hidden="true"></i>
@@ -76,7 +82,8 @@ class Footer extends React.Component {
                             addEmoji={this.addEmoji}
               />
           </form>
-          <GiphySearchContainer giphysOpen={this.state.giphysOpen}/>
+          <GiphySearchContainer giphysOpen={this.state.giphysOpen}
+                                addGiphy={this.addGiphy}/>
         </div>
     );
   }

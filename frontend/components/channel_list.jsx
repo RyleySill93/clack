@@ -1,4 +1,5 @@
 import React from 'react';
+import React from 'react';
 import Modal from 'react-modal';
 import { hashHistory } from 'react-router';
 import AlertContainer from 'react-alert';
@@ -42,7 +43,8 @@ class ChannelList extends React.Component {
 
     this.selectedUser = this.selectedUser.bind(this);
 
-    this.alertError = this.alertError.bind(this);
+    this.alertChannelError = this.alertChannelError.bind(this);
+    this.alertDirectError = this.alertDirectError.bind(this);
 
     this.state = { modalIsOpen: false,
                    searchName: "",
@@ -152,13 +154,16 @@ class ChannelList extends React.Component {
       .map(member => parseInt(member.id));
     this.props.requestPostChannel({ title, kind, members })
       .then(() => this.closeModal())
-      .fail((error) => this.alertError(error));
+      .fail((error) => {
+        if (this.state.channelType === "direct" ) {
+          error.responseJSON = ["Must include members"];
+        } else {
+          this.alertChannelError(error);
+        }
+      });
   }
 
-  alertError (error) {
-    if (this.state.channelType === "direct" ) {
-      error.responseJSON = ["Must include members"];
-    }
+  alertChannelError (error) {
     error.responseJSON.forEach(err => (
       msg.show(err, {
         time: 2000,
