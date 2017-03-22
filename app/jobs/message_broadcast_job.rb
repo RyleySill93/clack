@@ -1,13 +1,14 @@
  class MessageBroadcastJob < ApplicationJob
   queue_as :default
 
-  def perform(message)
-    # Do something later
-    ActionCable.server.broadcast 'room_channel', message: render_message(message)
+  def perform(message, channel)
+    message = Api::MessagesController.render(
+      partial: 'api/messages/message',
+      locals: { message: message }
+    )
+    p message
+    ActionCable.server.broadcast("channel_#{channel.id}",
+                                 message: JSON.parse(message))
   end
 
-  private
-  def render_message(message)
-    ApplicationController.renderer.render(partial: 'messages/message', locals: {message: message})
-  end
 end

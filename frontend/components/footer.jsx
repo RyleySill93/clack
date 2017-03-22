@@ -32,12 +32,13 @@ class Footer extends React.Component {
   render () {
     return (
         <div id="footer">
-          <form id="message-input-holder" onSubmit={this.handleSubmit}>
+          <form id="message-input-holder" onSubmit={this.handleSubmit} data-behavior="room_speaker">
             <input id="message-input"
                    onChange={this.handleChange}
                    type="text"
                    value={this.state.body}
-                   placeholder={`Message #${this.props.channelTitle}`}/>
+                   placeholder={`Message #${this.props.channelTitle}`}
+                   />
             <input id="hidden" type="submit" />
           </form>
         </div>

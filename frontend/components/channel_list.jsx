@@ -144,7 +144,8 @@ class ChannelList extends React.Component {
     const members = this.state.selectedMembers.concat([this.props.currentUser])
       .map(member => parseInt(member.id));
     this.props.requestPostChannel({ title, kind, members })
-      .then(() => this.closeModal());
+      .then(() => this.closeModal())
+      .fail((thing) => console.log(thing));
   }
 
   selectedUser(user) {
@@ -179,12 +180,13 @@ class ChannelList extends React.Component {
                    deselectMember={this.deselectMember(member)}/>);
 
     const addChannel = (
+      <div id="member-lookup-field">
         <input id="channel-input"
                type="text"
                onChange={this.handleChange}
-               placeholder={"Create new Channel"}
-               value={this.state.channelName}>
-        </input>
+               placeholder={"Channel Title"}
+               value={this.state.channelName}></input>
+      </div>
     );
 
     const modalTitle = this.state.channelType === "channel" ? addChannel : <h1>Direct Messages</h1>;
@@ -238,7 +240,7 @@ class ChannelList extends React.Component {
                     <input id="member-input"
                            type="text"
                            onChange={this.handleChange}
-                           placeholder={selectedMembers.length === 0 ? "Find or start a conversation" : ""}
+                           placeholder={selectedMembers.length === 0 ? "Add members" : ""}
                            value={this.state.searchName}></input>
                   </div>
                   <input id="DM-submit" type="submit" value="Go"></input>
