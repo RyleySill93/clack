@@ -2,7 +2,7 @@ class Api::MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     if @message.save
-      render 'api/messages/message', message: @message
+      # render :show
     else
       render json: @message.errors.full_messages, status: 422
     end
