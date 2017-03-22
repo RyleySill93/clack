@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import MyEmojiInput from './emoji_test';
+import GiphySearchContainer from './giphys_search_container';
 
 class Footer extends React.Component {
 
@@ -9,10 +10,15 @@ class Footer extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
+    this.toggleGiphysSearch = this.toggleGiphysSearch.bind(this);
     this.addEmoji = this.addEmoji.bind(this);
     const channel_id = this.props.params.channelId || "";
     const author_id = this.props.currentUser.id || "";
-    this.state = { body: "", author_id, channel_id, isOpen: false };
+    this.state = { body: "",
+                   author_id,
+                   channel_id,
+                   emojisOpen: false,
+                   giphysOpen: false };
   }
 
   handleChange (e) {
@@ -22,7 +28,12 @@ class Footer extends React.Component {
 
   toggleEmojiPicker (e) {
     e.preventDefault();
-    this.setState({ isOpen: !this.state.isOpen });
+    this.setState({ emojisOpen: !this.state.emojisOpen });
+  }
+
+  toggleGiphysSearch (e) {
+    e.preventDefault();
+    this.setState({ giphysOpen: !this.state.giphysOpen });
   }
 
   addEmoji (emoji) {
@@ -43,14 +54,11 @@ class Footer extends React.Component {
   }
 
   render () {
-    const emojis = <MyEmojiInput isOpen={this.state.isOpen}
-                                 addEmoji={this.addEmoji}
-                                 />;
     return (
         <div id="footer">
           <form id="message-input-holder" onSubmit={this.handleSubmit} data-behavior="room_speaker">
             <div id="message-input-field">
-              <div id="add-giphy">
+              <div id="add-giphy" onClick={this.toggleGiphysSearch}>
                 <i className="fa fa-plus" aria-hidden="true"></i>
               </div>
               <input id="message-input"
@@ -64,8 +72,11 @@ class Footer extends React.Component {
                 </div>
               </div>
             <input id="hidden" type="submit" />
-            {emojis}
+              <MyEmojiInput emojisOpen={this.state.emojisOpen}
+                            addEmoji={this.addEmoji}
+              />
           </form>
+          <GiphySearchContainer giphysOpen={this.state.giphysOpen}/>
         </div>
     );
   }

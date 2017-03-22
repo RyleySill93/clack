@@ -19,7 +19,7 @@ let emojiPickerStyles = {
 class MyEmojiInput extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { emoji: null, isOpen: false };
+    this.state = { emoji: null, emojisOpen: false };
     this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
     // this.validateEmoji = this.validateEmoji.bind(this);
     // this.updateState = this.updateState.bind(this);
@@ -36,27 +36,27 @@ class MyEmojiInput extends React.Component {
   // }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.isOpen !== this.props.isOpen) {
-      this.setState({ isOpen: nextProps.isOpen });
+    if (nextProps.emojisOpen !== this.props.emojisOpen) {
+      this.setState({ emojisOpen: nextProps.emojisOpen });
     }
   }
 
   toggleEmojiPicker (e) {
     if(this.state.emoji.contains(e.target)) {
-      this.setState({isOpen: true});
+      this.setState({emojisOpen: true});
     } else {
       setTimeout(this.validateEmoji, 10);
-      this.setState({isOpen: false});
+      this.setState({emojisOpen: false});
     }
   }
 
   setEmoji (emoji) {
     this.props.addEmoji(emoji);
-    this.setState({ isOpen: false });
+    this.setState({ emojisOpen: false });
   }
 
   emojiPicker () {
-    if(this.state.isOpen) {
+    if(this.state.emojisOpen) {
       return (
         <EmojiPicker
           style={emojiPickerStyles} onSelect={this.setEmoji}

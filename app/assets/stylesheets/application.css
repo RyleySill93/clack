@@ -18,6 +18,69 @@
   display: flex;
 }*/
 
+#giphys-list {
+  list-style: none;
+  padding-left: 0px;
+  max-height: 80%;
+  margin: 0px;
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*justify-content: space-between;*/
+  /*flex-grow: 1;*/
+  /*flex-wrap: wrap;*/
+}
+
+#giphys-holder {
+  display: flex;
+  overflow: scroll;
+  flex-wrap: wrap;
+  height: 260px;
+}
+
+#giphy-item img {
+  height: auto;
+  width: 96px;
+  margin: 2px 4px;
+  padding: 0px;
+  cursor: pointer;
+}
+
+#giphy-input {
+  width: 280px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  color: #3D3C40;
+  padding-left: 5px;
+  /*margin-top: 15px;*/
+  height: 20px;
+  margin: 5px 0px;
+}
+
+#giphy-search {
+  width: 312px;
+  height: 300px;
+  left: 30px;
+  bottom: 70px;
+  background-color: #000;
+  position: absolute;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid #9933FF;
+}
+
+#giphy-logo {
+  height: 30px;
+  width: 120px;
+  display: block;
+}
+
+#giphy-search-holder {
+  position: relative;
+}
+
 
 .emoji-picker-emoji img {
   width: 22px;
@@ -393,6 +456,7 @@
   margin-left: 16px;
   cursor: pointer;
   margin-top: 10px;
+  outline: none;
 }
 
  #hidden {

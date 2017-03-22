@@ -153,7 +153,7 @@ class ChannelList extends React.Component {
   }
 
   alertError (error) {
-    if (this.state.channelType === "direct") {
+    if (this.state.channelType === "direct" ) {
       error.responseJSON = ["Must include members"];
     }
     error.responseJSON.forEach(err => (
