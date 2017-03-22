@@ -50,6 +50,9 @@ class Footer extends React.Component {
         <div id="footer">
           <form id="message-input-holder" onSubmit={this.handleSubmit} data-behavior="room_speaker">
             <div id="message-input-field">
+              <div id="add-giphy">
+                <i className="fa fa-plus" aria-hidden="true"></i>
+              </div>
               <input id="message-input"
                    onChange={this.handleChange}
                    type="text"
