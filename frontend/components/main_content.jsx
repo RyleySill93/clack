@@ -3,6 +3,7 @@ import ChatboxContainer from './chatbox_container.js';
 import RightSidebarContainer from './right_sidebar_container.jsx';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import MyEmojiInput from './emoji_test';
 
 class MainContent extends React.Component {
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import MyEmojiInput from './emoji_test';
 
 class Footer extends React.Component {
 
@@ -17,6 +18,11 @@ class Footer extends React.Component {
     this.setState({body: e.target.value});
   }
 
+  handleClick (e) {
+    e.preventDefault();
+
+  }
+
   handleSubmit (e) {
     e.preventDefault();
     this.setState({ body: "", channel_id: this.props.params.channelId });
@@ -30,6 +36,7 @@ class Footer extends React.Component {
   }
 
   render () {
+    const emojis = <MyEmojiInput />;
     return (
         <div id="footer">
           <form id="message-input-holder" onSubmit={this.handleSubmit} data-behavior="room_speaker">
@@ -39,6 +46,9 @@ class Footer extends React.Component {
                    value={this.state.body}
                    placeholder={`Message #${this.props.channelTitle}`}
                    />
+                 <div id="add-emoji" onClick={this.handleClick}>
+                  <i className="fa fa-smile-o" aria-hidden="true"></i>
+                </div>
             <input id="hidden" type="submit" />
           </form>
         </div>

@@ -5,13 +5,14 @@ import emojiMap from 'react-emoji-picker/lib/emojiMap';
 // styles for the emoji picker wrapper
 let emojiPickerStyles = {
   position: 'absolute',
-  left: 0, top: '3.9rem',
+  right: '30px',
+  bottom: '70px',
   backgroundColor: 'white',
   width: '200px',
   padding: '.3em .6em',
-  border: '1px solid #0074d9',
-  borderTop: 'none',
-  zIndex: '2'
+  border: '1px solid silver',
+  zIndex: '2',
+  borderRadius: '5px'
 };
 
 class MyEmojiInput extends React.Component {

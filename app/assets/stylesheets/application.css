@@ -18,6 +18,10 @@
   display: flex;
 }*/
 
+#add-emoji {
+  cursor: pointer;
+}
+
 #first-images {
   display: flex;
   padding-left: 0px;
