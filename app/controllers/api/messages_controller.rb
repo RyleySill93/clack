@@ -2,8 +2,7 @@ class Api::MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     if @message.save
-      @messages = Message.where(channel_id: params[:channel_id])
-      render :index
+      render :show
     else
       render json: @message.errors.full_messages, status: 422
     end
