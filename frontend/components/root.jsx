@@ -45,10 +45,9 @@ class Root extends React.Component {
       channel: 'RoomChannel',
       channel_name: channelName
     }, {
-      connected: () => {console.log('were connected!!!');},
+      connected: () => {},
       disconnected: () => {},
       received: (data) => {
-        console.log(data);
         this.props.store.dispatch(receiveMessage(data));
       }
     });

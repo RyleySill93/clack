@@ -22,7 +22,6 @@ class TeamHeader extends React.Component {
   }
 
   openModal (e) {
-    console.log('modal');
     e.preventDefault();
     if (this.state.modalIsOpen) {
       this.setState({ modalIsOpen: false });

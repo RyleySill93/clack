@@ -53,7 +53,6 @@ class ChatItem extends React.Component {
   }
 
   render () {
-    console.log(this.props);
     const edit = (
       <form id="edit-input-holder" onSubmit={this.handleSubmit}>
         <input id="edit-input"
