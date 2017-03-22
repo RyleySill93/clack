@@ -11,6 +11,7 @@ class Chatbox extends React.Component {
   }
 
   componentWillMount () {
+    console.log("mounting");
     this.props.requestGetMessages(this.props.params.channelId);
   }
 
@@ -24,6 +25,7 @@ class Chatbox extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.params.channelId !== this.props.params.channelId) {
+      console.log('receiving props');
       this.props.requestGetMessages(nextProps.params.channelId);
       this.scrollToBottom();
     }

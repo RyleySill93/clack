@@ -64,7 +64,6 @@ class ChatItem extends React.Component {
         <input id="hidden" type="submit" />
       </form>
     );
-    console.log(this.props.message);
     return (
       <li id="chat-item">
         <div id="inner-chat-content">
