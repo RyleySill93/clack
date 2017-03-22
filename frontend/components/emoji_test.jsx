@@ -8,7 +8,8 @@ let emojiPickerStyles = {
   right: '30px',
   bottom: '70px',
   backgroundColor: 'white',
-  width: '200px',
+  width: '360px',
+  height: '380px',
   padding: '.3em .6em',
   border: '1px solid silver',
   zIndex: '2',
@@ -20,8 +21,8 @@ class MyEmojiInput extends React.Component {
     super(props);
     this.state = { emoji: null, isOpen: false };
     this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
-    this.validateEmoji = this.validateEmoji.bind(this);
-    this.updateState = this.updateState.bind(this);
+    // this.validateEmoji = this.validateEmoji.bind(this);
+    // this.updateState = this.updateState.bind(this);
     this.setEmoji = this.setEmoji.bind(this);
     this.emojiPicker = this.emojiPicker.bind(this);
   }
@@ -49,37 +50,36 @@ class MyEmojiInput extends React.Component {
     }
   }
 
-  validateEmoji () {
-    let matched = emojiMap.filter(function(emoji) {
-      return `:${emoji.name}:` === this.state.emoji;
-    });
+  // validateEmoji () {
+  //   let matched = emojiMap.filter(function(emoji) {
+  //     return `:${emoji.name}:` === this.state.emoji;
+  //   });
+  //
+  //   if(matched.length === 0) {
+  //     this.setState({emoji: null});
+  //   }
+  // }
 
-    if(matched.length === 0) {
-      this.setState({emoji: null});
-    }
-  }
-
-  updateState (e) {
-    this.setState({emoji: e.target.value});
-  }
+  // updateState (e) {
+  //   this.setState({emoji: e.target.value});
+  // }
 
   setEmoji (emoji) {
     this.setState({emoji: emoji});
   }
 
   // allows selecting first emoji by pressing "Enter" without submitting form
-  grabKeyPress (e) {
-    if(e.keyCode === 13) {
-      e.preventDefault();
-    }
-  }
+  // grabKeyPress (e) {
+  //   if(e.keyCode === 13) {
+  //     e.preventDefault();
+  //   }
+  // }
 
   emojiPicker () {
     if(this.state.isOpen) {
       return (
         <EmojiPicker
           style={emojiPickerStyles} onSelect={this.setEmoji}
-          query={this.state.emoji}
         />
       );
     }

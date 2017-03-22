@@ -1,5 +1,6 @@
 import React from 'react';
 import AlertContainer from 'react-alert';
+import ReactEmoji from 'react-emoji';
 
 class ChatItem extends React.Component {
   constructor (props) {
@@ -79,7 +80,7 @@ class ChatItem extends React.Component {
               </a>
             </div>
             <div id="chat-body">
-              {this.state.editMode ? edit : this.props.message.body}
+              {this.state.editMode ? edit : ReactEmoji.emojify(this.props.message.body) }
             </div>
           </div>
         </div>

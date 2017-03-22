@@ -18,6 +18,15 @@
   display: flex;
 }*/
 
+.emoji-picker-emoji img {
+  width: 22px;
+  height: 22px;
+}
+
+.emoji-picker-emoji {
+  padding: 7px;
+}
+
 #add-emoji {
   cursor: pointer;
   font-size: 20px;
