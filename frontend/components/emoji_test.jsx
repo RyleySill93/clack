@@ -8,8 +8,8 @@ let emojiPickerStyles = {
   right: '30px',
   bottom: '70px',
   backgroundColor: 'white',
-  width: '360px',
-  height: '380px',
+  width: '344px',
+  height: '270px',
   padding: '.3em .6em',
   border: '1px solid silver',
   zIndex: '2',
@@ -65,7 +65,8 @@ class MyEmojiInput extends React.Component {
   // }
 
   setEmoji (emoji) {
-    this.setState({emoji: emoji});
+    this.props.addEmoji(emoji);
+    this.setState({ isOpen: false });
   }
 
   // allows selecting first emoji by pressing "Enter" without submitting form

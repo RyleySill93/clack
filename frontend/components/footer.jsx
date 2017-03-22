@@ -9,6 +9,7 @@ class Footer extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
+    this.addEmoji = this.addEmoji.bind(this);
     const channel_id = this.props.params.channelId || "";
     const author_id = this.props.currentUser.id || "";
     this.state = { body: "", author_id, channel_id, isOpen: false };
@@ -24,6 +25,11 @@ class Footer extends React.Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
 
+  addEmoji (emoji) {
+    console.log(emoji);
+    this.setState({body: this.state.body + emoji});
+  }
+
   handleSubmit (e) {
     e.preventDefault();
     this.setState({ body: "", channel_id: this.props.params.channelId });
@@ -37,7 +43,9 @@ class Footer extends React.Component {
   }
 
   render () {
-    const emojis = <MyEmojiInput isOpen={this.state.isOpen}/>;
+    const emojis = <MyEmojiInput isOpen={this.state.isOpen}
+                                 addEmoji={this.addEmoji}
+                                 />;
     return (
         <div id="footer">
           <form id="message-input-holder" onSubmit={this.handleSubmit} data-behavior="room_speaker">
