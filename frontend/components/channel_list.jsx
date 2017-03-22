@@ -1,6 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { hashHistory } from 'react-router';
+import AlertContainer from 'react-alert';
+
 
 import ChannelListItem from './channel_list_item';
 import MessageListItem from './message_list_item';
@@ -36,6 +38,8 @@ class ChannelList extends React.Component {
     this.createChannel = this.createChannel.bind(this);
 
     this.selectedUser = this.selectedUser.bind(this);
+
+    this.alertError = this.alertError.bind(this);
 
     this.state = { modalIsOpen: false,
                    searchName: "",
@@ -102,12 +106,12 @@ class ChannelList extends React.Component {
       const memberIds = that.state.selectedMembers.map(m => m.id);
       if (!memberIds.includes(member.id)) {
         let selectedMembers = that.state.selectedMembers.concat([member]);
-        that.setState({ selectedMembers });
+        that.setState({ selectedMembers, searchName: "" });
       } else {
         let index = memberIds.indexOf(member.id);
         that.state.selectedMembers.splice(index, 1);
         let selectedMembers = that.state.selectedMembers;
-        that.setState({ selectedMembers });
+        that.setState({ selectedMembers, searchName: "" });
       }
     };
   }
@@ -145,7 +149,20 @@ class ChannelList extends React.Component {
       .map(member => parseInt(member.id));
     this.props.requestPostChannel({ title, kind, members })
       .then(() => this.closeModal())
-      .fail((thing) => console.log(thing));
+      .fail((error) => this.alertError(error));
+  }
+
+  alertError (error) {
+    if (this.state.channelType === "direct") {
+      error.responseJSON = ["Must include members"];
+    }
+    error.responseJSON.forEach(err => (
+      msg.show(err, {
+        time: 2000,
+        type: 'success',
+        icon: <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
+      })
+    ));
   }
 
   selectedUser(user) {

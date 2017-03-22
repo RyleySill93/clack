@@ -50,31 +50,10 @@ class MyEmojiInput extends React.Component {
     }
   }
 
-  // validateEmoji () {
-  //   let matched = emojiMap.filter(function(emoji) {
-  //     return `:${emoji.name}:` === this.state.emoji;
-  //   });
-  //
-  //   if(matched.length === 0) {
-  //     this.setState({emoji: null});
-  //   }
-  // }
-
-  // updateState (e) {
-  //   this.setState({emoji: e.target.value});
-  // }
-
   setEmoji (emoji) {
     this.props.addEmoji(emoji);
     this.setState({ isOpen: false });
   }
-
-  // allows selecting first emoji by pressing "Enter" without submitting form
-  // grabKeyPress (e) {
-  //   if(e.keyCode === 13) {
-  //     e.preventDefault();
-  //   }
-  // }
 
   emojiPicker () {
     if(this.state.isOpen) {

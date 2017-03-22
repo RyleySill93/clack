@@ -26,8 +26,8 @@ class Footer extends React.Component {
   }
 
   addEmoji (emoji) {
-    console.log(emoji);
-    this.setState({body: this.state.body + emoji});
+    this.setState({ body: this.state.body + emoji });
+    $("#message-input").focus();
   }
 
   handleSubmit (e) {
