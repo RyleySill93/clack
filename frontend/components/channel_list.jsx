@@ -1,5 +1,4 @@
 import React from 'react';
-import React from 'react';
 import Modal from 'react-modal';
 import { hashHistory } from 'react-router';
 import AlertContainer from 'react-alert';
@@ -156,15 +155,36 @@ class ChannelList extends React.Component {
       .then(() => this.closeModal())
       .fail((error) => {
         if (this.state.channelType === "direct" ) {
-          error.responseJSON = ["Must include members"];
+          this.alertDirectError(error.responseJSON);
         } else {
-          this.alertChannelError(error);
+          this.alertChannelError(error.responseJSON);
         }
       });
   }
 
-  alertChannelError (error) {
-    error.responseJSON.forEach(err => (
+  alertDirectError (errors) {
+    let i = errors.indexOf("Title can't be blank");
+    let j = errors.indexOf("Title has already been taken");
+
+    if (i !== -1) {
+      errors.splice(i, 1, "Must include members");
+    }
+
+    if (j !== -1) {
+      errors.splice(j, 1, "Message already exists");
+    }
+
+    errors.forEach(err => (
+      msg.show(err, {
+        time: 2000,
+        type: 'success',
+        icon: <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
+      })
+    ));
+  }
+
+  alertChannelError (errors) {
+    errors.forEach(err => (
       msg.show(err, {
         time: 2000,
         type: 'success',
