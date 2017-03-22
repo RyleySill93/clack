@@ -20,6 +20,15 @@
 
 #add-emoji {
   cursor: pointer;
+  font-size: 20px;
+  color: #717274;
+  margin-right: 10px;
+
+}
+
+#add-emoji:hover {
+  font-size: 24px;
+  margin-right: 8px;
 }
 
 #first-images {
@@ -877,17 +886,30 @@ html, body, root {
   flex-grow: 1;
 }
 
-#message-input {
+#message-input-field {
   border: 2px solid #E0E0E0;
   color: #3D3C40;
   border-radius: 6px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
   height: 100%;
   width: 100%;
-  box-sizing: border-box;
+}
+
+#message-input {
   font-size: 14px;
   font-weight: 300;
   padding-left: 9px;
-  outline-width: 0;
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+#message-input-field:focus {
+  border: 2px solid #bbbdbf;
 }
 
 #edit-input-holder {
@@ -916,10 +938,6 @@ html, body, root {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-}
-
-#message-input:focus {
-  border: 2px solid #bbbdbf;
 }
 
 #chat-list {

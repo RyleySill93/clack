@@ -40,7 +40,8 @@ class Footer extends React.Component {
     return (
         <div id="footer">
           <form id="message-input-holder" onSubmit={this.handleSubmit} data-behavior="room_speaker">
-            <input id="message-input"
+            <div id="message-input-field">
+              <input id="message-input"
                    onChange={this.handleChange}
                    type="text"
                    value={this.state.body}
@@ -49,6 +50,7 @@ class Footer extends React.Component {
                  <div id="add-emoji" onClick={this.handleClick}>
                   <i className="fa fa-smile-o" aria-hidden="true"></i>
                 </div>
+              </div>
             <input id="hidden" type="submit" />
           </form>
         </div>
