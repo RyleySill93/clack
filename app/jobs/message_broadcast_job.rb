@@ -6,7 +6,6 @@
       partial: 'api/messages/message',
       locals: { message: message }
     )
-    p message
     ActionCable.server.broadcast("channel_#{channel.id}",
                                  message: JSON.parse(message))
   end

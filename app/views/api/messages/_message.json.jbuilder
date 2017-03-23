@@ -1,15 +1,3 @@
-
-
-
-# json.extract! message, :body,
-#                        :author_id,
-#                        :channel_id,
-#                        :author,
-#                        :created_at
-
-
-#
-
 json.body message.body
 json.id message.id
 json.author_id message.author_id
