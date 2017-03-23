@@ -63,6 +63,9 @@ class ChatItem extends React.Component {
         <input id="hidden" type="submit" />
       </form>
     );
+    const gif = (
+      <img src={this.props.message.gif_url} />
+    );
     return (
       <li id="chat-item">
         <div id="inner-chat-content">
@@ -80,6 +83,8 @@ class ChatItem extends React.Component {
             </div>
             <div id="chat-body">
               {this.state.editMode ? edit : ReactEmoji.emojify(this.props.message.body) }
+              <br />
+              {this.props.message.gif_url ? gif : ""}
             </div>
           </div>
         </div>

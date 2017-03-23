@@ -18,6 +18,7 @@ class Footer extends React.Component {
     this.state = { body: "",
                    author_id,
                    channel_id,
+                   gif_url: "",
                    emojisOpen: false,
                    giphysOpen: false };
   }
@@ -47,10 +48,24 @@ class Footer extends React.Component {
     $("#message-input").focus();
   }
 
+  parseGifUrl (body) {
+    body.split(" ").forEach((word, idx) => {
+      if (word.startsWith('giphy:')) {
+        console.log('word', word);
+        this.state.gif_url = word.slice(6, word.length);
+        const newBody = this.state.body.split(" ");
+        newBody.splice(idx, 1);
+        this.state.body = newBody.join(" ");
+      }
+    });
+    this.props.requestPostMessage(this.state);
+  }
+
   handleSubmit (e) {
     e.preventDefault();
-    this.setState({ body: "", channel_id: this.props.params.channelId });
-    this.props.requestPostMessage(this.state);
+    this.parseGifUrl(this.state.body);
+
+    this.setState({ body: "", channel_id: this.props.params.channelId, gif_url: "" });
   }
 
   componentWillReceiveProps (nextProps) {
