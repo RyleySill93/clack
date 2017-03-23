@@ -20,7 +20,6 @@ class GiphysSearch extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault();
-    //TODO: dont load any images until all are ready
     this.props.fetchSearchGiphys(this.state.searchTerm);
   }
 

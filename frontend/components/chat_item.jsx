@@ -11,8 +11,12 @@ class ChatItem extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addEmojiToReactions = this.addEmojiToReactions.bind(this);
+    this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
     this.reactions = this.reactions.bind(this);
-    this.state = { editMode: false, body: this.props.message.body, modalIsOpen: false, emojisOpen: false };
+    this.state = { editMode: false,
+                   body: this.props.message.body,
+                   modalIsOpen: false,
+                   emojisOpen: false };
     this.showAlert = this.showAlert.bind(this);
   }
 
@@ -63,6 +67,13 @@ class ChatItem extends React.Component {
   openModal (e) {
     e.preventDefault();
     this.setState({ modalIsOpen: true });
+  }
+
+  toggleEmojiPicker (e) {
+    if (e) { e.preventDefault(); }
+    // debugger
+    console.log('toggled emoji picker from chat item');
+    this.setState({ emojisOpen: !this.state.emojisOpen });
   }
 
   toggleReaction (reaction) {
@@ -140,7 +151,8 @@ class ChatItem extends React.Component {
           </span>
         </div>
         { <EmojiPicker emojisOpen={this.state.emojisOpen}
-                       addEmojiToReactions={this.addEmojiToReactions}/> }
+                       addEmojiToReactions={this.addEmojiToReactions}
+                       toggleEmojiPicker={this.toggleEmojiPicker}/> }
       </li>
     );
   }

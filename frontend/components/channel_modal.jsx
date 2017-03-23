@@ -29,7 +29,6 @@ class ChannelModal extends React.Component {
     this.selectMember = this.selectMember.bind(this);
     this.deselectMember = this.deselectMember.bind(this);
     this.createChannel = this.createChannel.bind(this);
-    this.closeModal = this.closeModal.bind(this);
 
     this.handleChange = this.handleChange.bind(this);
 
@@ -57,15 +56,6 @@ class ChannelModal extends React.Component {
     }
   }
 
-  closeModal () {
-    this.setState({
-                    modalIsOpen: false,
-                    channelName: "",
-                    searchName: "",
-                    selectedMembers: [],
-                    title: []
-                  });
-  }
 
   createChannel(e) {
     e.preventDefault();
@@ -90,7 +80,7 @@ class ChannelModal extends React.Component {
       .map(member => parseInt(member.id));
 
     this.props.requestPostChannel({ title, kind, members })
-      .then(() => this.closeModal())
+      .then(() => this.props.closeModal())
       .fail((error) => {
         if (this.state.channelType === "direct" ) {
           this.alertDirectError(error.responseJSON);
@@ -207,10 +197,10 @@ class ChannelModal extends React.Component {
       return (
         <Modal
           isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
+          onRequestClose={this.props.closeModal}
           style={customStyles}
           contentLabel="Channel">
-          <div id="exit-user-lookup" onClick={this.closeModal}>
+          <div id="exit-user-lookup" onClick={this.props.closeModal}>
             <i className="fa fa-times fa-3x" aria-hidden="true"></i>
           </div>
           <div id="DM-lookup-container">

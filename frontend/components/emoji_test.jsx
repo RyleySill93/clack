@@ -20,7 +20,7 @@ class MyEmojiInput extends React.Component {
   constructor (props) {
     super(props);
     this.state = { emoji: null, emojisOpen: false };
-    this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
+    // this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
     this.setEmoji = this.setEmoji.bind(this);
     this.emojiPicker = this.emojiPicker.bind(this);
   }
@@ -32,23 +32,13 @@ class MyEmojiInput extends React.Component {
     }
   }
 
-  toggleEmojiPicker (e) {
-    if(this.state.emoji.contains(e.target)) {
-      this.setState({emojisOpen: true});
-    } else {
-      setTimeout(this.validateEmoji, 10);
-      this.setState({emojisOpen: false});
-    }
-  }
-
   setEmoji (emoji) {
-
     if (this.props.addEmojiToReactions) {
       this.props.addEmojiToReactions(emoji);
     } else if (this.props.addEmoji) {
       this.props.addEmoji(emoji);
     }
-    this.setState({ emojisOpen: false });
+    this.props.toggleEmojiPicker();
   }
 
   emojiPicker () {

@@ -12,6 +12,7 @@ class ChannelList extends React.Component {
     this.handleClick = this.handleClick.bind(this);
 
     this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
 
     this.state = { modalIsOpen: false,
                    searchName: "",
@@ -42,8 +43,18 @@ class ChannelList extends React.Component {
     this.openModal();
   }
 
+
+  closeModal () {
+    this.setState({
+                    modalIsOpen: false,
+                    channelName: "",
+                    searchName: "",
+                    selectedMembers: [],
+                    title: []
+                  });
+  }
+
   openModal () {
-    // this.setState({ modalIsOpen: false });
     this.setState({ modalIsOpen: !this.state.modalIsOpen });
   }
 
@@ -58,7 +69,8 @@ class ChannelList extends React.Component {
 
     const modal = (
       <ChannelModalContainer modalIsOpen={ this.state.modalIsOpen }
-                             channelType={ this.state.channelType }/>
+                             channelType={ this.state.channelType }
+                             closeModal={ this.closeModal }/>
     );
 
     return (

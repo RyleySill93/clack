@@ -83,3 +83,6 @@ class Root extends React.Component {
 }
 
 export default Root;
+
+// if (this.props.store.getState().session.currentUser.id !== data.message.author_id)
+//and user is not in the current channel?

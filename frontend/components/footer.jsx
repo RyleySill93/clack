@@ -30,12 +30,12 @@ class Footer extends React.Component {
   }
 
   toggleEmojiPicker (e) {
-    e.preventDefault();
+    if (e) { e.preventDefault(); }
     this.setState({ emojisOpen: !this.state.emojisOpen });
   }
 
   toggleGiphysSearch (e) {
-    e.preventDefault();
+    if (e) { e.preventDefault(); }
     this.setState({ giphysOpen: !this.state.giphysOpen });
   }
 
@@ -106,10 +106,11 @@ class Footer extends React.Component {
             <input id="hidden" type="submit" />
               <MyEmojiInput emojisOpen={this.state.emojisOpen}
                             addEmoji={this.addEmoji}
-              />
+                            toggleEmojiPicker={this.toggleEmojiPicker}/>
           </form>
           <GiphySearchContainer giphysOpen={this.state.giphysOpen}
-                                addGiphy={this.addGiphy}/>
+                                addGiphy={this.addGiphy}
+                                toggleGiphysSearch={this.toggleGiphysSearch}/>
         </div>
     );
   }
