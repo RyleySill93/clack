@@ -5,6 +5,8 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import SessionFormContainer from './session_form_container';
 import Client from './client';
 
+import AlertContainer from 'react-alert';
+
 import { receiveMessage } from '../actions/message_actions';
 
 class Root extends React.Component {
@@ -14,6 +16,7 @@ class Root extends React.Component {
     this.setSocket = this.setSocket.bind(this);
     this._redirectIfLoggedIn = this._redirectIfLoggedIn.bind(this);
     this._redirectIfLoggedOut = this._redirectIfLoggedOut.bind(this);
+    this.showAlert = this.showAlert.bind(this);
   }
 
   _redirectIfLoggedIn (nextState, replace) {
@@ -40,6 +43,14 @@ class Root extends React.Component {
     window.App.cable.subscriptions.remove(window.App.channel);
   }
 
+  showAlert(message){
+    msg.show(message, {
+      time: 2000,
+      type: 'success',
+      icon: <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
+    });
+  }
+
   addSocket (channelName) {
     window.App.channel = window.App.cable.subscriptions.create({
       channel: 'RoomChannel',
@@ -48,6 +59,7 @@ class Root extends React.Component {
       connected: () => {},
       disconnected: () => {},
       received: (data) => {
+        this.showAlert(`New message from ${data.message.author.username} in #${data.message.channel_name}`)
         this.props.store.dispatch(receiveMessage(data.message));
       }
     });
@@ -64,7 +76,6 @@ class Root extends React.Component {
             onEnter={ this._redirectIfLoggedOut }>
             <Route path="details" component={ Client }/>
           </Route>
-
         </Router>
       </Provider>
     );
