@@ -40,18 +40,20 @@ class ChannelModal extends React.Component {
     this.state = { modalIsOpen: this.props.modalIsOpen,
                    searchName: "",
                    selectedMembers: [],
-                   channelType: "",
+                   channelType: this.props.channelType || "",
                    channelName: ""
                   };
   }
 
   componentWillMount () {
     this.props.requestGetUsers();
+    if (this.props.initialMember) {
+      this.selectMember(this.props.initialMember)();
+    }
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.modalIsOpen !== this.props.modalIsOpen) {
-      debugger
       this.setState({ modalIsOpen: nextProps.modalIsOpen,
                       channelType: nextProps.channelType });
     }
@@ -142,10 +144,10 @@ class ChannelModal extends React.Component {
   selectMember (member) {
     const that = this;
     return (e) => {
-
-      e.preventDefault();
+      if (e) {e.preventDefault();}
       const memberIds = that.state.selectedMembers.map(m => m.id);
       if (!memberIds.includes(member.id)) {
+        // debugger
         let selectedMembers = that.state.selectedMembers.concat([member]);
         that.setState({ selectedMembers, searchName: "" });
       } else {

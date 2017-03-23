@@ -13,6 +13,7 @@ class ChatItem extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.addEmojiToReactions = this.addEmojiToReactions.bind(this);
     this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
     this.reactions = this.reactions.bind(this);
     this.state = { editMode: false,
                    body: this.props.message.body,
@@ -45,7 +46,6 @@ class ChatItem extends React.Component {
   }
 
   toggleModal () {
-    debugger
     if (this.state.modalIsOpen) {
       this.setState({
         modalIsOpen: false,
@@ -55,7 +55,6 @@ class ChatItem extends React.Component {
         title: []
       });
     } else {
-      debugger
       this.setState({ modalIsOpen: true });
     }
   }
@@ -92,8 +91,6 @@ class ChatItem extends React.Component {
 
   toggleEmojiPicker (e) {
     if (e) { e.preventDefault(); }
-    // debugger
-    console.log('toggled emoji picker from chat item');
     this.setState({ emojisOpen: !this.state.emojisOpen });
   }
 
@@ -132,7 +129,8 @@ class ChatItem extends React.Component {
     const modal = (
       <ChannelModalContainer modalIsOpen={ this.state.modalIsOpen }
                              channelType={ this.state.channelType }
-                             toggleModal={ this.toggleModal }/>
+                             toggleModal={ this.toggleModal }
+                             initialMember={ this.props.message.author }/>
     );
 
     const gif = (
