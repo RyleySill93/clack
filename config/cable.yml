@@ -1,5 +1,6 @@
 development:
   adapter: async
+  url: redis://redistogo:2896b6df72eea6887bc39b157457afef@barreleye.redistogo.com:9833/
 
 test:
   adapter: async
