@@ -11,8 +11,7 @@ class ChannelList extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
 
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
 
     this.state = { modalIsOpen: false,
                    searchName: "",
@@ -40,22 +39,22 @@ class ChannelList extends React.Component {
     } else {
       this.state.channelType = "direct";
     }
-    this.openModal();
+    this.toggleModal();
   }
 
 
-  closeModal () {
-    this.setState({
-                    modalIsOpen: false,
-                    channelName: "",
-                    searchName: "",
-                    selectedMembers: [],
-                    title: []
-                  });
-  }
-
-  openModal () {
-    this.setState({ modalIsOpen: !this.state.modalIsOpen });
+  toggleModal () {
+    if (this.state.modalIsOpen) {
+      this.setState({
+        modalIsOpen: false,
+        channelName: "",
+        searchName: "",
+        selectedMembers: [],
+        title: []
+      });
+    } else {
+      this.setState({ modalIsOpen: true });
+    }
   }
 
   render () {
@@ -70,7 +69,7 @@ class ChannelList extends React.Component {
     const modal = (
       <ChannelModalContainer modalIsOpen={ this.state.modalIsOpen }
                              channelType={ this.state.channelType }
-                             closeModal={ this.closeModal }/>
+                             toggleModal={ this.toggleModal }/>
     );
 
     return (
@@ -104,7 +103,7 @@ class ChannelList extends React.Component {
             { directMessages }
           </ul>
         </div>
-        { modal }
+        { (this.state.modalIsOpen) ? modal : "" }
       </div>
     );
   }

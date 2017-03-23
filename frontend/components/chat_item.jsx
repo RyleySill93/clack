@@ -2,6 +2,7 @@ import React from 'react';
 import AlertContainer from 'react-alert';
 import ReactEmoji from 'react-emoji';
 import EmojiPicker from './emoji_test';
+import ChannelModalContainer from './channel_modal_container';
 
 class ChatItem extends React.Component {
   constructor (props) {
@@ -15,6 +16,10 @@ class ChatItem extends React.Component {
     this.reactions = this.reactions.bind(this);
     this.state = { editMode: false,
                    body: this.props.message.body,
+                   searchName: "",
+                   selectedMembers: [],
+                   channelType: "direct",
+                   channelName: "",
                    modalIsOpen: false,
                    emojisOpen: false };
     this.showAlert = this.showAlert.bind(this);
@@ -36,6 +41,22 @@ class ChatItem extends React.Component {
       } else {
         this.showAlert('You are not the author of this message');
       }
+    }
+  }
+
+  toggleModal () {
+    debugger
+    if (this.state.modalIsOpen) {
+      this.setState({
+        modalIsOpen: false,
+        channelName: "",
+        searchName: "",
+        selectedMembers: [],
+        title: []
+      });
+    } else {
+      debugger
+      this.setState({ modalIsOpen: true });
     }
   }
 
@@ -108,6 +129,12 @@ class ChatItem extends React.Component {
         <input id="hidden" type="submit" />
       </form>);
 
+    const modal = (
+      <ChannelModalContainer modalIsOpen={ this.state.modalIsOpen }
+                             channelType={ this.state.channelType }
+                             toggleModal={ this.toggleModal }/>
+    );
+
     const gif = (
       <div id="chat-gif-holder">
         <img id="chat-gif" src={this.props.message.gif_url} />
@@ -153,6 +180,7 @@ class ChatItem extends React.Component {
         { <EmojiPicker emojisOpen={this.state.emojisOpen}
                        addEmojiToReactions={this.addEmojiToReactions}
                        toggleEmojiPicker={this.toggleEmojiPicker}/> }
+        { (this.state.modalIsOpen) ? modal : "" }
       </li>
     );
   }

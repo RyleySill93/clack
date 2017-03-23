@@ -51,11 +51,11 @@ class ChannelModal extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.modalIsOpen !== this.props.modalIsOpen) {
+      debugger
       this.setState({ modalIsOpen: nextProps.modalIsOpen,
                       channelType: nextProps.channelType });
     }
   }
-
 
   createChannel(e) {
     e.preventDefault();
@@ -80,7 +80,7 @@ class ChannelModal extends React.Component {
       .map(member => parseInt(member.id));
 
     this.props.requestPostChannel({ title, kind, members })
-      .then(() => this.props.closeModal())
+      .then(() => this.props.toggleModal())
       .fail((error) => {
         if (this.state.channelType === "direct" ) {
           this.alertDirectError(error.responseJSON);
@@ -197,10 +197,10 @@ class ChannelModal extends React.Component {
       return (
         <Modal
           isOpen={this.state.modalIsOpen}
-          onRequestClose={this.props.closeModal}
+          onRequestClose={this.props.toggleModal}
           style={customStyles}
           contentLabel="Channel">
-          <div id="exit-user-lookup" onClick={this.props.closeModal}>
+          <div id="exit-user-lookup" onClick={this.props.toggleModal}>
             <i className="fa fa-times fa-3x" aria-hidden="true"></i>
           </div>
           <div id="DM-lookup-container">
