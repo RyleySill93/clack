@@ -12,7 +12,6 @@ class ChannelList extends React.Component {
     this.handleClick = this.handleClick.bind(this);
 
     this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
 
     this.state = { modalIsOpen: false,
                    searchName: "",
@@ -34,33 +33,18 @@ class ChannelList extends React.Component {
   }
 
   handleClick (e) {
-    console.log(this.state.modalIsOpen);
     e.preventDefault();
     if (e.target.parentElement.id === 'add-channel') {
       this.state.channelType = "channel";
     } else {
       this.state.channelType = "direct";
     }
-    if (this.state.modalIsOpen) {
-      this.closeModal();
-    } else {
-      this.openModal();
-    }
+    this.openModal();
   }
 
   openModal () {
-    this.setState({ modalIsOpen: true });
-  }
-
-  closeModal () {
-    this.props.requestGetChannels(this.props.currentUser.id);
-    this.setState({
-                    modalIsOpen: false,
-                    channelName: "",
-                    searchName: "",
-                    selectedMembers: [],
-                    title: []
-                  });
+    // this.setState({ modalIsOpen: false });
+    this.setState({ modalIsOpen: !this.state.modalIsOpen });
   }
 
   render () {

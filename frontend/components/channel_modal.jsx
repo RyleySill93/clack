@@ -149,7 +149,6 @@ class ChannelModal extends React.Component {
     }
   }
 
-
   selectMember (member) {
     const that = this;
     return (e) => {
