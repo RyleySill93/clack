@@ -5,3 +5,11 @@ export const postReaction = (reaction) => (
     data:  { reaction }
   })
 );
+
+export const deleteReaction = (reactionId, messageId) => (
+  $.ajax({
+    method: 'DELETE',
+    url: `api/reactions/${reactionId}`,
+    data: { messageId }
+  })
+);

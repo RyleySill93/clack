@@ -2,7 +2,7 @@ import { postMessage,
          getMessages,
          deleteMessage,
          updateMessage } from '../util/message_api_util';
-import { postReaction } from '../util/reaction_api_util';
+import { postReaction, deleteReaction } from '../util/reaction_api_util';
 
 export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 export const RECEIVE_ALL_MESSAGES = 'RECEIVE_ALL_MESSAGES';
@@ -30,6 +30,11 @@ export const requestUpdateMessage = (message) => (dispatch) => (
 
 export const requestPostReaction = (reaction) => (dispatch) => (
   postReaction(reaction)
+    .then((message) => dispatch(receiveMessage(message)))
+);
+
+export const requestDeleteReaction = (reactionId, messageId) => (dispatch) => (
+  deleteReaction(reactionId, messageId)
     .then((message) => dispatch(receiveMessage(message)))
 );
 

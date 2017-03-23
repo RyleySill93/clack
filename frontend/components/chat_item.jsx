@@ -20,7 +20,6 @@ class ChatItem extends React.Component {
     e.preventDefault();
     if (e.currentTarget.id === "emoji-button") {
       this.setState({ emojisOpen: !this.state.emojisOpen });
-      this.showAlert("emojis coming soon...");
     } else if (e.currentTarget.id === "trash-button") {
       if (this.props.message.author_id === this.props.currentUser.id) {
         this.props.removeMessage(this.props.message.id);
@@ -50,6 +49,7 @@ class ChatItem extends React.Component {
   }
 
   addEmojiToReactions (emoji) {
+    debugger
     this.props.postReaction({ message_id: this.props.message.id, image: emoji });
   }
 
@@ -66,38 +66,25 @@ class ChatItem extends React.Component {
     this.setState({ modalIsOpen: true });
   }
 
+  toggleReaction (reaction) {
+    return (e) => {
+      e.preventDefault();
+      if (reaction.has_reacted) {
+        this.props.deleteReaction(reaction.id, this.props.message.id);
+      } else {
+        this.props.postReaction({ message_id: this.props.message.id, image: reaction.image });
+      }
+    };
+  }
+
   reactions () {
-    // let unique_reactions = {};
-    // this.props.reactions.forEach((reaction) => {
-    //   if (unique_reactions[reaction.image]) {
-    //     unique_reactions[reaction.image] += 1;
-    //   } else {
-    //     unique_reactions[reaction.image] = 1;
-    //   }
-    // });
-    //
-    // let reactions = [];
-    // for (let [image, likes] of Object.entries(unique_reactions)) {
-    //   reactions.push(
-    //     <div id={`reaction`}>
-    //       { ReactEmoji.emojify(image) }
-    //       { likes }
-    //     </div>
-    //   );
-    // }
-    //
-    // let unique_reactions;
-    //
-    // this.props.reactions.forEach(reaction => {})
-
-
     return this.props.reactions.map((reaction, idx) => (
-      <div id={`reaction${reaction.has_reacted ? '-selected' : ''}`} key={idx}>
+      <div id={`reaction${reaction.has_reacted ? '-selected' : ''}`} key={idx}
+           onClick={this.toggleReaction(reaction)}>
         { ReactEmoji.emojify(reaction.image) }
         { reaction.likes }
       </div>
     ));
-
   }
 
   render () {

@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import ChatItem from './chat_item';
 import { requestRemoveMessage,
          requestUpdateMessage,
-         requestPostReaction} from '../actions/message_actions';
+         requestPostReaction,
+         requestDeleteReaction } from '../actions/message_actions';
 
 const mapStateToProps = (state, ownProps) => ({
   message: ownProps.message,
@@ -13,7 +14,8 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   removeMessage: (message) => dispatch(requestRemoveMessage(message)),
   updateMessage: (message) => dispatch(requestUpdateMessage(message)),
-  postReaction: (reaction) => dispatch(requestPostReaction(reaction))
+  postReaction: (reaction) => dispatch(requestPostReaction(reaction)),
+  deleteReaction: (reactionId, messageId) => dispatch(requestDeleteReaction(reactionId, messageId))
 });
 
 export default connect (mapStateToProps, mapDispatchToProps)(ChatItem);

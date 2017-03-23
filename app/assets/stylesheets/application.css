@@ -38,15 +38,16 @@
 
 #reaction-selected{
   padding: 1px 3px;
-  border: 1px solid #E8E8E8;
+  border: 1px solid rgba(79,176,252,.4);
   display: flex;
   flex-grow: 0;
   border-radius: 5px;
   cursor: pointer;
-  color: #959595;
+  color: #4fb0fc;
   font-size: 11px;
   align-items: center;
   margin: 6px 6px 0px 0px;
+  background-color: rgba(79,176,252,.08);
 }
 
 #reaction:hover {

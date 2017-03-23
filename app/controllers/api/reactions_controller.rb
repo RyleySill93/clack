@@ -8,7 +8,12 @@ class Api::ReactionsController < ApplicationController
     else
       render json: @reaction.errors.full_messages, status: 422
     end
+  end
 
+  def destroy
+    @message = Message.find(params[:messageId])
+    Reaction.find(params[:id]).delete
+    render '/api/messages/show.json.jbuilder'
   end
 
   private
