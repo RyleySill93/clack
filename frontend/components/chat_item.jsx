@@ -64,7 +64,9 @@ class ChatItem extends React.Component {
       </form>
     );
     const gif = (
-      <img src={this.props.message.gif_url} />
+      <div id="chat-gif-holder">
+        <img id="chat-gif" src={this.props.message.gif_url} />
+      </div>
     );
     return (
       <li id="chat-item">

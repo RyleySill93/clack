@@ -18,16 +18,21 @@
   display: flex;
 }*/
 
+#chat-gif-holder {
+  border-left: 4px solid #E8E8E8;
+  margin-top: 10px;
+}
+
+#chat-gif {
+  margin-left: 10px;
+  border-radius: 3px;
+}
+
 #giphys-list {
   list-style: none;
   padding-left: 0px;
   max-height: 80%;
   margin: 0px;
-  /*display: flex;*/
-  /*align-items: center;*/
-  /*justify-content: space-between;*/
-  /*flex-grow: 1;*/
-  /*flex-wrap: wrap;*/
 }
 
 #giphys-holder {
