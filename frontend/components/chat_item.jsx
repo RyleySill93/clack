@@ -6,9 +6,10 @@ class ChatItem extends React.Component {
   constructor (props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.openModal = this.openModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = { editMode: false, body: this.props.message.body };
+    this.state = { editMode: false, body: this.props.message.body, modalIsOpen: false };
     this.showAlert = this.showAlert.bind(this);
   }
 
@@ -52,6 +53,11 @@ class ChatItem extends React.Component {
     this.setState({ editMode: false });
   }
 
+  openModal (e) {
+    e.preventDefault();
+    this.setState({ modalIsOpen: true });
+  }
+
   render () {
     const edit = (
       <form id="edit-input-holder" onSubmit={this.handleSubmit}>
@@ -61,13 +67,13 @@ class ChatItem extends React.Component {
                value={this.state.body}
                placeholder={`Message #${this.props.channelTitle}`}/>
         <input id="hidden" type="submit" />
-      </form>
-    );
+      </form>);
+
     const gif = (
       <div id="chat-gif-holder">
         <img id="chat-gif" src={this.props.message.gif_url} />
-      </div>
-    );
+      </div>);
+
     return (
       <li id="chat-item">
         <div id="inner-chat-content">
@@ -76,7 +82,7 @@ class ChatItem extends React.Component {
           </div>
           <div id="chat-content">
             <div id="chat-info">
-              <div id="chat-sender">
+              <div id="chat-sender" onClick={this.openModal}>
                 {this.props.message.author.username}
               </div>
               <a id="chat-time">
@@ -86,6 +92,14 @@ class ChatItem extends React.Component {
             <div id="chat-body">
               {this.state.editMode ? edit : ReactEmoji.emojify(this.props.message.body) }
               {this.props.message.gif_url ? gif : ""}
+              <div id="reactions">
+                <div id="reaction">
+                  {ReactEmoji.emojify(":+1:2")}
+                </div>
+                <div id="reaction">
+                  {ReactEmoji.emojify(":open_mouth:2")}
+                </div>
+              </div>
             </div>
           </div>
         </div>

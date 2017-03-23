@@ -13,6 +13,7 @@ class Footer extends React.Component {
     this.toggleGiphysSearch = this.toggleGiphysSearch.bind(this);
     this.addEmoji = this.addEmoji.bind(this);
     this.addGiphy = this.addGiphy.bind(this);
+    this.removeGiphy = this.removeGiphy.bind(this);
     const channel_id = this.props.params.channelId || "";
     const author_id = this.props.currentUser.id || "";
     this.state = { body: "",
@@ -44,14 +45,24 @@ class Footer extends React.Component {
   }
 
   addGiphy (giphy) {
+    this.removeGiphy();
     this.setState({ body: this.state.body + `giphy:${giphy}` });
     $("#message-input").focus();
+  }
+
+  removeGiphy () {
+    this.state.body.split(" ").forEach((word, idx) => {
+      if (word.startsWith('giphy:')) {
+        const newBody = this.state.body.split(" ");
+        newBody.splice(idx, 1);
+        this.state.body = newBody.join(" ");
+      }
+    });
   }
 
   parseGifUrl (body) {
     body.split(" ").forEach((word, idx) => {
       if (word.startsWith('giphy:')) {
-        console.log('word', word);
         this.state.gif_url = word.slice(6, word.length);
         const newBody = this.state.body.split(" ");
         newBody.splice(idx, 1);
