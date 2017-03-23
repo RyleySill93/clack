@@ -85,7 +85,6 @@ class ChatItem extends React.Component {
             </div>
             <div id="chat-body">
               {this.state.editMode ? edit : ReactEmoji.emojify(this.props.message.body) }
-              <br />
               {this.props.message.gif_url ? gif : ""}
             </div>
           </div>
