@@ -26,7 +26,7 @@ class GiphysSearch extends React.Component {
   selectGiphy (giphy) {
     return () => {
       this.props.addGiphy(giphy);
-      this.setState({ giphysOpen: false });
+      this.props.toggleGiphysSearch();
     };
   }
 

@@ -20,7 +20,6 @@ class MyEmojiInput extends React.Component {
   constructor (props) {
     super(props);
     this.state = { emoji: null, emojisOpen: false };
-    // this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
     this.setEmoji = this.setEmoji.bind(this);
     this.emojiPicker = this.emojiPicker.bind(this);
   }
