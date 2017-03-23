@@ -11,9 +11,11 @@ class Message < ApplicationRecord
   end
 
   def uniq_reactions
+    images = []
     uniques = []
     reactions.each do |reaction|
-      uniques.push(reaction) unless uniques.include?(reaction)
+      uniques.push(reaction) unless images.include?(reaction.image)
+      images.push(reaction.image)
     end
     uniques
   end

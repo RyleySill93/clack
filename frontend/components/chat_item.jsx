@@ -85,14 +85,14 @@ class ChatItem extends React.Component {
     //     </div>
     //   );
     // }
-    // 
+    //
     // let unique_reactions;
     //
     // this.props.reactions.forEach(reaction => {})
 
 
-    return this.props.reactions.map(reaction => (
-      <div id={`reaction${reaction.has_reacted ? '-selected' : ''}`}>
+    return this.props.reactions.map((reaction, idx) => (
+      <div id={`reaction${reaction.has_reacted ? '-selected' : ''}`} key={idx}>
         { ReactEmoji.emojify(reaction.image) }
         { reaction.likes }
       </div>

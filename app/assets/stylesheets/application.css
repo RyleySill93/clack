@@ -59,6 +59,11 @@
   height: 16px;
   padding-right: 3px;
 }
+#reaction-selected img {
+  width: 16px;
+  height: 16px;
+  padding-right: 3px;
+}
 
 #chat-gif-holder {
   border-left: 4px solid #E8E8E8;
