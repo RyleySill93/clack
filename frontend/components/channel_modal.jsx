@@ -1,6 +1,9 @@
 import React from 'react';
 import AlertContainer from 'react-alert';
+import Modal from 'react-modal';
 
+import UserListItem from './user_list_item';
+import MemberToken from './member_token';
 
 const customStyles = {
   content : {
@@ -23,16 +26,45 @@ class ChannelModal extends React.Component {
   constructor(props) {
     super(props);
 
-  }
+    this.selectMember = this.selectMember.bind(this);
+    this.deselectMember = this.deselectMember.bind(this);
+    this.createChannel = this.createChannel.bind(this);
+    this.closeModal = this.closeModal.bind(this);
 
-  componentWillMount () {
-    this.props.requestGetUsers();
-    this.state = { modalIsOpen: false,
+    this.handleChange = this.handleChange.bind(this);
+
+    this.selectedUser = this.selectedUser.bind(this);
+
+    this.alertChannelError = this.alertChannelError.bind(this);
+    this.alertDirectError = this.alertDirectError.bind(this);
+
+    this.state = { modalIsOpen: this.props.modalIsOpen,
                    searchName: "",
                    selectedMembers: [],
                    channelType: "",
                    channelName: ""
                   };
+  }
+
+  componentWillMount () {
+    this.props.requestGetUsers();
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.modalIsOpen !== this.props.modalIsOpen) {
+      this.setState({ modalIsOpen: nextProps.modalIsOpen,
+                      channelType: nextProps.channelType });
+    }
+  }
+
+  closeModal () {
+    this.setState({
+                    modalIsOpen: false,
+                    channelName: "",
+                    searchName: "",
+                    selectedMembers: [],
+                    title: []
+                  });
   }
 
   createChannel(e) {
@@ -56,7 +88,7 @@ class ChannelModal extends React.Component {
     const kind =  this.state.channelType;
     const members = this.state.selectedMembers.concat([this.props.currentUser])
       .map(member => parseInt(member.id));
-      
+
     this.props.requestPostChannel({ title, kind, members })
       .then(() => this.closeModal())
       .fail((error) => {
@@ -121,6 +153,7 @@ class ChannelModal extends React.Component {
   selectMember (member) {
     const that = this;
     return (e) => {
+
       e.preventDefault();
       const memberIds = that.state.selectedMembers.map(m => m.id);
       if (!memberIds.includes(member.id)) {
@@ -146,10 +179,10 @@ class ChannelModal extends React.Component {
   }
 
   render () {
-
-    const userMatches = this.props.users.filter(user => (
-      user.username.startsWith(this.state.searchName) &&
-      user.username !== this.props.currentUser.username)).map((user, idx) => (
+    const userMatches = this.props.users
+      .filter(user => (user.username.startsWith(this.state.searchName)
+      && user.username !== this.props.currentUser.username))
+      .map((user, idx) => (
         <UserListItem key={idx}
                       user={user}
                       selectMember={this.selectMember(user)}
@@ -171,36 +204,43 @@ class ChannelModal extends React.Component {
 
     const modalTitle = this.state.channelType === "channel" ? addChannel : <h1>Direct Messages</h1>;
 
-
-    return (
-      <Modal
-        isOpen={this.state.modalIsOpen}
-        onRequestClose={this.closeModal}
-        style={customStyles}>
-        <div id="exit-user-lookup" onClick={this.closeModal}>
-          <i className="fa fa-times fa-3x" aria-hidden="true"></i>
-        </div>
-        <div id="DM-lookup-container">
-
-          <div id="lookup-info">
-            {modalTitle}
-            <form id="member-lookup-form" onSubmit={this.createChannel}>
-              <div id="member-lookup-field">
-                {selectedMembers}
-                <input id="member-input"
-                       type="text"
-                       onChange={this.handleChange}
-                       placeholder={selectedMembers.length === 0 ? "Add members" : ""}
-                       value={this.state.searchName}></input>
-              </div>
-              <input id="DM-submit" type="submit" value="Go"></input>
-            </form>
-            <ul id="user-lookup-matches">
-              {userMatches}
-            </ul>
+    if (this.state.modalIsOpen) {
+      return (
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Channel">
+          <div id="exit-user-lookup" onClick={this.closeModal}>
+            <i className="fa fa-times fa-3x" aria-hidden="true"></i>
           </div>
-        </div>
-      </Modal>
-    );
+          <div id="DM-lookup-container">
+
+            <div id="lookup-info">
+              {modalTitle}
+              <form id="member-lookup-form" onSubmit={this.createChannel}>
+                <div id="member-lookup-field">
+                  {selectedMembers}
+                  <input id="member-input"
+                         type="text"
+                         onChange={this.handleChange}
+                         placeholder={selectedMembers.length === 0 ? "Add members" : ""}
+                         value={this.state.searchName}></input>
+                </div>
+                <input id="DM-submit" type="submit" value="Go"></input>
+              </form>
+              <ul id="user-lookup-matches">
+                {userMatches}
+              </ul>
+            </div>
+          </div>
+        </Modal>
+      );
+    } else {
+      return <div></div>;
+    }
+
   }
 }
+
+export default ChannelModal;

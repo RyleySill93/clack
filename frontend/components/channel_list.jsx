@@ -1,32 +1,18 @@
 import React from 'react';
-import Modal from 'react-modal';
 import { hashHistory } from 'react-router';
-
 
 import ChannelListItem from './channel_list_item';
 import MessageListItem from './message_list_item';
-import UserListItem from './user_list_item';
-import MemberToken from './member_token';
-import { postMembership } from '../util/membership_api_util';
+import ChannelModalContainer from './channel_modal_container';
 
 class ChannelList extends React.Component {
   constructor (props) {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
-    this.selectMember = this.selectMember.bind(this);
-    this.deselectMember = this.deselectMember.bind(this);
-    this.createChannel = this.createChannel.bind(this);
-
-    this.selectedUser = this.selectedUser.bind(this);
-
-    this.alertChannelError = this.alertChannelError.bind(this);
-    this.alertDirectError = this.alertDirectError.bind(this);
 
     this.state = { modalIsOpen: false,
                    searchName: "",
@@ -48,6 +34,7 @@ class ChannelList extends React.Component {
   }
 
   handleClick (e) {
+    console.log(this.state.modalIsOpen);
     e.preventDefault();
     if (e.target.parentElement.id === 'add-channel') {
       this.state.channelType = "channel";
@@ -61,11 +48,11 @@ class ChannelList extends React.Component {
     }
   }
 
-  openModal() {
-    this.setState({modalIsOpen: true});
+  openModal () {
+    this.setState({ modalIsOpen: true });
   }
 
-  closeModal() {
+  closeModal () {
     this.props.requestGetChannels(this.props.currentUser.id);
     this.setState({
                     modalIsOpen: false,
@@ -82,8 +69,13 @@ class ChannelList extends React.Component {
     ));
 
     const directMessages = this.props.directMessages.map((message, idx) => (
-      <MessageListItem message={message} key={idx}/>
+      <MessageListItem message={ message } key={ idx }/>
     ));
+
+    const modal = (
+      <ChannelModalContainer modalIsOpen={ this.state.modalIsOpen }
+                             channelType={ this.state.channelType }/>
+    );
 
     return (
       <div id="chats-list">
@@ -100,7 +92,7 @@ class ChannelList extends React.Component {
             </div>
           </div>
           <ul id="channel-list">
-            {channelItems}
+            { channelItems }
           </ul>
         </div>
         <div id="messages">
@@ -113,9 +105,10 @@ class ChannelList extends React.Component {
             </div>
           </div>
           <ul id="messages-list">
-            {directMessages}
+            { directMessages }
           </ul>
         </div>
+        { modal }
       </div>
     );
   }
