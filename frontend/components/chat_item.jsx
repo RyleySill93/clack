@@ -1,6 +1,7 @@
 import React from 'react';
 import AlertContainer from 'react-alert';
 import ReactEmoji from 'react-emoji';
+import EmojiPicker from './emoji_test';
 
 class ChatItem extends React.Component {
   constructor (props) {
@@ -9,13 +10,16 @@ class ChatItem extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = { editMode: false, body: this.props.message.body, modalIsOpen: false };
+    this.addEmojiToReactions = this.addEmojiToReactions.bind(this);
+    this.reactions = this.reactions.bind(this);
+    this.state = { editMode: false, body: this.props.message.body, modalIsOpen: false, emojisOpen: false };
     this.showAlert = this.showAlert.bind(this);
   }
 
   handleClick (e) {
     e.preventDefault();
     if (e.currentTarget.id === "emoji-button") {
+      this.setState({ emojisOpen: !this.state.emojisOpen });
       this.showAlert("emojis coming soon...");
     } else if (e.currentTarget.id === "trash-button") {
       if (this.props.message.author_id === this.props.currentUser.id) {
@@ -45,6 +49,10 @@ class ChatItem extends React.Component {
     this.setState({ body: e.target.value });
   }
 
+  addEmojiToReactions (emoji) {
+    this.props.postReaction({ message_id: this.props.message.id, image: emoji });
+  }
+
   handleSubmit (e) {
     e.preventDefault();
     let message = this.props.message;
@@ -56,6 +64,40 @@ class ChatItem extends React.Component {
   openModal (e) {
     e.preventDefault();
     this.setState({ modalIsOpen: true });
+  }
+
+  reactions () {
+    // let unique_reactions = {};
+    // this.props.reactions.forEach((reaction) => {
+    //   if (unique_reactions[reaction.image]) {
+    //     unique_reactions[reaction.image] += 1;
+    //   } else {
+    //     unique_reactions[reaction.image] = 1;
+    //   }
+    // });
+    //
+    // let reactions = [];
+    // for (let [image, likes] of Object.entries(unique_reactions)) {
+    //   reactions.push(
+    //     <div id={`reaction`}>
+    //       { ReactEmoji.emojify(image) }
+    //       { likes }
+    //     </div>
+    //   );
+    // }
+    // 
+    // let unique_reactions;
+    //
+    // this.props.reactions.forEach(reaction => {})
+
+
+    return this.props.reactions.map(reaction => (
+      <div id={`reaction${reaction.has_reacted ? '-selected' : ''}`}>
+        { ReactEmoji.emojify(reaction.image) }
+        { reaction.likes }
+      </div>
+    ));
+
   }
 
   render () {
@@ -93,12 +135,7 @@ class ChatItem extends React.Component {
               {this.state.editMode ? edit : ReactEmoji.emojify(this.props.message.body) }
               {this.props.message.gif_url ? gif : ""}
               <div id="reactions">
-                <div id="reaction">
-                  {ReactEmoji.emojify(":+1:2")}
-                </div>
-                <div id="reaction">
-                  {ReactEmoji.emojify(":open_mouth:2")}
-                </div>
+                { this.reactions() }
               </div>
             </div>
           </div>
@@ -116,6 +153,8 @@ class ChatItem extends React.Component {
             </div>
           </span>
         </div>
+        { <EmojiPicker emojisOpen={this.state.emojisOpen}
+                       addEmojiToReactions={this.addEmojiToReactions}/> }
       </li>
     );
   }

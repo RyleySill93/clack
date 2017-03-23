@@ -21,19 +21,10 @@ class MyEmojiInput extends React.Component {
     super(props);
     this.state = { emoji: null, emojisOpen: false };
     this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
-    // this.validateEmoji = this.validateEmoji.bind(this);
-    // this.updateState = this.updateState.bind(this);
     this.setEmoji = this.setEmoji.bind(this);
     this.emojiPicker = this.emojiPicker.bind(this);
   }
 
-  // componentDidMount () {
-  //   document.addEventListener('click', this.toggleEmojiPicker, false);
-  // }
-  //
-  // componentWillUnmount () {
-  //   document.removeEventListener('click', this.toggleEmojiPicker, false);
-  // }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.emojisOpen !== this.props.emojisOpen) {
@@ -51,7 +42,12 @@ class MyEmojiInput extends React.Component {
   }
 
   setEmoji (emoji) {
-    this.props.addEmoji(emoji);
+
+    if (this.props.addEmojiToReactions) {
+      this.props.addEmojiToReactions(emoji);
+    } else if (this.props.addEmoji) {
+      this.props.addEmoji(emoji);
+    }
     this.setState({ emojisOpen: false });
   }
 

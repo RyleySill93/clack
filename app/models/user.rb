@@ -5,9 +5,9 @@ class User < ApplicationRecord
   attr_reader :password
 
   has_many :messages
-
   has_many :memberships
-
+  has_many :reactions
+  
   has_many :channels,
     through: :memberships,
     source: :channel

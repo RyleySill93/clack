@@ -10,6 +10,25 @@ class Message < ApplicationRecord
     end
   end
 
+  def uniq_reactions
+    uniques = []
+    reactions.each do |reaction|
+      uniques.push(reaction) unless uniques.include?(reaction)
+    end
+    uniques
+  end
+
+  def has_reacted?(reaction, user)
+    #current user has reacted with this reaction
+    user.reactions.where(message_id: self.id).include?(reaction)
+  end
+
+  def likes(reaction)
+    reactions.where(image: reaction.image).count
+  end
+
+  has_many :reactions
+
   belongs_to :author,
     primary_key: :id,
     foreign_key: :author_id,

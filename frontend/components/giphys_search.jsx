@@ -20,6 +20,7 @@ class GiphysSearch extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault();
+    //TODO: dont load any images until all are ready
     this.props.fetchSearchGiphys(this.state.searchTerm);
   }
 
@@ -38,8 +39,9 @@ class GiphysSearch extends React.Component {
 
   showGiphysSearch () {
     const giphys = this.props.giphys.map((giphy, idx) =>
-      <GiphyItem key={idx} giphyUrl={giphy.images.fixed_height.url} selectGiphy={this.selectGiphy}/>
-    );
+      <GiphyItem key={idx}
+                 giphyUrl={giphy.images.fixed_height.url}
+                 selectGiphy={this.selectGiphy}/>);
 
     if (this.state.giphysOpen) {
       return (
@@ -63,7 +65,6 @@ class GiphysSearch extends React.Component {
             value={this.state.searchTerm}
             placeholder="Search Giphys"
             />
-
           <input id="hidden" type="submit" />
         </form>
       );

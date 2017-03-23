@@ -1,0 +1,2 @@
+class ReactionRelationship < ApplicationRecord
+end
