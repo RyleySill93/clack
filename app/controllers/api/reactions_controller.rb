@@ -12,7 +12,7 @@ class Api::ReactionsController < ApplicationController
 
   def destroy
     @message = Message.find(params[:messageId])
-    Reaction.find(params[:id]).delete
+    Reaction.where(image: reaction_params[:image]).where(user_id: current_user.id)[0].delete
     render '/api/messages/show.json.jbuilder'
   end
 

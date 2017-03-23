@@ -6,10 +6,10 @@ export const postReaction = (reaction) => (
   })
 );
 
-export const deleteReaction = (reactionId, messageId) => (
+export const deleteReaction = (reaction, messageId) => (
   $.ajax({
     method: 'DELETE',
-    url: `api/reactions/${reactionId}`,
-    data: { messageId }
+    url: `api/reactions/${reaction.id}`,
+    data: { reaction, messageId }
   })
 );

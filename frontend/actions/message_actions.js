@@ -33,8 +33,8 @@ export const requestPostReaction = (reaction) => (dispatch) => (
     .then((message) => dispatch(receiveMessage(message)))
 );
 
-export const requestDeleteReaction = (reactionId, messageId) => (dispatch) => (
-  deleteReaction(reactionId, messageId)
+export const requestDeleteReaction = (reaction, messageId) => (dispatch) => (
+  deleteReaction(reaction, messageId)
     .then((message) => dispatch(receiveMessage(message)))
 );
 

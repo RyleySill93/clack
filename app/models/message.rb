@@ -22,7 +22,8 @@ class Message < ApplicationRecord
 
   def has_reacted?(reaction, user)
     #current user has reacted with this reaction
-    user.reactions.where(message_id: self.id).include?(reaction)
+    user_reactions_on_message = user.reactions.where(message_id: self.id)
+    user_reactions_on_message.map { |reaction| reaction.image }.include?(reaction.image)
   end
 
   def likes(reaction)

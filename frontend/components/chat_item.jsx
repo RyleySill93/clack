@@ -49,7 +49,6 @@ class ChatItem extends React.Component {
   }
 
   addEmojiToReactions (emoji) {
-    debugger
     this.props.postReaction({ message_id: this.props.message.id, image: emoji });
   }
 
@@ -70,7 +69,7 @@ class ChatItem extends React.Component {
     return (e) => {
       e.preventDefault();
       if (reaction.has_reacted) {
-        this.props.deleteReaction(reaction.id, this.props.message.id);
+        this.props.deleteReaction(reaction, this.props.message.id);
       } else {
         this.props.postReaction({ message_id: this.props.message.id, image: reaction.image });
       }
