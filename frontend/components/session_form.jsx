@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter, hashHistory } from 'react-router';
 import Modal from 'react-modal';
+import { getFakeName } from '../util/session_api_util.js';
 
 const customStyles = {
   content : {
@@ -11,7 +12,7 @@ const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     width                 : '615px',
-    height                 : '385px'
+    height                : '385px'
   }
 };
 
@@ -26,6 +27,7 @@ class SessionForm extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.demoLogin = this.demoLogin.bind(this);
+    this.createFakeUsername = this.createFakeUsername.bind(this);
   }
 
   handleChange (e) {
@@ -39,16 +41,14 @@ class SessionForm extends React.Component {
   }
 
   handleSubmit (e) {
-    if (e) {
-      e.preventDefault();
-    }
+    if (e) { e.preventDefault(); }
     const user = Object.assign({}, this.state);
-    if (this.state.modalType === 'Sign Up') {
-      this.props.signup({username: this.state.username, password: this.state.password})
+    if (this.state.modalType === 'Login') {
+      this.props.login({username: this.state.username, password: this.state.password})
       .then(() => hashHistory.push('/messages/1'));
     } else {
-      this.props.login({username: this.state.username, password: this.state.password})
-        .then(() => hashHistory.push('/messages/1'));
+      this.props.signup({username: this.state.username, password: this.state.password})
+      .then(() => hashHistory.push('/messages/1'));
     }
   }
 
@@ -62,9 +62,8 @@ class SessionForm extends React.Component {
       this.openModal();
     } else {
       this.state.modalType = 'Demo Login';
-      // this.setState({username: 'hellohi', password: 'hellohi'});
       this.openModal();
-      this.demoLogin();
+      this.createFakeUsername();
     }
   }
 
@@ -76,16 +75,20 @@ class SessionForm extends React.Component {
     this.setState({ modalIsOpen: false });
   }
 
-  demoLogin () {
-    const username = "GuestUser";
-    const password = "password";
+  createFakeUsername () {
+    const that = this;
+    getFakeName().fail((res) => that.demoLogin(res.responseText));
+  }
+
+  demoLogin (username) {
+    const password = username;
     if (username.length > this.state.username.length) {
       const idx = this.state.username.length;
       window.setTimeout(() => (
         this.setState({username: this.state.username + username[idx]})
       ), 100);
       window.setTimeout(() => (
-        this.demoLogin()
+        this.demoLogin(username)
       ), 100);
     }
 
@@ -96,7 +99,7 @@ class SessionForm extends React.Component {
         this.setState({password: this.state.password + password[idx]})
       ), 100);
       window.setTimeout(() => (
-        this.demoLogin()
+        this.demoLogin(username)
       ), 100);
     }
 

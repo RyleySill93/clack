@@ -16,6 +16,10 @@ class Api::SessionsController < ApplicationController
     else
       render json: "No user currently logged in", status: 404
     end
+  end
 
+  def show
+    @fake = Faker::Internet.user_name
+    render json: @fake, status: 200
   end
 end

@@ -20,3 +20,10 @@ export const logout = () => (
     url: 'api/session'
   })
 );
+
+export const getFakeName = () => (
+  $.ajax({
+    method: 'GET',
+    url: 'api/session'
+  })
+);
