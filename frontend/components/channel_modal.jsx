@@ -1,6 +1,8 @@
 import React from 'react';
 import AlertContainer from 'react-alert';
 import Modal from 'react-modal';
+import { hashHistory } from 'react-router';
+
 
 import UserListItem from './user_list_item';
 import MemberToken from './member_token';
@@ -82,7 +84,16 @@ class ChannelModal extends React.Component {
       .map(member => parseInt(member.id));
 
     this.props.requestPostChannel({ title, kind, members })
-      .then(() => this.props.toggleModal())
+      .then(() => {
+        this.props.toggleModal();
+        let newChannel;
+        if (kind === "direct") {
+          newChannel = this.props.directMessages[this.props.directMessages.length - 1];
+        } else {
+          newChannel = this.props.channels[this.props.channels.length - 1];
+        }
+        hashHistory.push(`/messages/${newChannel.id}/details`);
+      })
       .fail((error) => {
         if (this.state.channelType === "direct" ) {
           this.alertDirectError(error.responseJSON);
@@ -147,7 +158,6 @@ class ChannelModal extends React.Component {
       if (e) {e.preventDefault();}
       const memberIds = that.state.selectedMembers.map(m => m.id);
       if (!memberIds.includes(member.id)) {
-        // debugger
         let selectedMembers = that.state.selectedMembers.concat([member]);
         that.setState({ selectedMembers, searchName: "" });
       } else {

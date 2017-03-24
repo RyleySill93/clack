@@ -6,14 +6,6 @@ const message1 = {
   channel_id: 1,
 };
 
-const message2 = {
-  author_id: 51,
-  body: "More information on the project can be found on github here",
-  channel_id: 1,
-};
-
-const messages = [message1, message2];
-
 export const fakeChat = (postMessage) => {
-  window.setTimeout(() => postMessage(messages.shift()), 10000);
+  window.setTimeout(() => postMessage(message1), 10000);
 };

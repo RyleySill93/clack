@@ -21,7 +21,6 @@ class Root extends React.Component {
 
   _redirectIfLoggedIn (nextState, replace) {
     if (this.props.store.getState().session.currentUser.id) {
-      console.log('redirecting');
       replace(`/messages/1/details`);
     }
   }
@@ -46,7 +45,7 @@ class Root extends React.Component {
 
   showAlert(message){
     msg.show(message, {
-      time: 2000,
+      time: 4000,
       type: 'success',
       icon: <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
     });

@@ -31,10 +31,13 @@ class Chatbox extends React.Component {
 
   scrollToBottom () {
     // $("#chat-list").animate({ scrollTop: $('#chat-list')[0].scrollHeight}, 5000);
-    setTimeout(() => (
-      $('#chat-list').scrollTop($('#chat-list')[0]
-        .scrollHeight - $('#chat-list')[0].clientHeight)
-    ), 10);
+    let chatList = $('#chat-list');
+    if (chatList) {
+      setTimeout(() => (
+        chatList.scrollTop(chatList[0]
+          .scrollHeight - chatList[0].clientHeight)
+        ), 10);
+    }
   }
 
   render () {

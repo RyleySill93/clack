@@ -11,7 +11,7 @@ User.destroy_all
   User.create(username: Faker::Internet.user_name, image: Faker::Avatar.image, password: 'password')
 end
 
-User.create(username: 'ryley_sill', image: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1490378548/Ryley_Sill_omsfin.png', password: 'hiryley')
+ryley = User.create(username: 'ryley_sill', image: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1490378548/Ryley_Sill_omsfin.png', password: 'hiryley')
 
 Channel.destroy_all
 c1 = Channel.create(title: "general", kind: 'channel')
@@ -27,10 +27,10 @@ title = (5..7).map { |el| User.find(el).username }.join(", ");
 
 
 Membership.destroy_all
-c1.member_ids = [1]
-c2.member_ids = [1]
-c3.member_ids = [1]
-c4.member_ids = [1]
+c1.member_ids = [ryley.id]
+c2.member_ids = [ryley.id]
+c3.member_ids = [ryley.id]
+c4.member_ids = [ryley.id]
 
 (1..4).each do |num|
   (25..40).to_a.sample.times do
@@ -45,9 +45,9 @@ end
 
 Message.destroy_all
 
-# 200.times do
-#   Message.create(body: Faker::Hipster.sentence, author_id: (1..20).to_a.sample, channel_id: 1)
-#   Message.create(body: Faker::Hipster.sentence, author_id: (1..20).to_a.sample, channel_id: 2)
-#   Message.create(body: Faker::Hipster.sentence, author_id: (1..20).to_a.sample, channel_id: 3)
-#   Message.create(body: Faker::Hipster.sentence, author_id: (1..20).to_a.sample, channel_id: 4)
-# end
+50.times do
+  Message.create(body: Faker::Hipster.sentence, author_id: (1..20).to_a.sample, channel_id: 1)
+  Message.create(body: Faker::Hipster.sentence, author_id: (1..20).to_a.sample, channel_id: 2)
+  Message.create(body: Faker::Hipster.sentence, author_id: (1..20).to_a.sample, channel_id: 3)
+  Message.create(body: Faker::Hipster.sentence, author_id: (1..20).to_a.sample, channel_id: 4)
+end

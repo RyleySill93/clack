@@ -4,6 +4,9 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     @user.image = Faker::Avatar.image
     if @user.save
+      a = Channel.create!(title: User.find(51).username, kind: 'direct')
+      Membership.create!(user_id: @user.id, channel_id: a.id)
+      
       (1..4).each do |num|
         Membership.create!(user_id: @user.id, channel_id: num)
         channel = Channel.create!(title: User.find(num).username, kind: 'direct')
