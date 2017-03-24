@@ -1,5 +1,6 @@
 import React from 'react';
 import GiphyItem from './giphy_item';
+import EnhanceWithClickOutside from 'react-click-outside';
 
 class GiphysSearch extends React.Component {
   constructor (props) {
@@ -34,6 +35,11 @@ class GiphysSearch extends React.Component {
     if (nextProps.giphysOpen !== this.props.giphysOpen) {
       this.setState({ giphysOpen: nextProps.giphysOpen });
     }
+  }
+
+  handleClickOutside () {
+    console.log('handling click outside');
+    this.props.toggleGiphysSearch();
   }
 
   showGiphysSearch () {
@@ -79,4 +85,4 @@ class GiphysSearch extends React.Component {
   }
 }
 
-export default GiphysSearch;
+export default EnhanceWithClickOutside(GiphysSearch);

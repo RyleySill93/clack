@@ -86,6 +86,18 @@ class Footer extends React.Component {
   }
 
   render () {
+    const giphySearch = (
+      <GiphySearchContainer giphysOpen={this.state.giphysOpen}
+                          addGiphy={this.addGiphy}
+                          toggleGiphysSearch={this.toggleGiphysSearch}/>
+                      );
+
+    const emojiPicker = (
+      <MyEmojiInput emojisOpen={this.state.emojisOpen}
+                    addEmoji={this.addEmoji}
+                    toggleEmojiPicker={this.toggleEmojiPicker}/>
+                );
+
     return (
         <div id="footer">
           <form id="message-input-holder" onSubmit={this.handleSubmit}>
@@ -104,13 +116,9 @@ class Footer extends React.Component {
                 </div>
               </div>
             <input id="hidden" type="submit" />
-              <MyEmojiInput emojisOpen={this.state.emojisOpen}
-                            addEmoji={this.addEmoji}
-                            toggleEmojiPicker={this.toggleEmojiPicker}/>
+            { this.state.emojisOpen ? emojiPicker : ""}
           </form>
-          <GiphySearchContainer giphysOpen={this.state.giphysOpen}
-                                addGiphy={this.addGiphy}
-                                toggleGiphysSearch={this.toggleGiphysSearch}/>
+          { this.state.giphysOpen ? giphySearch : ""}
         </div>
     );
   }

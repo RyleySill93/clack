@@ -138,7 +138,13 @@ class ChatItem extends React.Component {
         <img id="chat-gif" src={this.props.message.gif_url} />
       </div>);
 
+      const emojiPicker = (
+        <EmojiPicker emojisOpen={this.state.emojisOpen}
+          addEmojiToReactions={this.addEmojiToReactions}
+          toggleEmojiPicker={this.toggleEmojiPicker}/>
+      );
     return (
+
       <li id="chat-item">
         <div id="inner-chat-content">
           <div id="pic-holder">
@@ -175,9 +181,7 @@ class ChatItem extends React.Component {
             </div>
           </span>
         </div>
-        { <EmojiPicker emojisOpen={this.state.emojisOpen}
-                       addEmojiToReactions={this.addEmojiToReactions}
-                       toggleEmojiPicker={this.toggleEmojiPicker}/> }
+        { (this.state.emojisOpen) ? emojiPicker : "" }
         { (this.state.modalIsOpen) ? modal : "" }
       </li>
     );

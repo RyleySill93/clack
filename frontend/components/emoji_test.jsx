@@ -1,6 +1,7 @@
 import React from 'react';
 import EmojiPicker from 'react-emoji-picker';
 import emojiMap from 'react-emoji-picker/lib/emojiMap';
+import EnhanceWithClickOutside from 'react-click-outside';
 
 // styles for the emoji picker wrapper
 let emojiPickerStyles = {
@@ -19,7 +20,7 @@ let emojiPickerStyles = {
 class MyEmojiInput extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { emoji: null, emojisOpen: false };
+    this.state = { emoji: null, emojisOpen: this.props.emojisOpen };
     this.setEmoji = this.setEmoji.bind(this);
     this.emojiPicker = this.emojiPicker.bind(this);
   }
@@ -41,6 +42,7 @@ class MyEmojiInput extends React.Component {
   }
 
   emojiPicker () {
+    console.log('hi');
     if(this.state.emojisOpen) {
       return (
         <EmojiPicker
@@ -48,6 +50,11 @@ class MyEmojiInput extends React.Component {
         />
       );
     }
+  }
+
+  handleClickOutside () {
+    console.log('handling click outside');
+    this.props.toggleEmojiPicker();
   }
 
   render () {
@@ -59,4 +66,5 @@ class MyEmojiInput extends React.Component {
   }
 }
 
-export default MyEmojiInput;
+// export default (MyEmojiInput);
+export default EnhanceWithClickOutside(MyEmojiInput);
