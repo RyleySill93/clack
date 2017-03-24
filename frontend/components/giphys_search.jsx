@@ -38,7 +38,6 @@ class GiphysSearch extends React.Component {
   }
 
   handleClickOutside () {
-    console.log('handling click outside');
     this.props.toggleGiphysSearch();
   }
 

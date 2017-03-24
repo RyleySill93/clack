@@ -42,7 +42,6 @@ class MyEmojiInput extends React.Component {
   }
 
   emojiPicker () {
-    console.log('hi');
     if(this.state.emojisOpen) {
       return (
         <EmojiPicker
@@ -53,7 +52,6 @@ class MyEmojiInput extends React.Component {
   }
 
   handleClickOutside () {
-    console.log('handling click outside');
     this.props.toggleEmojiPicker();
   }
 
@@ -66,5 +64,4 @@ class MyEmojiInput extends React.Component {
   }
 }
 
-// export default (MyEmojiInput);
 export default EnhanceWithClickOutside(MyEmojiInput);
