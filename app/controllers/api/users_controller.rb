@@ -10,8 +10,8 @@ class Api::UsersController < ApplicationController
         Membership.create!(user_id: @user.id, channel_id: channel.id)
         Membership.create!(user_id: num, channel_id: channel.id)
         25.times do
-          Message.create(body: Faker::Hipster.sentence,
-                         author_id: [@user.id, num], channel_id: channel.id)
+          Message.create!(body: Faker::Hipster.sentence,
+                         author_id: [@user.id, num].sample, channel_id: channel.id)
         end
       end
       login(@user)
