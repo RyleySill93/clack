@@ -7,8 +7,6 @@ export const RECEIVE_ALL_CHANNELS = 'RECEIVE_ALL_CHANNELS';
 export const REMOVE_CHANNEL = 'REMOVE_CHANNEL';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
-
-
 //thunk actions - database facing
 export const requestPostChannel = (channel) => (dispatch) => (
   postChannel(channel)

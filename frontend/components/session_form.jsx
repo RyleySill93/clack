@@ -56,7 +56,10 @@ class SessionForm extends React.Component {
       .then(() => hashHistory.push('/messages/1/details'));
     } else {
       this.props.signup({username: this.state.username, password: this.state.password})
-      .then(() => hashHistory.push('/messages/1/details'));
+      .then((thing) => {
+        fakeChat(this.props.postMessage, thing.currentUser);
+        hashHistory.push('/messages/1/details');
+      });
     }
   }
 
@@ -114,8 +117,7 @@ class SessionForm extends React.Component {
     if (password.length === this.state.password.length &&
       username.length === this.state.username.length) {
         this.handleSubmit();
-        console.log('trying to fake chat');
-        fakeChat(this.props.postMessage);
+
     }
   }
 

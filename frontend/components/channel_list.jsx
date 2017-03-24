@@ -39,7 +39,6 @@ class ChannelList extends React.Component {
   componentWillReceiveProps (nextProps) {
     if (nextProps.channels.length !== this.props.channels.length ||
         nextProps.directMessages.length !== this.props.directMessages.length) {
-      console.log('receivng new props');
       this.props.requestGetChannels(this.props.currentUser.id)
         .then(() => this.setSocket());
     }
@@ -51,7 +50,6 @@ class ChannelList extends React.Component {
       while (window.App.channel) {
         window.App.cable.subscriptions.remove(window.App.channel);
       }
-      console.log('sockets set', channels);
       channels.forEach(channel => this.addSocket(`channel_${channel.id}`));
     }
   }
@@ -72,7 +70,6 @@ class ChannelList extends React.Component {
       connected: () => {},
       disconnected: () => {},
       received: (data) => {
-        console.log('receiving data', data);
         this.sendAlert(data);
         if (data.message.channel_id === this.props.currentChannel.id) {
           this.props.receiveMessage(data.message);
@@ -131,7 +128,7 @@ class ChannelList extends React.Component {
     const modal = (
       <ChannelModalContainer modalIsOpen={ this.state.modalIsOpen }
                              channelType={ this.state.channelType }
-                             toggleModal={ this.toggleModal }/>
+                             toggleModal={ this.toggleModal } />
     );
 
     return (

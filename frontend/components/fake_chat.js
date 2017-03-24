@@ -1,14 +1,18 @@
 import { connect } from 'react-redux';
+import values from 'lodash/values';
+import { getChannels } from '../util/channel_api_util';
 
-const message1 = {
+let message1 = {
   author_id: 51,
-  body: "Hi I'm Ryley, welcome to clack! :blush:",
-  channel_id: 242,
+  body: "Hi I'm Ryley, welcome to clack! :blush:"
 };
 
-export const fakeChat = (postMessage) => {
-  window.setTimeout(() => {
-    postMessage(message1);
-    console.log('posted message');
-  }, 7000);
+export const fakeChat = (postMessage, currentUser) => {
+  getChannels(currentUser.id).then(channels => sendMessage(channels, postMessage));
+};
+
+const sendMessage = (channels, postMessage) => {
+  let channel = values(channels).find((chan) => chan.title === 'ryley_sill');
+  message1.channel_id = channel.id;
+  window.setTimeout(() => postMessage(message1), 4000);
 };
