@@ -20,7 +20,6 @@ class Header extends React.Component {
   render () {
     const currentChannel = this.props.currentChannel;
 
-
     return (
       <div id="header">
         <div id="header-content">
@@ -28,8 +27,6 @@ class Header extends React.Component {
             {`#${currentChannel.title}`}
           </div>
           <div id="channel-attributes">
-            <i id="favorite-channel" className="fa fa-star-o" aria-hidden="true"></i>
-            |
             <div id="channel-users" onClick={this.openRightSidebar}>
               <i id="user-icon" className="fa fa-user-o" aria-hidden="true"></i>
               {currentChannel.members.length}

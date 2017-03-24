@@ -21,7 +21,8 @@ class Root extends React.Component {
 
   _redirectIfLoggedIn (nextState, replace) {
     if (this.props.store.getState().session.currentUser.id) {
-      replace(`/messages/1`);
+      console.log('redirecting');
+      replace(`/messages/1/details`);
     }
   }
 

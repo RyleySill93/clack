@@ -27,10 +27,3 @@ class MainContent extends React.Component {
 }
 
 export default withRouter(MainContent);
-
-// const mapStateToProps = (state, ownProps) => ({
-//   ownProps: ownProps,
-//   state: state
-// });
-//
-// export default connect (mapStateToProps, null)(MainContent);

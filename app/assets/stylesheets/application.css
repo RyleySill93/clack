@@ -595,9 +595,14 @@ html, body, root {
 #team-header:hover {
   background-color: #3E313C;
   cursor: pointer;
+  color: white;
 }
 
 #team-header:hover div {
+  color: white;
+}
+
+#team-header:hover i {
   color: white;
 }
 
@@ -613,9 +618,6 @@ html, body, root {
 
 #team-name i {
   color: #a09a9f;
-}
-#team-name i:hover {
-  color: #fff;
 }
 
 #current-user {
@@ -654,6 +656,7 @@ html, body, root {
   max-height: calc(100% - 81px);
   margin-top: 10px;
   overflow: scroll;
+
 }
 
 #channels {
@@ -1100,6 +1103,7 @@ html, body, root {
   overflow: scroll;
   margin: 0px 0px 16px 0px;
   padding-top: 8px;
+  /*align-self: flex-end;*/
 }
 
 #chats {

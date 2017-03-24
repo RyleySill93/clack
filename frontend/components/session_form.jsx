@@ -5,6 +5,11 @@ import { getFakeName } from '../util/session_api_util.js';
 import { fakeChat } from './fake_chat';
 
 const customStyles = {
+  overlay : {
+    backgroundColor   : 'rgba(255, 255, 255, 0.0)',
+    width: '0px',
+    margin: '0 auto'
+  },
   content : {
     top                   : '50%',
     left                  : '50%',
@@ -13,15 +18,17 @@ const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     width                 : '615px',
-    height                : '385px'
+    height                : '385px',
+    opacity               : '1'
   }
+
 };
 
 class SessionForm extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = { username: "", password: "", modalIsOpen: false, modalType: 'Login' };
+    this.state = { username: "", password: "", modalIsOpen: true, modalType: 'Login' };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -46,10 +53,10 @@ class SessionForm extends React.Component {
     const user = Object.assign({}, this.state);
     if (this.state.modalType === 'Login') {
       this.props.login({username: this.state.username, password: this.state.password})
-      .then(() => hashHistory.push('/messages/1'));
+      .then(() => hashHistory.push('/messages/1/details'));
     } else {
       this.props.signup({username: this.state.username, password: this.state.password})
-      .then(() => hashHistory.push('/messages/1'));
+      .then(() => hashHistory.push('/messages/1/details'));
     }
   }
 

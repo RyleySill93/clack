@@ -72,7 +72,7 @@ class TeamHeader extends React.Component {
       <div>
         <div id="team-header" onClick={ this.openModal }>
           <div id="team-name">
-            <div>App Academy</div>
+            <div>Clack</div>
             <i className="fa fa-bars" aria-hidden="true"></i>
           </div>
           <div id="current-user">
