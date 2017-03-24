@@ -38,7 +38,7 @@ class ChatItem extends React.Component {
       }
     } else if (e.currentTarget.id === "edit-button") {
       if (this.props.message.author_id === this.props.currentUser.id) {
-        this.setState( { editMode: true } );
+        this.setState( { editMode: !this.state.editMode } );
       } else {
         this.showAlert('You are not the author of this message');
       }
