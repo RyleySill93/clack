@@ -9,9 +9,9 @@ import { requestPostMessageToStore } from '../actions/message_actions';
 const mapStateToProps = (state) => {
 
   const directMessages = values(state.channels).filter(
-    (channel) => channel.kind === "direct") || {};
+    (channel) => channel.kind === "direct") || [];
   const channels = values(state.channels).filter(
-    (channel) => channel.kind === "channel") || {};
+    (channel) => channel.kind === "channel") || [];
   const users = values(state.users);
   const currentChannel = state.currentChannel;
   const currentUser = state.session.currentUser;

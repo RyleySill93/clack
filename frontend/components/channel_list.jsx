@@ -24,7 +24,6 @@ class ChannelList extends React.Component {
                    selectedMembers: [],
                    channelType: "",
                    channelName: "",
-                   socketsSet: false
                   };
 
     this.setSocket = this.setSocket.bind(this);
@@ -38,7 +37,8 @@ class ChannelList extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.channels.length !== this.props.channels.length) {
+    if (nextProps.channels.length !== this.props.channels.length ||
+        nextProps.directMessages.length !== this.props.directMessages.length) {
       console.log('receivng new props');
       this.props.requestGetChannels(this.props.currentUser.id)
         .then(() => this.setSocket());
@@ -46,14 +46,13 @@ class ChannelList extends React.Component {
   }
 
   setSocket (channelName) {
-    const channels = values(this.props.channels) || [];
-    if (!this.state.socketsSet && channels.length > 0) {
+    const channels = values(this.props.channels).concat(this.props.directMessages) || [];
+    if (channels.length > 0) {
       while (window.App.channel) {
         window.App.cable.subscriptions.remove(window.App.channel);
       }
       console.log('sockets set', channels);
       channels.forEach(channel => this.addSocket(`channel_${channel.id}`));
-      this.state.socketsSet = true;
     }
   }
 
