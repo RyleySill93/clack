@@ -20,6 +20,9 @@ class Api::SessionsController < ApplicationController
 
   def show
     @fake = Faker::Internet.user_name
+    while @fake.length < 6
+      @fake = Faker::Internet.user_name
+    end
     render json: @fake, status: 200
   end
 end

@@ -4,6 +4,16 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     @user.image = Faker::Avatar.image
     if @user.save
+      (1..4).each do |num|
+        Membership.create!(user_id: @user.id, channel_id: num)
+        channel = Channel.create!(title: User.find(num).username, kind: 'direct')
+        Membership.create!(user_id: @user.id, channel_id: channel.id)
+        Membership.create!(user_id: num, channel_id: channel.id)
+        25.times do
+          Message.create(body: Faker::Hipster.sentence,
+                         author_id: [@user.id, num], channel_id: channel.id)
+        end
+      end
       login(@user)
       render :show
     else
