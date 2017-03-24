@@ -5,6 +5,8 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import SessionFormContainer from './session_form_container';
 import Client from './client';
 
+import values from 'lodash/values';
+
 import AlertContainer from 'react-alert';
 
 import { receiveMessage } from '../actions/message_actions';
@@ -17,6 +19,7 @@ class Root extends React.Component {
     this._redirectIfLoggedIn = this._redirectIfLoggedIn.bind(this);
     this._redirectIfLoggedOut = this._redirectIfLoggedOut.bind(this);
     this.showAlert = this.showAlert.bind(this);
+    this.state = { socketsSet: false };
   }
 
   _redirectIfLoggedIn (nextState, replace) {
@@ -33,10 +36,11 @@ class Root extends React.Component {
   }
 
   setSocket (channelName) {
-    if (window.App.channel) {
-      this.removeSocket();
+    const channels = values(this.props.store.getState().channels) || [];
+    if (!this.state.socketsSet && channels.length > 0) {
+      channels.forEach(channel => this.addSocket(`channel_${channel.id}`));
+      this.state.socketsSet = true;
     }
-    this.addSocket(channelName);
   }
 
   removeSocket () {

@@ -4,8 +4,6 @@ import { requestLogin, requestSignup } from '../actions/session_actions';
 import SessionForm from './session_form';
 import { requestPostMessage } from '../actions/message_actions';
 
-
-
 const mapStateToProps = (state) => ({
   currentUser: (state.session.currentUser ? true : false),
   errors: values(values(state.session.errors.responseJSON))

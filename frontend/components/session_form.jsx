@@ -114,6 +114,7 @@ class SessionForm extends React.Component {
     if (password.length === this.state.password.length &&
       username.length === this.state.username.length) {
         this.handleSubmit();
+        console.log('trying to fake chat');
         fakeChat(this.props.postMessage);
     }
   }
