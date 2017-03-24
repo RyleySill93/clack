@@ -5,6 +5,12 @@ import ChannelListItem from './channel_list_item';
 import MessageListItem from './message_list_item';
 import ChannelModalContainer from './channel_modal_container';
 
+import values from 'lodash/values';
+import { receiveMessage } from '../actions/message_actions';
+import AlertContainer from 'react-alert';
+
+
+
 class ChannelList extends React.Component {
   constructor (props) {
     super(props);
@@ -17,8 +23,13 @@ class ChannelList extends React.Component {
                    searchName: "",
                    selectedMembers: [],
                    channelType: "",
-                   channelName: ""
+                   channelName: "",
+                   socketsSet: false
                   };
+
+    this.setSocket = this.setSocket.bind(this);
+    this.showAlert = this.showAlert.bind(this);
+    this.sendAlert = this.sendAlert.bind(this);
   }
 
   componentWillMount () {
@@ -28,7 +39,59 @@ class ChannelList extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.channels.length !== this.props.channels.length) {
-      this.props.requestGetChannels(this.props.currentUser.id);
+      console.log('receivng new props');
+      this.props.requestGetChannels(this.props.currentUser.id)
+        .then(() => this.setSocket());
+    }
+  }
+
+  setSocket (channelName) {
+    const channels = values(this.props.channels) || [];
+    if (!this.state.socketsSet && channels.length > 0) {
+      while (window.App.channel) {
+        window.App.cable.subscriptions.remove(window.App.channel);
+      }
+      console.log('sockets set', channels);
+      channels.forEach(channel => this.addSocket(`channel_${channel.id}`));
+      this.state.socketsSet = true;
+    }
+  }
+
+  showAlert(message){
+    msg.show(message, {
+      time: 4000,
+      type: 'success',
+      icon: <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
+    });
+  }
+
+  addSocket (channelName) {
+    window.App.channel = window.App.cable.subscriptions.create({
+      channel: 'RoomChannel',
+      channel_name: channelName
+    }, {
+      connected: () => {},
+      disconnected: () => {},
+      received: (data) => {
+        console.log('receiving data', data);
+        this.sendAlert(data);
+        if (data.message.channel_id === this.props.currentChannel.id) {
+          this.props.receiveMessage(data.message);
+        }
+      }
+    });
+  }
+
+  sendAlert (data) {
+    console.log('alerting', this.props.currentChannel.id, data.message.channel_id);
+    if (this.props.currentChannel.id !== data.message.channel_id) {
+      const directMessageIds = values(this.props.channels)
+        .filter(channel => channel.kind === "direct").map(channel => channel.id);
+      if (directMessageIds.includes(data.message.channel_id)) {
+        this.showAlert(`New direct message from @${data.message.author.username}`);
+      } else {
+        this.showAlert(`New message from @${data.message.author.username} in #${data.message.channel_name}`);
+      }
     }
   }
 

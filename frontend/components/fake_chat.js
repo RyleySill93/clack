@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 const message1 = {
   author_id: 51,
   body: "Hi I'm Ryley, welcome to clack! :blush:",
-  channel_id: 1,
+  channel_id: 227,
 };
 
 export const fakeChat = (postMessage) => {
-  console.log('chatting');
-  window.setTimeout(() => postMessage(message1), 10000);
+  window.setTimeout(() => {
+    postMessage(message1);
+    console.log('posted message');
+  }, 7000);
 };

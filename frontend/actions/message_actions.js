@@ -9,8 +9,13 @@ export const RECEIVE_ALL_MESSAGES = 'RECEIVE_ALL_MESSAGES';
 export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
 
 //thunk actions - database facing
-export const requestPostMessage = (message) => (dispatch) => (
-  postMessage(message)
+export const requestPostMessage = (message) => (dispatch) => {
+  console.log(message);
+  postMessage(message);
+};
+
+export const requestPostMessageToStore = (message) => (dispatch) => (
+  dispatch(receiveMessage(message))
 );
 
 export const requestGetMessages = (channelId) => (dispatch) => (

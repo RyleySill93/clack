@@ -3,6 +3,7 @@ import values from 'lodash/values';
 import ChannelList from './channel_list';
 import { requestPostChannel, requestGetChannels } from '../actions/channel_actions';
 import { requestGetUsers } from '../actions/user_actions';
+import { requestPostMessageToStore } from '../actions/message_actions';
 
 
 const mapStateToProps = (state) => {
@@ -24,7 +25,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   requestGetChannels: (id) => dispatch(requestGetChannels(id)),
   requestPostChannel: (channel) => dispatch(requestPostChannel(channel)),
-  requestGetUsers: () => dispatch(requestGetUsers())
+  requestGetUsers: () => dispatch(requestGetUsers()),
+  receiveMessage: (message) => dispatch(requestPostMessageToStore(message))
 });
 
 export default connect (mapStateToProps, mapDispatchToProps)(ChannelList);
