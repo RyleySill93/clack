@@ -10,7 +10,6 @@ export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
 
 //thunk actions - database facing
 export const requestPostMessage = (message) => (dispatch) => {
-  console.log(message);
   postMessage(message);
 };
 

@@ -17,6 +17,7 @@ class ChannelList extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
 
+
     this.toggleModal = this.toggleModal.bind(this);
 
     this.state = { modalIsOpen: false,
@@ -27,6 +28,7 @@ class ChannelList extends React.Component {
                   };
 
     this.setSocket = this.setSocket.bind(this);
+    this.removeSocket = this.removeSocket.bind(this);
     this.showAlert = this.showAlert.bind(this);
     this.sendAlert = this.sendAlert.bind(this);
   }
@@ -47,11 +49,13 @@ class ChannelList extends React.Component {
   setSocket (channelName) {
     const channels = values(this.props.channels).concat(this.props.directMessages) || [];
     if (channels.length > 0) {
-      while (window.App.channel) {
-        window.App.cable.subscriptions.remove(window.App.channel);
-      }
+      window.App.cable.subscriptions.subscriptions.forEach(sub => this.removeSocket(sub));
       channels.forEach(channel => this.addSocket(`channel_${channel.id}`));
     }
+  }
+
+  removeSocket(channel) {
+    window.App.cable.subscriptions.remove(channel);
   }
 
   showAlert(message){
@@ -63,7 +67,7 @@ class ChannelList extends React.Component {
   }
 
   addSocket (channelName) {
-    window.App.channel = window.App.cable.subscriptions.create({
+    window.App.cable.subscriptions.create({
       channel: 'RoomChannel',
       channel_name: channelName
     }, {
@@ -79,7 +83,6 @@ class ChannelList extends React.Component {
   }
 
   sendAlert (data) {
-    console.log('alerting', this.props.currentChannel.id, data.message.channel_id);
     if (this.props.currentChannel.id !== data.message.channel_id) {
       const directMessageIds = values(this.props.channels)
         .filter(channel => channel.kind === "direct").map(channel => channel.id);

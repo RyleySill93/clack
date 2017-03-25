@@ -10,9 +10,7 @@ export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 //thunk actions - database facing
 export const requestPostChannel = (channel) => (dispatch) => (
   postChannel(channel)
-    .then(channel => {
-      dispatch(receiveChannel(channel));
-    })
+    .then(channel => dispatch(receiveChannel(channel)))
 );
 
 export const requestGetChannels = (id) => (dispatch) => (
