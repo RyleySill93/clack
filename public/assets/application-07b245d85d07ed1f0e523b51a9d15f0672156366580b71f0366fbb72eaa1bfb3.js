@@ -17350,7 +17350,7 @@ module.exports = reactProdInvariant;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.removeMessage = exports.receiveAllMessages = exports.receiveMessage = exports.requestDeleteReaction = exports.requestPostReaction = exports.requestUpdateMessage = exports.requestRemoveMessage = exports.requestGetMessages = exports.requestPostMessage = exports.REMOVE_MESSAGE = exports.RECEIVE_ALL_MESSAGES = exports.RECEIVE_MESSAGE = undefined;
+exports.removeMessage = exports.receiveAllMessages = exports.receiveMessage = exports.requestDeleteReaction = exports.requestPostReaction = exports.requestUpdateMessage = exports.requestRemoveMessage = exports.requestGetMessages = exports.requestPostMessageToStore = exports.requestPostMessage = exports.REMOVE_MESSAGE = exports.RECEIVE_ALL_MESSAGES = exports.RECEIVE_MESSAGE = undefined;
 
 var _message_api_util = __webpack_require__(308);
 
@@ -17363,7 +17363,13 @@ var REMOVE_MESSAGE = exports.REMOVE_MESSAGE = 'REMOVE_MESSAGE';
 //thunk actions - database facing
 var requestPostMessage = exports.requestPostMessage = function requestPostMessage(message) {
   return function (dispatch) {
-    return (0, _message_api_util.postMessage)(message);
+    (0, _message_api_util.postMessage)(message);
+  };
+};
+
+var requestPostMessageToStore = exports.requestPostMessageToStore = function requestPostMessageToStore(message) {
+  return function (dispatch) {
+    return dispatch(receiveMessage(message));
   };
 };
 
@@ -20082,8 +20088,6 @@ exports.receiveErrors = exports.removeChannel = exports.receiveAllChannels = exp
 
 var _channel_api_util = __webpack_require__(305);
 
-var _reactRouter = __webpack_require__(17);
-
 var RECEIVE_CHANNEL = exports.RECEIVE_CHANNEL = 'RECEIVE_CHANNEL';
 var RECEIVE_ALL_CHANNELS = exports.RECEIVE_ALL_CHANNELS = 'RECEIVE_ALL_CHANNELS';
 var REMOVE_CHANNEL = exports.REMOVE_CHANNEL = 'REMOVE_CHANNEL';
@@ -20093,8 +20097,7 @@ var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 var requestPostChannel = exports.requestPostChannel = function requestPostChannel(channel) {
   return function (dispatch) {
     return (0, _channel_api_util.postChannel)(channel).then(function (channel) {
-      dispatch(receiveChannel(channel));
-      _reactRouter.hashHistory.push('/messages/' + channel.id);
+      return dispatch(receiveChannel(channel));
     });
   };
 };
@@ -23558,6 +23561,10 @@ var _emojiMap = __webpack_require__(210);
 
 var _emojiMap2 = _interopRequireDefault(_emojiMap);
 
+var _reactClickOutside = __webpack_require__(609);
+
+var _reactClickOutside2 = _interopRequireDefault(_reactClickOutside);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23588,7 +23595,7 @@ var MyEmojiInput = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (MyEmojiInput.__proto__ || Object.getPrototypeOf(MyEmojiInput)).call(this, props));
 
-    _this.state = { emoji: null, emojisOpen: false };
+    _this.state = { emoji: null, emojisOpen: _this.props.emojisOpen };
     _this.setEmoji = _this.setEmoji.bind(_this);
     _this.emojiPicker = _this.emojiPicker.bind(_this);
     return _this;
@@ -23621,6 +23628,11 @@ var MyEmojiInput = function (_React$Component) {
       }
     }
   }, {
+    key: 'handleClickOutside',
+    value: function handleClickOutside() {
+      this.props.toggleEmojiPicker();
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -23634,7 +23646,7 @@ var MyEmojiInput = function (_React$Component) {
   return MyEmojiInput;
 }(_react2.default.Component);
 
-exports.default = MyEmojiInput;
+exports.default = (0, _reactClickOutside2.default)(MyEmojiInput);
 
 /***/ }),
 /* 98 */
@@ -29045,6 +29057,8 @@ var _session_form = __webpack_require__(293);
 
 var _session_form2 = _interopRequireDefault(_session_form);
 
+var _message_actions = __webpack_require__(43);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
@@ -29054,13 +29068,19 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+//for fake chat
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     login: function login(user) {
       return dispatch((0, _session_actions.requestLogin)(user));
     },
     signup: function signup(user) {
       return dispatch((0, _session_actions.requestSignup)(user));
+    },
+    postMessage: function postMessage(message) {
+      return dispatch((0, _message_actions.requestPostMessage)(message));
     }
   };
 };
@@ -41505,12 +41525,6 @@ var _client = __webpack_require__(278);
 
 var _client2 = _interopRequireDefault(_client);
 
-var _reactAlert = __webpack_require__(78);
-
-var _reactAlert2 = _interopRequireDefault(_reactAlert);
-
-var _message_actions = __webpack_require__(43);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41527,10 +41541,9 @@ var Root = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Root.__proto__ || Object.getPrototypeOf(Root)).call(this, props));
 
-    _this.setSocket = _this.setSocket.bind(_this);
     _this._redirectIfLoggedIn = _this._redirectIfLoggedIn.bind(_this);
     _this._redirectIfLoggedOut = _this._redirectIfLoggedOut.bind(_this);
-    _this.showAlert = _this.showAlert.bind(_this);
+
     return _this;
   }
 
@@ -41538,55 +41551,16 @@ var Root = function (_React$Component) {
     key: '_redirectIfLoggedIn',
     value: function _redirectIfLoggedIn(nextState, replace) {
       if (this.props.store.getState().session.currentUser.id) {
-        replace('/messages/1');
+        replace('/messages/1/details');
       }
     }
   }, {
     key: '_redirectIfLoggedOut',
     value: function _redirectIfLoggedOut(nextState, replace) {
-      this.setSocket('channel_' + nextState.params.channelId);
+      //remove this
       if (!this.props.store.getState().session.currentUser.id) {
         replace('/');
       }
-    }
-  }, {
-    key: 'setSocket',
-    value: function setSocket(channelName) {
-      if (window.App.channel) {
-        this.removeSocket();
-      }
-      this.addSocket(channelName);
-    }
-  }, {
-    key: 'removeSocket',
-    value: function removeSocket() {
-      window.App.cable.subscriptions.remove(window.App.channel);
-    }
-  }, {
-    key: 'showAlert',
-    value: function showAlert(message) {
-      msg.show(message, {
-        time: 2000,
-        type: 'success',
-        icon: _react2.default.createElement('img', { src: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
-      });
-    }
-  }, {
-    key: 'addSocket',
-    value: function addSocket(channelName) {
-      var _this2 = this;
-
-      window.App.channel = window.App.cable.subscriptions.create({
-        channel: 'RoomChannel',
-        channel_name: channelName
-      }, {
-        connected: function connected() {},
-        disconnected: function disconnected() {},
-        received: function received(data) {
-          _this2.showAlert('New message from ' + data.message.author.username + ' in #' + data.message.channel_name);
-          _this2.props.store.dispatch((0, _message_actions.receiveMessage)(data.message));
-        }
-      });
     }
   }, {
     key: 'render',
@@ -41697,7 +41671,7 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           'video',
           { id: 'background-video', loop: true, autoPlay: true, muted: true },
-          _react2.default.createElement('source', { src: 'http://res.cloudinary.com/dwqeotsx5/video/upload/v1489515523/Pug_iz1qud.mp4', type: 'video/mp4' }),
+          _react2.default.createElement('source', { src: 'http://res.cloudinary.com/dwqeotsx5/video/upload/v1490374875/563400030_pgaidm.mp4', type: 'video/mp4' }),
           'Your browser does not support the video tag.'
         )
       );
@@ -41740,6 +41714,16 @@ var _channel_modal_container = __webpack_require__(96);
 
 var _channel_modal_container2 = _interopRequireDefault(_channel_modal_container);
 
+var _values = __webpack_require__(77);
+
+var _values2 = _interopRequireDefault(_values);
+
+var _message_actions = __webpack_require__(43);
+
+var _reactAlert = __webpack_require__(78);
+
+var _reactAlert2 = _interopRequireDefault(_reactAlert);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41766,6 +41750,11 @@ var ChannelList = function (_React$Component) {
       channelType: "",
       channelName: ""
     };
+
+    _this.setSocket = _this.setSocket.bind(_this);
+    _this.removeSocket = _this.removeSocket.bind(_this);
+    _this.showAlert = _this.showAlert.bind(_this);
+    _this.sendAlert = _this.sendAlert.bind(_this);
     return _this;
   }
 
@@ -41778,8 +41767,76 @@ var ChannelList = function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.channels.length !== this.props.channels.length) {
-        this.props.requestGetChannels(this.props.currentUser.id);
+      var _this2 = this;
+
+      if (nextProps.channels.length !== this.props.channels.length || nextProps.directMessages.length !== this.props.directMessages.length) {
+        this.props.requestGetChannels(this.props.currentUser.id).then(function () {
+          return _this2.setSocket();
+        });
+      }
+    }
+  }, {
+    key: 'setSocket',
+    value: function setSocket(channelName) {
+      var _this3 = this;
+
+      var channels = (0, _values2.default)(this.props.channels).concat(this.props.directMessages) || [];
+      if (channels.length > 0) {
+        window.App.cable.subscriptions.subscriptions.forEach(function (sub) {
+          return _this3.removeSocket(sub);
+        });
+        channels.forEach(function (channel) {
+          return _this3.addSocket('channel_' + channel.id);
+        });
+      }
+    }
+  }, {
+    key: 'removeSocket',
+    value: function removeSocket(channel) {
+      window.App.cable.subscriptions.remove(channel);
+    }
+  }, {
+    key: 'showAlert',
+    value: function showAlert(message) {
+      msg.show(message, {
+        time: 4000,
+        type: 'success',
+        icon: _react2.default.createElement('img', { src: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
+      });
+    }
+  }, {
+    key: 'addSocket',
+    value: function addSocket(channelName) {
+      var _this4 = this;
+
+      window.App.cable.subscriptions.create({
+        channel: 'RoomChannel',
+        channel_name: channelName
+      }, {
+        connected: function connected() {},
+        disconnected: function disconnected() {},
+        received: function received(data) {
+          _this4.sendAlert(data);
+          if (data.message.channel_id === _this4.props.currentChannel.id) {
+            _this4.props.receiveMessage(data.message);
+          }
+        }
+      });
+    }
+  }, {
+    key: 'sendAlert',
+    value: function sendAlert(data) {
+      if (this.props.currentChannel.id !== data.message.channel_id) {
+        var directMessageIds = (0, _values2.default)(this.props.channels).filter(function (channel) {
+          return channel.kind === "direct";
+        }).map(function (channel) {
+          return channel.id;
+        });
+        if (directMessageIds.includes(data.message.channel_id)) {
+          this.showAlert('New direct message from @' + data.message.author.username);
+        } else {
+          this.showAlert('New message from @' + data.message.author.username + ' in #' + data.message.channel_name);
+        }
       }
     }
   }, {
@@ -41914,16 +41971,18 @@ var _channel_actions = __webpack_require__(64);
 
 var _user_actions = __webpack_require__(95);
 
+var _message_actions = __webpack_require__(43);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
 
   var directMessages = (0, _values2.default)(state.channels).filter(function (channel) {
     return channel.kind === "direct";
-  }) || {};
+  }) || [];
   var channels = (0, _values2.default)(state.channels).filter(function (channel) {
     return channel.kind === "channel";
-  }) || {};
+  }) || [];
   var users = (0, _values2.default)(state.users);
   var currentChannel = state.currentChannel;
   var currentUser = state.session.currentUser;
@@ -41944,6 +42003,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     requestGetUsers: function requestGetUsers() {
       return dispatch((0, _user_actions.requestGetUsers)());
+    },
+    receiveMessage: function receiveMessage(message) {
+      return dispatch((0, _message_actions.requestPostMessageToStore)(message));
     }
   };
 };
@@ -42045,6 +42107,8 @@ var _reactAlert2 = _interopRequireDefault(_reactAlert);
 var _reactModal = __webpack_require__(66);
 
 var _reactModal2 = _interopRequireDefault(_reactModal);
+
+var _reactRouter = __webpack_require__(17);
 
 var _user_list_item = __webpack_require__(297);
 
@@ -42152,7 +42216,14 @@ var ChannelModal = function (_React$Component) {
       });
 
       this.props.requestPostChannel({ title: title, kind: kind, members: members }).then(function () {
-        return _this2.props.toggleModal();
+        _this2.props.toggleModal();
+        var newChannel = void 0;
+        if (kind === "direct") {
+          newChannel = _this2.props.directMessages[_this2.props.directMessages.length - 1];
+        } else {
+          newChannel = _this2.props.channels[_this2.props.channels.length - 1];
+        }
+        _reactRouter.hashHistory.push('/messages/' + newChannel.id + '/details');
       }).fail(function (error) {
         if (_this2.state.channelType === "direct") {
           _this2.alertDirectError(error.responseJSON);
@@ -42228,7 +42299,6 @@ var ChannelModal = function (_React$Component) {
           return m.id;
         });
         if (!memberIds.includes(member.id)) {
-          // debugger
           var selectedMembers = that.state.selectedMembers.concat([member]);
           that.setState({ selectedMembers: selectedMembers, searchName: "" });
         } else {
@@ -42543,6 +42613,9 @@ var ChatItem = function (_React$Component) {
         _react2.default.createElement('img', { id: 'chat-gif', src: this.props.message.gif_url })
       );
 
+      var emojiPicker = _react2.default.createElement(_emoji_test2.default, { emojisOpen: this.state.emojisOpen,
+        addEmojiToReactions: this.addEmojiToReactions,
+        toggleEmojiPicker: this.toggleEmojiPicker });
       return _react2.default.createElement(
         'li',
         { id: 'chat-item' },
@@ -42607,9 +42680,7 @@ var ChatItem = function (_React$Component) {
             )
           )
         ),
-        _react2.default.createElement(_emoji_test2.default, { emojisOpen: this.state.emojisOpen,
-          addEmojiToReactions: this.addEmojiToReactions,
-          toggleEmojiPicker: this.toggleEmojiPicker }),
+        this.state.emojisOpen ? emojiPicker : "",
         this.state.modalIsOpen ? modal : ""
       );
     }
@@ -42741,9 +42812,13 @@ var Chatbox = function (_React$Component) {
   }, {
     key: 'scrollToBottom',
     value: function scrollToBottom() {
-      setTimeout(function () {
-        return $('#chat-list').scrollTop($('#chat-list')[0].scrollHeight - $('#chat-list')[0].clientHeight);
-      }, 0);
+      // $("#chat-list").animate({ scrollTop: $('#chat-list')[0].scrollHeight}, 5000);
+      var chatList = $('#chat-list');
+      if (chatList) {
+        setTimeout(function () {
+          return chatList.scrollTop(chatList[0].scrollHeight - chatList[0].clientHeight);
+        }, 10);
+      }
     }
   }, {
     key: 'render',
@@ -43062,6 +43137,14 @@ var Footer = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var giphySearch = _react2.default.createElement(_giphys_search_container2.default, { giphysOpen: this.state.giphysOpen,
+        addGiphy: this.addGiphy,
+        toggleGiphysSearch: this.toggleGiphysSearch });
+
+      var emojiPicker = _react2.default.createElement(_emoji_test2.default, { emojisOpen: this.state.emojisOpen,
+        addEmoji: this.addEmoji,
+        toggleEmojiPicker: this.toggleEmojiPicker });
+
       return _react2.default.createElement(
         'div',
         { id: 'footer' },
@@ -43089,13 +43172,9 @@ var Footer = function (_React$Component) {
             )
           ),
           _react2.default.createElement('input', { id: 'hidden', type: 'submit' }),
-          _react2.default.createElement(_emoji_test2.default, { emojisOpen: this.state.emojisOpen,
-            addEmoji: this.addEmoji,
-            toggleEmojiPicker: this.toggleEmojiPicker })
+          this.state.emojisOpen ? emojiPicker : ""
         ),
-        _react2.default.createElement(_giphys_search_container2.default, { giphysOpen: this.state.giphysOpen,
-          addGiphy: this.addGiphy,
-          toggleGiphysSearch: this.toggleGiphysSearch })
+        this.state.giphysOpen ? giphySearch : ""
       );
     }
   }]);
@@ -43216,6 +43295,10 @@ var _giphy_item = __webpack_require__(281);
 
 var _giphy_item2 = _interopRequireDefault(_giphy_item);
 
+var _reactClickOutside = __webpack_require__(609);
+
+var _reactClickOutside2 = _interopRequireDefault(_reactClickOutside);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43270,6 +43353,11 @@ var GiphysSearch = function (_React$Component) {
       if (nextProps.giphysOpen !== this.props.giphysOpen) {
         this.setState({ giphysOpen: nextProps.giphysOpen });
       }
+    }
+  }, {
+    key: 'handleClickOutside',
+    value: function handleClickOutside() {
+      this.props.toggleGiphysSearch();
     }
   }, {
     key: 'showGiphysSearch',
@@ -43331,7 +43419,7 @@ var GiphysSearch = function (_React$Component) {
   return GiphysSearch;
 }(_react2.default.Component);
 
-exports.default = GiphysSearch;
+exports.default = (0, _reactClickOutside2.default)(GiphysSearch);
 
 /***/ }),
 /* 283 */
@@ -43437,8 +43525,6 @@ var Header = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { id: 'channel-attributes' },
-            _react2.default.createElement('i', { id: 'favorite-channel', className: 'fa fa-star-o', 'aria-hidden': 'true' }),
-            '|',
             _react2.default.createElement(
               'div',
               { id: 'channel-users', onClick: this.openRightSidebar },
@@ -43608,13 +43694,6 @@ var MainContent = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = (0, _reactRouter.withRouter)(MainContent);
-
-// const mapStateToProps = (state, ownProps) => ({
-//   ownProps: ownProps,
-//   state: state
-// });
-//
-// export default connect (mapStateToProps, null)(MainContent);
 
 /***/ }),
 /* 288 */
@@ -43970,6 +44049,8 @@ var _reactModal2 = _interopRequireDefault(_reactModal);
 
 var _session_api_util = __webpack_require__(98);
 
+var _fake_chat = __webpack_require__(610);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43979,6 +44060,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var customStyles = {
+  overlay: {
+    backgroundColor: 'rgba(255, 255, 255, 0.0)',
+    width: '0px',
+    margin: '0 auto'
+  },
   content: {
     top: '50%',
     left: '50%',
@@ -43987,8 +44073,10 @@ var customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     width: '615px',
-    height: '385px'
+    height: '385px',
+    opacity: '1'
   }
+
 };
 
 var SessionForm = function (_React$Component) {
@@ -43999,7 +44087,7 @@ var SessionForm = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (SessionForm.__proto__ || Object.getPrototypeOf(SessionForm)).call(this, props));
 
-    _this.state = { username: "", password: "", modalIsOpen: false, modalType: 'Login' };
+    _this.state = { username: "", password: "", modalIsOpen: true, modalType: 'Login' };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleClick = _this.handleClick.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
@@ -44024,17 +44112,20 @@ var SessionForm = function (_React$Component) {
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
+      var _this2 = this;
+
       if (e) {
         e.preventDefault();
       }
       var user = Object.assign({}, this.state);
       if (this.state.modalType === 'Login') {
         this.props.login({ username: this.state.username, password: this.state.password }).then(function () {
-          return _reactRouter.hashHistory.push('/messages/1');
+          return _reactRouter.hashHistory.push('/messages/1/details');
         });
       } else {
-        this.props.signup({ username: this.state.username, password: this.state.password }).then(function () {
-          return _reactRouter.hashHistory.push('/messages/1');
+        this.props.signup({ username: this.state.username, password: this.state.password }).then(function (thing) {
+          (0, _fake_chat.fakeChat)(_this2.props.postMessage, thing.currentUser);
+          _reactRouter.hashHistory.push('/messages/1/details');
         });
       }
     }
@@ -44075,26 +44166,26 @@ var SessionForm = function (_React$Component) {
   }, {
     key: 'demoLogin',
     value: function demoLogin(username) {
-      var _this2 = this;
+      var _this3 = this;
 
       var password = username;
       if (username.length > this.state.username.length) {
         var idx = this.state.username.length;
         window.setTimeout(function () {
-          return _this2.setState({ username: _this2.state.username + username[idx] });
+          return _this3.setState({ username: _this3.state.username + username[idx] });
         }, 100);
         window.setTimeout(function () {
-          return _this2.demoLogin(username);
+          return _this3.demoLogin(username);
         }, 100);
       }
 
       if (password.length > this.state.password.length && username.length === this.state.username.length) {
         var _idx = this.state.password.length;
         window.setTimeout(function () {
-          return _this2.setState({ password: _this2.state.password + password[_idx] });
+          return _this3.setState({ password: _this3.state.password + password[_idx] });
         }, 100);
         window.setTimeout(function () {
-          return _this2.demoLogin(username);
+          return _this3.demoLogin(username);
         }, 100);
       }
 
@@ -44412,7 +44503,7 @@ var TeamHeader = function (_React$Component) {
             _react2.default.createElement(
               'div',
               null,
-              'App Academy'
+              'Clack'
             ),
             _react2.default.createElement('i', { className: 'fa fa-bars', 'aria-hidden': 'true' })
           ),
@@ -72922,6 +73013,89 @@ document.addEventListener('DOMContentLoaded', function () {
   var root = document.getElementById('root');
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
+
+/***/ }),
+/* 609 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var hoistNonReactStatic = __webpack_require__(164);
+var React = __webpack_require__(1);
+var ReactDOM = __webpack_require__(65);
+
+module.exports = function enhanceWithClickOutside(WrappedComponent) {
+  var componentName = WrappedComponent.displayName || WrappedComponent.name;
+
+  var EnhancedComponent = React.createClass({
+    displayName: 'Wrapped' + componentName,
+
+    componentDidMount: function componentDidMount() {
+      this.__wrappedComponent = this.refs.wrappedComponent;
+      document.addEventListener('click', this.handleClickOutside, true);
+    },
+    componentWillUnmount: function componentWillUnmount() {
+      document.removeEventListener('click', this.handleClickOutside, true);
+    },
+    handleClickOutside: function handleClickOutside(e) {
+      var domNode = ReactDOM.findDOMNode(this);
+      if ((!domNode || !domNode.contains(e.target)) && typeof this.refs.wrappedComponent.handleClickOutside === 'function') {
+        this.refs.wrappedComponent.handleClickOutside(e);
+      }
+    },
+    render: function render() {
+      return React.createElement(WrappedComponent, _extends({}, this.props, { ref: 'wrappedComponent' }));
+    }
+  });
+
+  return hoistNonReactStatic(EnhancedComponent, WrappedComponent);
+};
+
+/***/ }),
+/* 610 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fakeChat = undefined;
+
+var _reactRedux = __webpack_require__(16);
+
+var _values = __webpack_require__(77);
+
+var _values2 = _interopRequireDefault(_values);
+
+var _channel_api_util = __webpack_require__(305);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var message1 = {
+  author_id: 51,
+  body: "Hi I'm Ryley, welcome to clack! :blush:"
+};
+
+var fakeChat = exports.fakeChat = function fakeChat(postMessage, currentUser) {
+  (0, _channel_api_util.getChannels)(currentUser.id).then(function (channels) {
+    return sendMessage(channels, postMessage);
+  });
+};
+
+var sendMessage = function sendMessage(channels, postMessage) {
+  var channel = (0, _values2.default)(channels).find(function (chan) {
+    return chan.title === 'ryley_sill';
+  });
+  message1.channel_id = channel.id;
+  window.setTimeout(function () {
+    return postMessage(message1);
+  }, 4000);
+};
 
 /***/ })
 /******/ ]);
