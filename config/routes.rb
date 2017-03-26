@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     resources :messages, only: [:create, :update, :destroy, :index]
     resources :memberships, only: [:create, :destroy]
     resources :reactions, only: [:create, :destroy]
+    resources :notifications, only: [:create, :destroy]
   end
 end

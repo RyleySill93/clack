@@ -27,3 +27,18 @@ export const getFakeName = () => (
     url: 'api/session'
   })
 );
+
+export const postNotification = (channel_id) => (
+  $.ajax({
+    method: 'POST',
+    url: 'api/notifications',
+    data: channel_id
+  })
+);
+
+export const deleteNotifications = (channel_id) => (
+  $.ajax({
+    method: 'DELETE',
+    url: `api/notifications/${channel_id}`
+  })
+);

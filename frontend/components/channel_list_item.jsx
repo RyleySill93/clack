@@ -5,14 +5,36 @@ class ChannelListItem extends React.Component {
   constructor (props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.notifications = this.notifications.bind(this);
+    this.removeNotifications = this.removeNotifications.bind(this);
   }
 
   handleClick (e) {
     e.preventDefault();
+    // if (this.notifications.length > 0) {
+      this.removeNotifications();
+    // }
     hashHistory.push(`/messages/${this.props.channel.id}`);
   }
 
+  removeNotifications () {
+    console.log('removing notifications');
+    this.props.requestDeleteNotifications(this.props.channel.id);
+  }
+
+  notifications () {
+    const notificationCount = this.props.notifications.filter(notification =>
+      notification.channel_id === this.props.channel.id).length;
+    let notifications;
+    if (notificationCount > 0) {
+      return <div id="notification">{ notificationCount }</div>;
+    } else {
+      return "";
+    }
+  }
+
   render () {
+
     return (
       <li onClick={this.handleClick}
           id={this.props.params.channelId == this.props.channel.id ? "selected-channel" : "channel"}>
@@ -21,9 +43,9 @@ class ChannelListItem extends React.Component {
         </div>
         <div id="message-name">
           <div>{this.props.channel.title}</div>
-          <div id="notification">3</div>
+          { }
         </div>
-
+        { this.notifications() }
       </li>
     );
   }

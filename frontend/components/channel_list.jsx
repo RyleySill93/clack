@@ -2,7 +2,6 @@ import React from 'react';
 import { hashHistory } from 'react-router';
 
 import ChannelListItem from './channel_list_item';
-import MessageListItem from './message_list_item';
 import ChannelModalContainer from './channel_modal_container';
 
 import values from 'lodash/values';
@@ -16,8 +15,6 @@ class ChannelList extends React.Component {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-
-
     this.toggleModal = this.toggleModal.bind(this);
 
     this.state = { modalIsOpen: false,
@@ -47,9 +44,11 @@ class ChannelList extends React.Component {
   }
 
   setSocket (channelName) {
-    const channels = values(this.props.channels).concat(this.props.directMessages) || [];
+    const channels = values(this.props.channels)
+      .concat(this.props.directMessages) || [];
     if (channels.length > 0) {
-      window.App.cable.subscriptions.subscriptions.forEach(sub => this.removeSocket(sub));
+      window.App.cable.subscriptions.subscriptions
+        .forEach(sub => this.removeSocket(sub));
       channels.forEach(channel => this.addSocket(`channel_${channel.id}`));
     }
   }
@@ -74,23 +73,24 @@ class ChannelList extends React.Component {
       connected: () => {},
       disconnected: () => {},
       received: (data) => {
-        this.sendAlert(data);
         if (data.message.channel_id === this.props.currentChannel.id) {
           this.props.receiveMessage(data.message);
+        } else {
+          this.sendAlert(data);
         }
       }
     });
   }
 
   sendAlert (data) {
-    if (this.props.currentChannel.id !== data.message.channel_id) {
-      const directMessageIds = values(this.props.channels)
-        .filter(channel => channel.kind === "direct").map(channel => channel.id);
-      if (directMessageIds.includes(data.message.channel_id)) {
-        this.showAlert(`New direct message from @${data.message.author.username}`);
-      } else {
-        this.showAlert(`New message from @${data.message.author.username} in #${data.message.channel_name}`);
-      }
+    this.props.requestPostNotification({ channel_id: data.message.channel_id });
+    const directMessageIds = values(this.props.channels)
+      .filter(channel => channel.kind === "direct")
+      .map(channel => channel.id);
+    if (directMessageIds.includes(data.message.channel_id)) {
+      this.showAlert(`New direct message from @${data.message.author.username}`);
+    } else {
+      this.showAlert(`New message from @${data.message.author.username} in #${data.message.channel_name}`);
     }
   }
 
@@ -121,11 +121,19 @@ class ChannelList extends React.Component {
 
   render () {
     const channelItems = this.props.channels.map((channel, idx) => (
-      <ChannelListItem channel={ channel } key={ idx } direct={ false }/>
+      <ChannelListItem channel={ channel }
+                       key={ idx }
+                       direct={ false }
+                       notifications={ this.props.notifications }
+                       requestDeleteNotifications={ this.props.requestDeleteNotifications}/>
     ));
 
     const directMessages = this.props.directMessages.map((message, idx) => (
-      <ChannelListItem channel={ message } key={ idx } direct={ true }/>
+      <ChannelListItem channel={ message }
+                       key={ idx }
+                       direct={ true }
+                       notifications={ this.props.notifications }
+                       requestDeleteNotifications={ this.props.requestDeleteNotifications}/>
     ));
 
     const modal = (

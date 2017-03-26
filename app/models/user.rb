@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :messages
   has_many :memberships
   has_many :reactions
-  has_many :notification
+  has_many :notifications
 
   has_many :channels,
     through: :memberships,
