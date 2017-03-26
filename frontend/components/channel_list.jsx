@@ -121,11 +121,11 @@ class ChannelList extends React.Component {
 
   render () {
     const channelItems = this.props.channels.map((channel, idx) => (
-      <ChannelListItem channel={ channel } key={ idx }/>
+      <ChannelListItem channel={ channel } key={ idx } direct={ false }/>
     ));
 
     const directMessages = this.props.directMessages.map((message, idx) => (
-      <MessageListItem message={ message } key={ idx }/>
+      <ChannelListItem channel={ message } key={ idx } direct={ true }/>
     ));
 
     const modal = (

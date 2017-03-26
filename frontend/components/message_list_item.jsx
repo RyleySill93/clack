@@ -1,12 +1,3 @@
-// <li id="message">
-//   <div id="active-icon">
-//     <div id="online"></div>
-//   </div>
-//   <div id="message-recipient">
-//     thebigl
-//   </div>
-// </li>
-
 import React from 'react';
 import { hashHistory, withRouter } from 'react-router';
 

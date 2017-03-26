@@ -6,4 +6,6 @@ class Channel < ApplicationRecord
 
   has_many :memberships
   has_many :messages
+  has_many :notifications
+
 end

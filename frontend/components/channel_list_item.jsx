@@ -17,11 +17,13 @@ class ChannelListItem extends React.Component {
       <li onClick={this.handleClick}
           id={this.props.params.channelId == this.props.channel.id ? "selected-channel" : "channel"}>
         <div id="hash-symbol">
-          #&nbsp;
+          { this.props.direct ? '@' : '#' }&nbsp;
         </div>
         <div id="message-name">
-          {this.props.channel.title}
+          <div>{this.props.channel.title}</div>
+          <div id="notification">3</div>
         </div>
+
       </li>
     );
   }

@@ -18,6 +18,17 @@
   display: flex;
 }*/
 
+#notification {
+  background-color: #EB4D5C;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  color: #fff;
+  margin-right: 3px;
+}
+
 #reactions {
   flex-grow: 0;
   display: flex;
@@ -1090,10 +1101,12 @@ html, body, root {
 }
 
 #message-name {
-  display: block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+  display: flex;
+  flex-grow: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  justify-content: space-between;
 }
 
 #chat-list {
