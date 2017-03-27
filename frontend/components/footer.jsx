@@ -85,6 +85,15 @@ class Footer extends React.Component {
     }
   }
 
+  footerId () {
+    const sidebarOpen = this.props.router.location.pathname.endsWith('details');
+    if (sidebarOpen) {
+      return "footer-small";
+    } else {
+      return "footer";
+    }
+  }
+
   render () {
     const giphySearch = (
       <GiphySearchContainer giphysOpen={this.state.giphysOpen}
@@ -99,7 +108,7 @@ class Footer extends React.Component {
                 );
 
     return (
-        <div id="footer">
+        <div id={ this.footerId() }>
           <form id="message-input-holder" onSubmit={this.handleSubmit}>
             <div id="message-input-field">
               <div id="add-giphy" onClick={this.toggleGiphysSearch}>

@@ -30,7 +30,6 @@ class Chatbox extends React.Component {
   }
 
   scrollToBottom () {
-    // $("#chat-list").animate({ scrollTop: $('#chat-list')[0].scrollHeight}, 5000);
     let chatList = $('#chat-list');
     if (chatList) {
       setTimeout(() => (

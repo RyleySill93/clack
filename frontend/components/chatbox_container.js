@@ -3,7 +3,7 @@ import Chatbox from './chatbox';
 import { requestGetMessages } from '../actions/message_actions';
 import values from 'lodash/values';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   const messages = state.messages || {};
   const currentChannel = state.currentChannel;
   return {
