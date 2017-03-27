@@ -13,10 +13,6 @@
  *= require_tree .
  *= require_self
  */
-/*
-#channel-add {
-  display: flex;
-}*/
 
 #notification {
   background-color: #EB4D5C;
@@ -372,7 +368,6 @@
 #login-modal {
   display: flex;
   justify-content: center;
-  /*flex-direction: column;*/
 }
 
 #login-errors {
@@ -447,7 +442,6 @@
 
 #member-lookup-form {
   display: flex;
-  /*justify-content: center;*/
 }
 
 #member-lookup-field {
@@ -573,6 +567,7 @@
   margin-right: 5px;
   font-size: 14px;
   cursor: pointer;
+  padding: 0px;
 }
 #login-signup button:focus {
   outline: none;
@@ -667,7 +662,7 @@ html, body, root {
   max-height: calc(100% - 81px);
   margin-top: 10px;
   overflow: scroll;
-
+  overflow-y: scroll;
 }
 
 #channels {
@@ -837,6 +832,8 @@ html, body, root {
 #chatbox {
   display: flex;
   flex-grow: 1;
+  max-height: 100%;
+  flex-direction: column;
 }
 
 #right-sidebar {
@@ -899,7 +896,6 @@ html, body, root {
   color: #555459;
   font-weight: 300;
   overflow: scroll;
-  /*height: 520px;*/
 }
 
 #member-list-item {
@@ -925,6 +921,7 @@ html, body, root {
 #main-content {
   display: flex;
   flex-grow: 1;
+  max-height: calc(100% - 64px);
 }
 
 #header-content {
@@ -1114,16 +1111,15 @@ html, body, root {
   padding-left: 0px;
   width: 100%;
   overflow: scroll;
-  margin: 0px 0px 16px 0px;
+  margin: 0px;
   padding-top: 8px;
-  /*align-self: flex-end;*/
 }
 
 #chats {
   display: flex;
   flex-grow: 1;
-  height: 94%;
-  /*align-items: flex-end;*/
+  max-height: calc(100% - 62px);
+  margin-bottom: 62px;
 }
 
 #chat-item {
@@ -1152,7 +1148,6 @@ html, body, root {
   background-color: white;
   display: flex;
   justify-content: space-around;
-  /*position: absolute;*/
   color: #555459;
   align-items: center;
 }
@@ -1185,7 +1180,7 @@ html, body, root {
 }
 
 #chat-item:last-child {
-  margin-bottom: 25px;
+  margin-bottom: 16px;
 }
 
 #chat-item:hover {

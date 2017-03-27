@@ -13,11 +13,18 @@
 
 
  */
-/*
-#channel-add {
-  display: flex;
-}*/
 
+
+#notification {
+  background-color: #EB4D5C;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  color: #fff;
+  margin-right: 3px;
+}
 
 #reactions {
   flex-grow: 0;
@@ -37,12 +44,31 @@
   margin: 6px 6px 0px 0px;
 }
 
+#reaction-selected{
+  padding: 1px 3px;
+  border: 1px solid rgba(79,176,252,.4);
+  display: flex;
+  flex-grow: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #4fb0fc;
+  font-size: 11px;
+  align-items: center;
+  margin: 6px 6px 0px 0px;
+  background-color: rgba(79,176,252,.08);
+}
+
 #reaction:hover {
   color: #4FB0FC;
   border-color: #4FB0FC;
 }
 
 #reaction img {
+  width: 16px;
+  height: 16px;
+  padding-right: 3px;
+}
+#reaction-selected img {
   width: 16px;
   height: 16px;
   padding-right: 3px;
@@ -343,7 +369,6 @@
 #login-modal {
   display: flex;
   justify-content: center;
-  /*flex-direction: column;*/
 }
 
 #login-errors {
@@ -418,7 +443,6 @@
 
 #member-lookup-form {
   display: flex;
-  /*justify-content: center;*/
 }
 
 #member-lookup-field {
@@ -544,6 +568,7 @@
   margin-right: 5px;
   font-size: 14px;
   cursor: pointer;
+  padding: 0px;
 }
 #login-signup button:focus {
   outline: none;
@@ -577,9 +602,14 @@ html, body, root {
 #team-header:hover {
   background-color: #3E313C;
   cursor: pointer;
+  color: white;
 }
 
 #team-header:hover div {
+  color: white;
+}
+
+#team-header:hover i {
   color: white;
 }
 
@@ -595,9 +625,6 @@ html, body, root {
 
 #team-name i {
   color: #a09a9f;
-}
-#team-name i:hover {
-  color: #fff;
 }
 
 #current-user {
@@ -636,6 +663,7 @@ html, body, root {
   max-height: calc(100% - 81px);
   margin-top: 10px;
   overflow: scroll;
+  overflow-y: scroll;
 }
 
 #channels {
@@ -805,6 +833,8 @@ html, body, root {
 #chatbox {
   display: flex;
   flex-grow: 1;
+  max-height: 100%;
+  flex-direction: column;
 }
 
 #right-sidebar {
@@ -867,7 +897,6 @@ html, body, root {
   color: #555459;
   font-weight: 300;
   overflow: scroll;
-  /*height: 520px;*/
 }
 
 #member-list-item {
@@ -893,6 +922,7 @@ html, body, root {
 #main-content {
   display: flex;
   flex-grow: 1;
+  max-height: calc(100% - 64px);
 }
 
 #header-content {
@@ -1069,10 +1099,12 @@ html, body, root {
 }
 
 #message-name {
-  display: block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+  display: flex;
+  flex-grow: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  justify-content: space-between;
 }
 
 #chat-list {
@@ -1080,15 +1112,15 @@ html, body, root {
   padding-left: 0px;
   width: 100%;
   overflow: scroll;
-  margin: 0px 0px 16px 0px;
+  margin: 0px;
   padding-top: 8px;
 }
 
 #chats {
   display: flex;
   flex-grow: 1;
-  height: 94%;
-  /*align-items: flex-end;*/
+  max-height: calc(100% - 62px);
+  margin-bottom: 62px;
 }
 
 #chat-item {
@@ -1117,7 +1149,6 @@ html, body, root {
   background-color: white;
   display: flex;
   justify-content: space-around;
-  /*position: absolute;*/
   color: #555459;
   align-items: center;
 }
@@ -1150,7 +1181,7 @@ html, body, root {
 }
 
 #chat-item:last-child {
-  margin-bottom: 25px;
+  margin-bottom: 16px;
 }
 
 #chat-item:hover {
