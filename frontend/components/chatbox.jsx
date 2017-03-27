@@ -53,11 +53,9 @@ class Chatbox extends React.Component {
 
     return (
       <div id="chatbox">
-        <div id="chats">
-          <ul id="chat-list">
-            { list.length > 0 ? list : defaultMessage }
-          </ul>
-        </div>
+        <ul id="chat-list">
+          { list.length > 0 ? list : defaultMessage }
+        </ul>
         <FooterContainer />
       </div>
     );

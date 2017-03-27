@@ -1113,11 +1113,6 @@ html, body, root {
   overflow: scroll;
   margin: 0px;
   padding-top: 8px;
-}
-
-#chats {
-  display: flex;
-  flex-grow: 1;
   max-height: calc(100% - 62px);
   margin-bottom: 62px;
 }
