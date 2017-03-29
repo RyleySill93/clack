@@ -14,6 +14,14 @@
  *= require_self
  */
 
+ #fake-client {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  position: absolute;
+ }
+
 #loader-holder {
   display: flex;
   flex-grow: 1;
@@ -48,6 +56,7 @@
 }
 
 #fake-main {
+  background-color: white;
   display: flex;
   margin: 0px;
   box-sizing: border-box;

@@ -21,8 +21,9 @@ class Client extends React.Component {
   render () {
     return (
       <div id="client">
-        { this.props.loading ? <LoadingScreen /> : <Sidebar /> }
-        { this.props.loading ? "" : <Main /> }
+        <Sidebar />
+        <Main />
+        { this.props.loading ? <LoadingScreen /> : "" }
       </div>
     );
   }

@@ -12,11 +12,11 @@ class Chatbox extends React.Component {
   }
 
   componentWillMount () {
-    this.props.requestGetMessages(this.props.params.channelId);
   }
 
   componentDidMount () {
     this.scrollToBottom();
+    this.props.requestGetMessages(this.props.params.channelId);
   }
 
   componentWillUpdate () {

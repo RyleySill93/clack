@@ -12,7 +12,7 @@ const loader = (
 );
 
 const LoadingScreen = () => (
-  <div id="client">
+  <div id="fake-client">
     <div id="sidebar">
       <div id="fake-container">
         <div className="fake" id="fake-long-bar"></div>

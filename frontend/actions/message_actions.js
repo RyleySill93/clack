@@ -23,8 +23,8 @@ export const requestGetMessages = (channelId) => (dispatch) => {
   return getMessages(channelId)
     .then(messages => {
       console.log('received messages');
-      dispatch(receiveAllMessages(messages));
       dispatch(receiveLoadingState(false));
+      dispatch(receiveAllMessages(messages));
     });
 };
 
