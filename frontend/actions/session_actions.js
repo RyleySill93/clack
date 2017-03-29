@@ -4,6 +4,7 @@ import { signup,
          postNotification,
          deleteNotifications } from '../util/session_api_util';
 import { hashHistory } from 'react-router';
+import { receiveLoadingState } from './loading_actions';
 
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
@@ -43,17 +44,21 @@ export const receiveChannel = (channelId) => ({
 });
 
 //thunk action creators
-export const requestSignup = (user) => (dispatch) => (
-  signup(user)
-    .then(currentUser => dispatch(receiveCurrentUser(currentUser)))
-    .fail(errors => dispatch(receiveErrors(errors)))
-);
+export const requestSignup = (user) => (dispatch) => {
+  dispatch(receiveLoadingState(true));
+  return signup(user).then(currentUser => {
+    dispatch(receiveLoadingState(false));
+    return dispatch(receiveCurrentUser(currentUser));
+  }).fail(errors => dispatch(receiveErrors(errors)));
+};
 
-export const requestLogin = (user) => (dispatch) => (
-  login(user)
-    .then(currentUser => dispatch(receiveCurrentUser(currentUser)))
-    .fail(errors => dispatch(receiveErrors(errors)))
-);
+export const requestLogin = (user) => (dispatch) => {
+  dispatch(receiveLoadingState(true));
+  return login(user).then(currentUser => {
+    dispatch(receiveCurrentUser(currentUser));
+    dispatch(receiveLoadingState(false));
+  }).fail(errors => dispatch(receiveErrors(errors)));
+};
 
 export const requestLogout = () => (dispatch) => (
   logout().then(success =>  dispatch(receiveLogout()))

@@ -5,7 +5,7 @@ import channelReducer from './channel_reducer';
 import currentChannelReducer from './current_channel_reducer';
 import userReducer from './user_reducer';
 import giphysReducer from './giphys_reducer';
-
+import loadingReducer from './loading_reducer';
 
 export default combineReducers({
   session: sessionReducer,
@@ -13,5 +13,6 @@ export default combineReducers({
   channels: channelReducer,
   users: userReducer,
   currentChannel: currentChannelReducer,
-  giphys: giphysReducer
+  giphys: giphysReducer,
+  loading: loadingReducer
 });

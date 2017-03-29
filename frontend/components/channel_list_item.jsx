@@ -18,7 +18,6 @@ class ChannelListItem extends React.Component {
   }
 
   removeNotifications () {
-    console.log('removing notifications');
     this.props.requestDeleteNotifications(this.props.channel.id);
   }
 
