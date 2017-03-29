@@ -6,11 +6,9 @@ import values from 'lodash/values';
 const mapStateToProps = (state, ownProps) => {
   const messages = state.messages || {};
   const currentChannel = state.currentChannel;
-  const loading = state.loading;
   return {
            messages: values(messages),
-           currentChannel,
-           loading
+           currentChannel
          };
 };
 

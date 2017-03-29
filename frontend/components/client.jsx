@@ -3,6 +3,7 @@ import Sidebar from './sidebar';
 import Main from './main';
 import { connect } from 'react-redux';
 import { requestCurrentChannel } from '../actions/current_channel_actions';
+import LoadingScreen from './loading_screen';
 
 
 class Client extends React.Component {
@@ -27,7 +28,8 @@ class Client extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  channelId: ownProps.params.channelId
+  channelId: ownProps.params.channelId,
+  loading: state.loading
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -35,5 +37,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect (mapStateToProps, mapDispatchToProps)(Client);
-// <Sidebar />
-// <Main />
+
+// { this.props.loading ? <LoadingScreen /> : <Sidebar /> }
+// { this.props.loading ? "" : <Main /> }

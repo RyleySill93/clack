@@ -8,7 +8,6 @@ class Chatbox extends React.Component {
   constructor(props) {
     super(props);
     this.scrollToBottom = this.scrollToBottom.bind(this);
-    this.loader = this.loader.bind(this);
     this.chatList = this.chatList.bind(this);
   }
 
