@@ -8,7 +8,8 @@ import { requestPostMessage } from '../actions/message_actions';
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: (state.session.currentUser ? true : false),
-  errors: values(values(state.session.errors.responseJSON))
+  errors: values(values(state.session.errors.responseJSON)),
+  loading: state.loading
 });
 
 const mapDispatchToProps = (dispatch) => ({

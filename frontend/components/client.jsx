@@ -20,8 +20,7 @@ class Client extends React.Component {
   render () {
     return (
       <div id="client">
-        <Sidebar />
-        <Main />
+        <LoadingScreen />
       </div>
     );
   }
@@ -36,3 +35,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect (mapStateToProps, mapDispatchToProps)(Client);
+// <Sidebar />
+// <Main />

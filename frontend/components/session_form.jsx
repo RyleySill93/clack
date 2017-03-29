@@ -35,6 +35,7 @@ class SessionForm extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.demoLogin = this.demoLogin.bind(this);
+    this.modalContent = this.modalContent.bind(this);
     this.createFakeUsername = this.createFakeUsername.bind(this);
   }
 
@@ -121,14 +122,43 @@ class SessionForm extends React.Component {
     }
   }
 
-  render () {
-    const log = <Link to="/">Log In</Link>;
-    const sign = <Link to="/">Sign Up</Link>;
+  modalContent () {
     let errors = this.props.errors.map((error) => (
       <li>
         <i className="fa fa-exclamation-circle" aria-hidden="true"></i>&nbsp;
         {error}
       </li>));
+
+    return (
+      <form id="login-form" onSubmit={this.handleSubmit}>
+        <h1>{this.state.modalType}</h1>
+        <p>Enter your <b>username</b> and <b>password</b>.</p>
+        <input type="text"
+               onChange={this.handleChange}
+               id="username"
+               placeholder="Username"
+               value={this.state.username}></input>
+             <input type="password"
+               onChange={this.handleChange}
+               id="password"
+               placeholder="Password"
+               value={this.state.password}></input>
+             <input id="login-button" type="submit" value={this.state.modalType}></input>
+             { prompt }
+             <ul id="login-errors">{ errors }</ul>
+      </form>
+    );
+  }
+
+  loader () {
+    return (
+      <div className="loader">Loading...</div>
+    );
+  }
+
+  render () {
+    const log = <Link to="/">Log In</Link>;
+    const sign = <Link to="/">Sign Up</Link>;
 
     const login = (
       <div id="prompt">
@@ -157,32 +187,16 @@ class SessionForm extends React.Component {
           <button onClick={this.handleClick} id="login">Login</button>
           <button onClick={this.handleClick} id="signup">Sign up</button>
           <button onClick={this.handleClick} id="demo">Demo</button>
-          <Modal
-            isOpen={this.state.modalIsOpen}
-            onRequestClose={this.closeModal}
-            style={ customStyles }
-            contentLabel="Example Modal">
+            <Modal
+              isOpen={this.state.modalIsOpen}
+              onRequestClose={this.closeModal}
+              style={ customStyles }
+              contentLabel="Example Modal">
 
-            <div id="login-modal">
-              <form id="login-form" onSubmit={this.handleSubmit}>
-                <h1>{this.state.modalType}</h1>
-                <p>Enter your <b>username</b> and <b>password</b>.</p>
-                <input type="text"
-                       onChange={this.handleChange}
-                       id="username"
-                       placeholder="Username"
-                       value={this.state.username}></input>
-                     <input type="password"
-                       onChange={this.handleChange}
-                       id="password"
-                       placeholder="Password"
-                       value={this.state.password}></input>
-                     <input id="login-button" type="submit" value={this.state.modalType}></input>
-                     { prompt }
-                     <ul id="login-errors">{ errors }</ul>
-              </form>
-            </div>
-          </Modal>
+              <div id="login-modal">
+                { this.props.loading ? this.loader() : this.modalContent()}
+              </div>
+            </Modal>
         </nav>
       </header>
     );

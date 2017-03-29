@@ -11,9 +11,7 @@ class ChannelListItem extends React.Component {
 
   handleClick (e) {
     e.preventDefault();
-    // if (this.notifications.length > 0) {
-      this.removeNotifications();
-    // }
+    this.removeNotifications();
     hashHistory.push(`/messages/${this.props.channel.id}/details`);
   }
 

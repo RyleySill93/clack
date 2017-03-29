@@ -8,6 +8,8 @@ class Chatbox extends React.Component {
   constructor(props) {
     super(props);
     this.scrollToBottom = this.scrollToBottom.bind(this);
+    this.loader = this.loader.bind(this);
+    this.chatList = this.chatList.bind(this);
   }
 
   componentWillMount () {
@@ -39,7 +41,7 @@ class Chatbox extends React.Component {
     }
   }
 
-  render () {
+  chatList () {
     const list = this.props.messages.map((message, idx) => (
       <ChatItemContainer key={idx} message={message}/>));
     const firstMembers = this.props.currentChannel.members.slice(0, 7)
@@ -50,11 +52,14 @@ class Chatbox extends React.Component {
         This is the very beginning of your message history.
       </li>
     );
+    return (list.length > 0 ? list : defaultMessage);
+  }
 
+  render () {
     return (
       <div id="chatbox">
         <ul id="chat-list">
-          { list.length > 0 ? list : defaultMessage }
+          { this.chatList() }
         </ul>
         <FooterContainer />
       </div>

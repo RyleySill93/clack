@@ -3,6 +3,7 @@ import { postMessage,
          deleteMessage,
          updateMessage } from '../util/message_api_util';
 import { postReaction, deleteReaction } from '../util/reaction_api_util';
+import { receiveLoadingState } from './loading_actions';
 
 export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 export const RECEIVE_ALL_MESSAGES = 'RECEIVE_ALL_MESSAGES';
@@ -17,10 +18,14 @@ export const requestPostMessageToStore = (message) => (dispatch) => (
   dispatch(receiveMessage(message))
 );
 
-export const requestGetMessages = (channelId) => (dispatch) => (
-  getMessages(channelId)
-    .then(messages => dispatch(receiveAllMessages(messages)))
-);
+export const requestGetMessages = (channelId) => (dispatch) => {
+  dispatch(receiveLoadingState(true));
+  return getMessages(channelId)
+    .then(messages => {
+      dispatch(receiveAllMessages(messages));
+      dispatch(receiveLoadingState(false));
+    });
+};
 
 export const requestRemoveMessage = (messageId) => (dispatch) => (
   deleteMessage(messageId)
