@@ -1,12 +1,14 @@
 import React from 'react';
 
 const loader = (
+  <div id="loader-holder">
     <div id="loader">
-      <div id="loading-text">Loading...
-        <div className="loader">Loading...</div>
-      </div>
-
+      <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png"
+        width="50px" height="50px"/>
+      <div id="loading-text">Loading ...</div>
+      <div className="loader">Loading...</div>
     </div>
+  </div>
 );
 
 const LoadingScreen = () => (

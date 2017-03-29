@@ -21,7 +21,8 @@ class Client extends React.Component {
   render () {
     return (
       <div id="client">
-        <LoadingScreen />
+        { this.props.loading ? <LoadingScreen /> : <Sidebar /> }
+        { this.props.loading ? "" : <Main /> }
       </div>
     );
   }
@@ -37,6 +38,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect (mapStateToProps, mapDispatchToProps)(Client);
-
-// { this.props.loading ? <LoadingScreen /> : <Sidebar /> }
-// { this.props.loading ? "" : <Main /> }
