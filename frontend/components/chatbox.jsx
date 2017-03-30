@@ -7,7 +7,6 @@ class Chatbox extends React.Component {
 
   constructor(props) {
     super(props);
-    this.scrollToBottom = this.scrollToBottom.bind(this);
     this.chatList = this.chatList.bind(this);
   }
 
@@ -16,30 +15,15 @@ class Chatbox extends React.Component {
     this.props.receiveLoadingState('client');
   }
 
-  componentDidMount () {
-    this.scrollToBottom();
-  }
-
-  componentWillUpdate () {
-    this.scrollToBottom();
-  }
-
   componentWillReceiveProps (nextProps) {
     if (nextProps.params.channelId !== this.props.params.channelId) {
       this.props.receiveLoadingState('chatbox');
       this.props.requestGetMessages(nextProps.params.channelId);
-      this.scrollToBottom();
     }
   }
 
-  scrollToBottom () {
-    let chatList = $('#chat-list');
-    if (chatList) {
-      setTimeout(() => (
-        chatList.scrollTop(chatList[0]
-          .scrollHeight - chatList[0].clientHeight)
-        ), 10);
-    }
+  componentDidUpdate() {
+    this.mgs.scrollTop = 99999;
   }
 
   chatList () {
@@ -58,7 +42,7 @@ class Chatbox extends React.Component {
 
   chatboxContent () {
     return (
-      <ul id="chat-list">
+      <ul id="chat-list" ref={ r => {this.mgs = r;} }>
         { this.chatList() }
       </ul>
     );
