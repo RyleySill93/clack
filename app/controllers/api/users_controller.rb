@@ -4,6 +4,8 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     @user.image = Faker::Avatar.image
     if @user.save
+      login(@user)
+      render :show
       a = Channel.create!(title: User.find(51).username, kind: 'direct')
       Membership.create!(user_id: @user.id, channel_id: a.id)
       Membership.create!(user_id: 51, channel_id: a.id)
@@ -21,8 +23,6 @@ class Api::UsersController < ApplicationController
         end
       end
 
-      login(@user)
-      render :show
     else
       render json: @user.errors.full_messages, status: 422
     end

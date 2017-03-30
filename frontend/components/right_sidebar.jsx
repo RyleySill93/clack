@@ -7,11 +7,33 @@ class RightSidebar extends React.Component {
   constructor (props) {
     super(props);
     this.exitSidebar = this.exitSidebar.bind(this);
+    this.memberList = this.memberList.bind(this);
   }
 
   exitSidebar (e) {
     e.preventDefault();
     hashHistory.push(`/messages/${this.props.currentChannel.id}`);
+  }
+
+  loader () {
+    return (
+      <div id="loader-holder">
+        <div id="loader">
+          <div className="loader">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
+  memberList () {
+    const memberList = this.props.currentChannel.members.map((member, idx) => (
+      <MemberListItem member={member} key={idx} />));
+
+    return (
+      <ul id="member-list">
+        {memberList}
+      </ul>
+    );
   }
 
   render () {
@@ -24,8 +46,7 @@ class RightSidebar extends React.Component {
         title = 'About this conversation';
       }
     }
-    const memberList = this.props.currentChannel.members.map((member, idx) => (
-      <MemberListItem member={member} key={idx} />));
+
     return (
       <div id="right-sidebar">
         <div id="right-sidebar-header">
@@ -40,9 +61,7 @@ class RightSidebar extends React.Component {
               Members
             </div>
           </div>
-          <ul id="member-list">
-            {memberList}
-          </ul>
+          { this.props.loading === 'chatbox' ? this.loader() : this.memberList() }
         </div>
       </div>
     );

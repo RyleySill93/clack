@@ -19,10 +19,9 @@ export const requestPostMessageToStore = (message) => (dispatch) => (
 );
 
 export const requestGetMessages = (channelId) => (dispatch) => {
-  dispatch(receiveLoadingState(true));
+  // dispatch(receiveLoadingState('client'));
   return getMessages(channelId)
     .then(messages => {
-      console.log('received messages');
       dispatch(receiveLoadingState(false));
       dispatch(receiveAllMessages(messages));
     });

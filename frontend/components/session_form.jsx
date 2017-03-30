@@ -3,6 +3,7 @@ import { Link, withRouter, hashHistory } from 'react-router';
 import Modal from 'react-modal';
 import { getFakeName } from '../util/session_api_util.js';
 import { fakeChat } from './fake_chat';
+import LoadingScreen from './loading_screen';
 
 const customStyles = {
   overlay : {
@@ -36,6 +37,7 @@ class SessionForm extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.demoLogin = this.demoLogin.bind(this);
     this.modalContent = this.modalContent.bind(this);
+    this.splash = this.splash.bind(this);
     this.createFakeUsername = this.createFakeUsername.bind(this);
   }
 
@@ -122,6 +124,29 @@ class SessionForm extends React.Component {
     }
   }
 
+  splash () {
+    return (
+      <header id="splash-header">
+        <img id="logo" src={'http://res.cloudinary.com/dwqeotsx5/image/upload/v1489542773/clack_monochrome_white_n5w0fo.png'} height="68px" />
+        <nav id="login-signup">
+          <button onClick={this.handleClick} id="login">Login</button>
+          <button onClick={this.handleClick} id="signup">Sign up</button>
+          <button onClick={this.handleClick} id="demo">Demo</button>
+            <Modal
+              isOpen={this.state.modalIsOpen}
+              onRequestClose={this.closeModal}
+              style={ customStyles }
+              contentLabel="Example Modal">
+
+              <div id="login-modal">
+                { this.modalContent()}
+              </div>
+            </Modal>
+        </nav>
+      </header>
+    );
+  }
+
   modalContent () {
     let errors = this.props.errors.map((error) => (
       <li>
@@ -150,12 +175,6 @@ class SessionForm extends React.Component {
     );
   }
 
-  loader () {
-    return (
-      <div className="loader">Loading...</div>
-    );
-  }
-
   render () {
     const log = <Link to="/">Log In</Link>;
     const sign = <Link to="/">Sign Up</Link>;
@@ -181,24 +200,7 @@ class SessionForm extends React.Component {
     const prompt = this.state.modalType ==='Login' ? signup : login;
 
     return (
-      <header id="splash-header">
-        <img id="logo" src={'http://res.cloudinary.com/dwqeotsx5/image/upload/v1489542773/clack_monochrome_white_n5w0fo.png'} height="68px" />
-        <nav id="login-signup">
-          <button onClick={this.handleClick} id="login">Login</button>
-          <button onClick={this.handleClick} id="signup">Sign up</button>
-          <button onClick={this.handleClick} id="demo">Demo</button>
-            <Modal
-              isOpen={this.state.modalIsOpen}
-              onRequestClose={this.closeModal}
-              style={ customStyles }
-              contentLabel="Example Modal">
-
-              <div id="login-modal">
-                { this.props.loading ? this.loader() : this.modalContent()}
-              </div>
-            </Modal>
-        </nav>
-      </header>
+      this.props.loading === 'client' ? <LoadingScreen /> : this.splash()
     );
   }
 }

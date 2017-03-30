@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const loader = (
   <div id="loader-holder">
     <div id="loader">

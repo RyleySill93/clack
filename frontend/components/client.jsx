@@ -23,7 +23,7 @@ class Client extends React.Component {
       <div id="client">
         <Sidebar />
         <Main />
-        { this.props.loading ? <LoadingScreen /> : "" }
+        { this.props.loading === 'client' ? <LoadingScreen /> : "" }
       </div>
     );
   }

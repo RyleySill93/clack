@@ -12,11 +12,12 @@ class Chatbox extends React.Component {
   }
 
   componentWillMount () {
+    this.props.requestGetMessages(this.props.params.channelId);
+    this.props.receiveLoadingState('client');
   }
 
   componentDidMount () {
     this.scrollToBottom();
-    this.props.requestGetMessages(this.props.params.channelId);
   }
 
   componentWillUpdate () {
@@ -25,6 +26,7 @@ class Chatbox extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.params.channelId !== this.props.params.channelId) {
+      this.props.receiveLoadingState('chatbox');
       this.props.requestGetMessages(nextProps.params.channelId);
       this.scrollToBottom();
     }
@@ -54,12 +56,31 @@ class Chatbox extends React.Component {
     return (list.length > 0 ? list : defaultMessage);
   }
 
+  chatboxContent () {
+    return (
+      <ul id="chat-list">
+        { this.chatList() }
+      </ul>
+    );
+  }
+
+  loader () {
+    return (
+      <div id="loader-holder">
+        <div id="loader">
+          <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png"
+            width="50px" height="50px"/>
+          <div id="loading-text">Loading ...</div>
+          <div className="loader">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
   render () {
     return (
       <div id="chatbox">
-        <ul id="chat-list">
-          { this.chatList() }
-        </ul>
+        { this.props.loading === 'chatbox' ? this.loader() : this.chatboxContent() }
         <FooterContainer />
       </div>
     );
