@@ -23,7 +23,7 @@ class Chatbox extends React.Component {
   }
 
   componentDidUpdate() {
-    this.mgs.scrollTop = 99999;
+    if (this.chats) { this.chats.scrollTop = 99999; }
   }
 
   chatList () {
@@ -42,7 +42,7 @@ class Chatbox extends React.Component {
 
   chatboxContent () {
     return (
-      <ul id="chat-list" ref={ r => {this.mgs = r;} }>
+      <ul id="chat-list" ref={ r => {this.chats = r;} }>
         { this.chatList() }
       </ul>
     );
