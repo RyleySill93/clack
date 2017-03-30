@@ -28,6 +28,7 @@ class TeamHeader extends React.Component {
   }
 
   handleClick (e) {
+    console.log('handling click');
     if (e) { e.preventDefault(); }
     this.props.requestLogout();
   }
@@ -43,7 +44,7 @@ class TeamHeader extends React.Component {
   render () {
     const modal = <UserDetail currentUser={this.props.currentUser}
                               openModal={this.openModal}
-                              handleClick={this.props.handleClick}/>;
+                              handleClick={this.handleClick}/>;
 
     return (
       <div>

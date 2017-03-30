@@ -215,8 +215,6 @@ class ChannelModal extends React.Component {
                value={this.state.channelName}></input>
       </div>);
 
-    const modalTitle = this.state.channelType === "channel" ? addChannel : <h1>Direct Messages</h1>;
-
     if (this.state.modalIsOpen) {
       return (
         <Modal
@@ -230,7 +228,8 @@ class ChannelModal extends React.Component {
           <div id="DM-lookup-container">
 
             <div id="lookup-info">
-              {modalTitle}
+              <h1>{ this.state.channelType === "channel" ? "New Channel" : "New Direct Message" }</h1>
+              { this.state.channelType === "channel" ? addChannel : ""}
               <form id="member-lookup-form" onSubmit={this.createChannel}>
                 <div id="member-lookup-field">
                   {selectedMembers}
@@ -243,7 +242,7 @@ class ChannelModal extends React.Component {
                 <input id="DM-submit" type="submit" value="Go"></input>
               </form>
               <ul id="user-lookup-matches">
-                {userMatches}
+                { userMatches }
               </ul>
             </div>
           </div>

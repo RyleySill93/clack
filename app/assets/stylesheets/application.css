@@ -628,6 +628,7 @@
 }
 
 #DM-lookup-container {
+  max-height: 91%;
   margin-top: 9%;
   display: flex;
   flex-direction: column;

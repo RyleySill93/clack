@@ -12,7 +12,11 @@ class ChannelListItem extends React.Component {
   handleClick (e) {
     e.preventDefault();
     this.removeNotifications();
-    hashHistory.push(`/messages/${this.props.channel.id}/details`);
+    if (this.props.location.pathname.endsWith('details')) {
+      hashHistory.push(`/messages/${this.props.channel.id}/details`);
+    } else {
+      hashHistory.push(`/messages/${this.props.channel.id}`);
+    }
   }
 
   removeNotifications () {
