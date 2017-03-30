@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import { hashHistory } from 'react-router';
 import { logout } from '../util/session_api_util';
 import AlertContainer from 'react-alert';
+import UserDetail from './user_detail';
 
 class TeamHeader extends React.Component {
 
@@ -22,16 +23,12 @@ class TeamHeader extends React.Component {
   }
 
   openModal (e) {
-    e.preventDefault();
-    if (this.state.modalIsOpen) {
-      this.setState({ modalIsOpen: false });
-    } else {
-      this.setState({ modalIsOpen: true });
-    }
+    if (e) { e.preventDefault(); }
+    this.setState({ modalIsOpen: !this.state.modalIsOpen });
   }
 
   handleClick (e) {
-    e.preventDefault();
+    if (e) { e.preventDefault(); }
     this.props.requestLogout();
   }
 
@@ -44,29 +41,9 @@ class TeamHeader extends React.Component {
   }
 
   render () {
-    const modal = (
-      <div id="user-detail">
-        <span id="user-detail-header">
-          <div id="user-info">
-            <img src={this.props.currentUser.image} />
-            <div id="username-info">
-              <div id="normal-username">
-                { this.props.currentUser.username }
-              </div>
-              <div id="at-username">
-                @{ this.props.currentUser.username }
-              </div>
-            </div>
-          </div>
-          <div id="exit-user-detail"  onClick={this.openModal}>
-            <i className="fa fa-times" aria-hidden="true"></i>
-          </div>
-        </span>
-          <span id="logout" onClick={ this.handleClick }>
-            Logout
-          </span>
-      </div>
-    );
+    const modal = <UserDetail currentUser={this.props.currentUser}
+                              openModal={this.openModal}
+                              handleClick={this.props.handleClick}/>;
 
     return (
       <div>
