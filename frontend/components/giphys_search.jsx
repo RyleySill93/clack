@@ -14,6 +14,11 @@ class GiphysSearch extends React.Component {
     this.props.fetchSearchGiphys("gif");
   }
 
+  componentDidUpdate () {
+    const search = document.getElementById("giphy-input");
+    if (search) { search.focus(); }
+  }
+
   handleChange (e) {
     e.preventDefault();
     this.setState({ searchTerm: e.target.value });

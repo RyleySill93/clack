@@ -915,8 +915,6 @@ html, body, root {
   margin-top: 4px;
   display: flex;
   flex-grow: 1;
-  min-height: 28px;
-  max-height: 28px;
 }
 
 #member-input {

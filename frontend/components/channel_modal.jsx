@@ -54,11 +54,23 @@ class ChannelModal extends React.Component {
     }
   }
 
+  componentDidUpdate () {
+    const memberInput = document.getElementById("member-input");
+    const channelName = document.getElementById("channel-input");
+    console.log("member input", memberInput);
+    if (channelName) {
+      channelName.focus();
+    } else if (memberInput) {
+      memberInput.focus();
+    }
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.modalIsOpen !== this.props.modalIsOpen) {
       this.setState({ modalIsOpen: nextProps.modalIsOpen,
                       channelType: nextProps.channelType });
     }
+
   }
 
   createChannel(e) {
