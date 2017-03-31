@@ -4,10 +4,22 @@ import emojiMap from 'react-emoji-picker/lib/emojiMap';
 import EnhanceWithClickOutside from 'react-click-outside';
 
 // styles for the emoji picker wrapper
-let emojiPickerStyles = {
+let styleOne = {
   position: 'absolute',
   right: '30px',
   bottom: '70px',
+  backgroundColor: 'white',
+  width: '344px',
+  height: '270px',
+  padding: '.3em .6em',
+  border: '1px solid silver',
+  zIndex: '2',
+  borderRadius: '5px'
+};
+let styleTwo = {
+  position: 'absolute',
+  right: '50%',
+  bottom: '50%',
   backgroundColor: 'white',
   width: '344px',
   height: '270px',
@@ -45,8 +57,8 @@ class MyEmojiInput extends React.Component {
     if(this.state.emojisOpen) {
       return (
         <EmojiPicker
-          style={emojiPickerStyles} onSelect={this.setEmoji}
-        />
+          style={this.props.style === 'chat' ? styleTwo : styleOne }
+          onSelect={this.setEmoji} />
       );
     }
   }

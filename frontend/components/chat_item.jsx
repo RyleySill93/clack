@@ -141,7 +141,8 @@ class ChatItem extends React.Component {
       const emojiPicker = (
         <EmojiPicker emojisOpen={this.state.emojisOpen}
           addEmojiToReactions={this.addEmojiToReactions}
-          toggleEmojiPicker={this.toggleEmojiPicker}/>
+          toggleEmojiPicker={this.toggleEmojiPicker}
+          style='chat'/>
       );
     return (
 

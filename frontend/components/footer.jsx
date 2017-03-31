@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import MyEmojiInput from './emoji_test';
 import GiphySearchContainer from './giphys_search_container';
+import { fetchSingleGiphy } from '../util/giphy_api_util';
 
 class Footer extends React.Component {
 
@@ -61,7 +62,21 @@ class Footer extends React.Component {
   }
 
   parseGifUrl (body) {
+    let posted = false;
     body.split(" ").forEach((word, idx) => {
+      if (word === "/giphy" && idx === 0) {
+        posted = true;
+        const searchTerm = body.split(" ").slice(1, body.length).join(" ");
+        let giphy;
+        fetchSingleGiphy(searchTerm)
+          .then(res => {
+            giphy = res.data[0].images.fixed_height.url;
+            this.state.gif_url = giphy;
+            this.state.body = "";
+            this.props.requestPostMessage(this.state);
+            this.state.gif_url = "";
+          });
+      }
       if (word.startsWith('giphy:')) {
         this.state.gif_url = word.slice(6, word.length);
         const newBody = this.state.body.split(" ");
@@ -69,7 +84,9 @@ class Footer extends React.Component {
         this.state.body = newBody.join(" ");
       }
     });
-    this.props.requestPostMessage(this.state);
+    if (!posted) {
+      this.props.requestPostMessage(this.state);
+    }
   }
 
   handleSubmit (e) {

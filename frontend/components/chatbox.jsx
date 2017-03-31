@@ -15,6 +15,10 @@ class Chatbox extends React.Component {
     this.props.receiveLoadingState('client');
   }
 
+  componentDidUpdate () {
+    if (this.chats) { this.chats.scrollTop = 99999; }
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.params.channelId !== this.props.params.channelId) {
       this.props.receiveLoadingState('chatbox');
@@ -22,7 +26,7 @@ class Chatbox extends React.Component {
     }
   }
 
-  componentDidUpdate() {
+  scrollToBottom() {
     if (this.chats) { this.chats.scrollTop = 99999; }
   }
 

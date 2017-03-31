@@ -99,7 +99,6 @@ class GiphysSearch extends React.Component {
     return (
       <div id="giphys-search-holder">
         { this.state.giphysOpen ? this.showGiphysSearch() : ""}
-
       </div>
     );
   }

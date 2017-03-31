@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Footer from './footer';
 import { requestPostMessage } from '../actions/message_actions';
+import { requestSingleGif } from '../actions/giphy_actions';
 
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,

@@ -1,4 +1,4 @@
-import { fetchSearchGiphys } from '../util/giphy_api_util';
+import { fetchSearchGiphys, fetchSingleGif } from '../util/giphy_api_util';
 export const RECEIVE_ALL_GIPHYS = 'RECEIVE_ALL_GIPHYS';
 import { receiveLoadingState } from './loading_actions';
 
