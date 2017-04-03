@@ -140,7 +140,7 @@ class ChannelModal extends React.Component {
       msg.show(err, {
         time: 2000,
         type: 'success',
-        icon: <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
+        icon: <img src="https://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
       })
     ));
   }
@@ -150,7 +150,7 @@ class ChannelModal extends React.Component {
       msg.show(err, {
         time: 2000,
         type: 'success',
-        icon: <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
+        icon: <img src="https://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
       })
     ));
   }

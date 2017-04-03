@@ -127,7 +127,7 @@ class SessionForm extends React.Component {
   splash () {
     return (
       <header id="splash-header">
-        <img id="logo" src={'http://res.cloudinary.com/dwqeotsx5/image/upload/v1489542773/clack_monochrome_white_n5w0fo.png'} height="68px" />
+        <img id="logo" src={'https://res.cloudinary.com/dwqeotsx5/image/upload/v1489542773/clack_monochrome_white_n5w0fo.png'} height="68px" />
         <nav id="login-signup">
           <button onClick={this.handleClick} id="login">Login</button>
           <button onClick={this.handleClick} id="signup">Sign up</button>

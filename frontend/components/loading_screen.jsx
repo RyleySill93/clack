@@ -4,7 +4,7 @@ import React from 'react';
 const loader = (
   <div id="loader-holder">
     <div id="loader">
-      <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png"
+      <img src="https://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png"
         width="50px" height="50px"/>
       <div id="loading-text">Loading ...</div>
       <div className="loader">Loading...</div>

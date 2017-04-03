@@ -82,7 +82,7 @@ class GiphysSearch extends React.Component {
     return (
       <form id="giphy-search" onSubmit={this.handleSubmit}>
         <img id="giphy-logo"
-          src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490215417/Giphy_Logo_lobqbg.png" />
+          src="https://res.cloudinary.com/dwqeotsx5/image/upload/v1490215417/Giphy_Logo_lobqbg.png" />
         { this.props.loading === 'giphys' ? this.loader() : this.giphysHolder() }
         <input type="text"
           id="giphy-input"

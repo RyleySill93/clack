@@ -61,7 +61,7 @@ class ChannelList extends React.Component {
     msg.show(message, {
       time: 4000,
       type: 'success',
-      icon: <img src="http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
+      icon: <img src="https://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png" width="32px" height="32px"/>
     });
   }
 
@@ -74,8 +74,10 @@ class ChannelList extends React.Component {
       disconnected: () => {},
       received: (data) => {
         if (data.message.channel_id === this.props.currentChannel.id) {
+          console.log('not sending alert');
           this.props.receiveMessage(data.message);
         } else {
+          console.log('sending alert');
           this.sendAlert(data);
         }
       }
