@@ -135,6 +135,7 @@ class ChatItem extends React.Component {
 
     const gif = (
       <div id="chat-gif-holder">
+        <div id="left-bar"></div>
         <img id="chat-gif" src={this.props.message.gif_url} />
       </div>);
 

@@ -278,8 +278,14 @@
 }
 
 #chat-gif-holder {
-  border-left: 4px solid #E8E8E8;
   margin-top: 10px;
+  display: flex;
+}
+
+#left-bar {
+  width: 4px;
+  background-color: #E8E8E8;
+  height: 200px;
 }
 
 #chat-gif {
