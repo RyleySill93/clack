@@ -8,6 +8,7 @@ class Chatbox extends React.Component {
   constructor(props) {
     super(props);
     this.chatList = this.chatList.bind(this);
+    this.checkUpdate = this.checkUpdate.bind(this);
   }
 
   componentWillMount () {
@@ -15,8 +16,10 @@ class Chatbox extends React.Component {
     this.props.receiveLoadingState('client');
   }
 
-  componentDidUpdate () {
-    if (this.chats) { this.chats.scrollTop = 99999; }
+  componentDidUpdate (prevProps) {
+    if (this.chats && this.checkUpdate(prevProps)) {
+      this.chats.scrollTop = 99999;
+    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -26,8 +29,21 @@ class Chatbox extends React.Component {
     }
   }
 
-  scrollToBottom() {
-    if (this.chats) { this.chats.scrollTop = 99999; }
+  checkUpdate (prevProps) {
+    //Highly inefficient hack
+    let start = 0;
+    let end = 0;
+    this.props.messages.forEach(message => {
+      message.reactions.forEach(reaction => {
+        start += reaction.likes;
+      });
+    });
+    prevProps.messages.forEach(message => {
+      message.reactions.forEach(reaction => {
+        end += reaction.likes;
+      });
+    });
+    return start === end;
   }
 
   chatList () {
