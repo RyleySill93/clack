@@ -57,7 +57,6 @@ class ChannelModal extends React.Component {
   componentDidUpdate () {
     const memberInput = document.getElementById("member-input");
     const channelName = document.getElementById("channel-input");
-    console.log("member input", memberInput);
     if (channelName) {
       channelName.focus();
     } else if (memberInput) {
@@ -70,7 +69,6 @@ class ChannelModal extends React.Component {
       this.setState({ modalIsOpen: nextProps.modalIsOpen,
                       channelType: nextProps.channelType });
     }
-
   }
 
   createChannel(e) {

@@ -22,6 +22,7 @@
   position: absolute;
  }
 
+
 #loader-holder {
   display: flex;
   flex-grow: 1;
@@ -892,7 +893,7 @@ html, body, root {
 
 #channel-title-name:hover {
   color: #fff;
-  cursor: pointer;
+  cursor: default;
 }
 
 #channel-title-name:hover div {
@@ -988,7 +989,7 @@ html, body, root {
 
 #add-message {
   display: flex;
-  cursor: pointer;
+  cursor: default;
 }
 
 #messages-title-name:hover {
@@ -1341,7 +1342,11 @@ html, body, root {
   display: none;
   position: relative;
   bottom: 10px;
-  margin-right: 16px;
+}
+
+#chat-buttons-absolute {
+  position: absolute;
+  right: 16px;
 }
 
 #chat-buttons {

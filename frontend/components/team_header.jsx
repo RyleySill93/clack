@@ -28,7 +28,6 @@ class TeamHeader extends React.Component {
   }
 
   handleClick (e) {
-    console.log('handling click');
     if (e) { e.preventDefault(); }
     this.props.requestLogout();
   }

@@ -171,17 +171,19 @@ class ChatItem extends React.Component {
           </div>
         </div>
         <div id="chat-buttons-holder">
-          <span id="chat-buttons">
-            <div className="chat-button" id="emoji-button" onClick={this.handleClick}>
-              <i className="fa fa-smile-o" aria-hidden="true"></i>
-            </div>
-            <div className="chat-button" id="trash-button" onClick={this.handleClick}>
-              <i className="fa fa-trash-o" aria-hidden="true"></i>
-            </div>
-            <div className="chat-button" id="edit-button" onClick={this.handleClick}>
-              <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
-            </div>
-          </span>
+          <div id="chat-buttons-absolute">
+            <span id="chat-buttons">
+              <div className="chat-button" id="emoji-button" onClick={this.handleClick}>
+                <i className="fa fa-smile-o" aria-hidden="true"></i>
+              </div>
+              <div className="chat-button" id="trash-button" onClick={this.handleClick}>
+                <i className="fa fa-trash-o" aria-hidden="true"></i>
+              </div>
+              <div className="chat-button" id="edit-button" onClick={this.handleClick}>
+                <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </div>
+            </span>
+          </div>
         </div>
         { (this.state.emojisOpen) ? emojiPicker : "" }
         { (this.state.modalIsOpen) ? modal : "" }

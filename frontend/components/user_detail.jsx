@@ -6,8 +6,9 @@ class UserDetail extends React.Component {
     super(props);
   }
 
-  handleClickOutside () {
-      this.props.openModal();
+  handleClickOutside (e) {
+    e.stopPropagation();
+    this.props.openModal();
   }
 
   render () {

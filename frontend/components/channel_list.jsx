@@ -74,10 +74,8 @@ class ChannelList extends React.Component {
       disconnected: () => {},
       received: (data) => {
         if (data.message.channel_id === this.props.currentChannel.id) {
-          console.log('not sending alert');
           this.props.receiveMessage(data.message);
         } else {
-          console.log('sending alert');
           this.sendAlert(data);
         }
       }
@@ -86,9 +84,9 @@ class ChannelList extends React.Component {
 
   sendAlert (data) {
     this.props.requestPostNotification({ channel_id: data.message.channel_id });
-    const directMessageIds = values(this.props.channels)
-      .filter(channel => channel.kind === "direct")
-      .map(channel => channel.id);
+    const directMessageIds = values(this.props.directMessages)
+      .filter(dm => dm.kind === "direct")
+      .map(dm => dm.id);
     if (directMessageIds.includes(data.message.channel_id)) {
       this.showAlert(`New direct message from @${data.message.author.username}`);
     } else {

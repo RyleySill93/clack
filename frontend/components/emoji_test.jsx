@@ -63,7 +63,8 @@ class MyEmojiInput extends React.Component {
     }
   }
 
-  handleClickOutside () {
+  handleClickOutside (e) {
+    e.stopPropagation();
     this.props.toggleEmojiPicker();
   }
 
