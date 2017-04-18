@@ -17,7 +17,7 @@ class Chatbox extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    if (this.chats && this.checkUpdate(prevProps)) {
+    if (this.chats) {
       this.chats.scrollTop = 99999;
     }
   }

@@ -989,12 +989,12 @@ html, body, root {
 
 #add-message {
   display: flex;
-  cursor: default;
+  cursor: pointer;
 }
 
 #messages-title-name:hover {
   color: #fff;
-  cursor: pointer;
+  cursor: default;
 }
 
 #messages {

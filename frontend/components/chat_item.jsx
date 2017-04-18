@@ -7,14 +7,6 @@ import ChannelModalContainer from './channel_modal_container';
 class ChatItem extends React.Component {
   constructor (props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.addEmojiToReactions = this.addEmojiToReactions.bind(this);
-    this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
-    this.reactions = this.reactions.bind(this);
     this.state = { editMode: false,
                    body: this.props.message.body,
                    searchName: "",
@@ -24,6 +16,14 @@ class ChatItem extends React.Component {
                    modalIsOpen: false,
                    emojisOpen: false };
     this.showAlert = this.showAlert.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.addEmojiToReactions = this.addEmojiToReactions.bind(this);
+    this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.reactions = this.reactions.bind(this);
   }
 
   handleClick (e) {
