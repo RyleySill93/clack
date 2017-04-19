@@ -6,7 +6,6 @@ Clack is a full-stack web application based on [Slack](https://slack.com/). On t
 ![Giphy](/docs/README-gifs/login.gif)
 
 ## Live Chat
-Live chat is the core of
 
 ### Messaging
 Clack incorporates the Action Cable protocol to enable real-time messaging.
@@ -96,6 +95,8 @@ end
 ```
 
 ## Channels & Direct Messages
+
+Channels and direct messages allow users to form conversations around topics and teams. Users can create a channel based on an interest or a project or create a message group to talk to specific members.
 
 ### Notifications
 In order to show a user that they have unread messages in one of their channels or direct messages groups, notifications are displayed next to the channel name.
