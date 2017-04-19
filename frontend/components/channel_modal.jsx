@@ -200,13 +200,12 @@ class ChannelModal extends React.Component {
   }
 
   render () {
-    const { users, selectedMembers } = this.props;
+    const { users } = this.props;
     let userMatches = users.filter(user => (
       user.username.startsWith(this.state.searchName)
       && user.username !== this.props.currentUser.username
     ));
     userMatches = userMatches.map((user, idx) => this.userItem(user, idx));
-
 
     const selectedMembers = this.state.selectedMembers.map((member, idx) =>
       <MemberToken key={idx}

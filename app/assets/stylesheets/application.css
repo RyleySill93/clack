@@ -1339,9 +1339,12 @@ html, body, root {
 }
 
 #chat-buttons-holder {
-  display: none;
   position: relative;
   bottom: 10px;
+}
+
+#chat-item:hover #chat-buttons {
+  display: flex;
 }
 
 #chat-buttons-absolute {
@@ -1350,12 +1353,12 @@ html, body, root {
 }
 
 #chat-buttons {
+  display: none;
   width: 99px;
   height: 31px;
   border-radius: 7px;
   border: 1px solid #E0E0E0;
   background-color: white;
-  display: flex;
   justify-content: space-around;
   color: #555459;
   align-items: center;
@@ -1394,10 +1397,6 @@ html, body, root {
 
 #chat-item:hover {
   background-color: #F9F9F9;
-}
-
-#chat-item:hover #chat-buttons-holder {
-  display: block;
 }
 
 #pic-holder {

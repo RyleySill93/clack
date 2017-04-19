@@ -172,7 +172,8 @@ class ChatItem extends React.Component {
         </div>
         <div id="chat-buttons-holder">
           <div id="chat-buttons-absolute">
-            <span id="chat-buttons">
+            { (this.state.emojisOpen) ? emojiPicker : "" }
+            <span id="chat-buttons" style={this.state.emojisOpen ? {display: 'flex', marginTop: -16} : {alignItems: 'center'}}>
               <div className="chat-button" id="emoji-button" onClick={this.handleClick}>
                 <i className="fa fa-smile-o" aria-hidden="true"></i>
               </div>
@@ -185,7 +186,6 @@ class ChatItem extends React.Component {
             </span>
           </div>
         </div>
-        { (this.state.emojisOpen) ? emojiPicker : "" }
         { (this.state.modalIsOpen) ? modal : "" }
       </li>
     );

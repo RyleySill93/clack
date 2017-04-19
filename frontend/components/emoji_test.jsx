@@ -19,8 +19,8 @@ let styleOne = {
 };
 let styleTwo = {
   position: 'absolute',
-  right: '30px',
-  bottom: '70px',
+  right: '0px',
+  bottom: '35px',
   backgroundColor: 'white',
   width: '344px',
   height: '270px',
@@ -56,7 +56,7 @@ class MyEmojiInput extends React.Component {
 
   emojiPicker () {
     let style;
-    if (this.props.location.pathname.endsWith('details')) {
+    if (this.props.style === 'chat') {
       style = styleTwo;
     } else {
       style = styleOne;
