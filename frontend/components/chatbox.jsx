@@ -18,14 +18,14 @@ class Chatbox extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-
+    if (prevProps.messages.length !== this.props.messages.length) {
+      this.scrollToBottom();
+    }
   }
 
   scrollToBottom () {
-    console.log('almsot');
     if (this.chats) {
       this.chats.scrollTop = 99999;
-      console.log('yes!');
     }
   }
 
@@ -34,6 +34,7 @@ class Chatbox extends React.Component {
       this.props.receiveLoadingState('chatbox');
       this.props.requestGetMessages(nextProps.params.channelId).then(() => this.scrollToBottom());
     }
+
   }
 
   checkUpdate (prevProps) {
