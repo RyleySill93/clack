@@ -61,6 +61,8 @@ Sometimes you don't have the time to find the perfect Giphy to express yourself.
 With the help of [React-Emoji](https://github.com/banyan/react-emoji),
 users can easily include emojis in their messages and add reactions to their
 other members' messages.
+
+|                                          |                                          |
 |------------------------------------------|------------------------------------------|
 | ![Giphy](/docs/README-gifs/emoticon.gif) | ![Giphy](/docs/README-gifs/reaction.gif) |
 
