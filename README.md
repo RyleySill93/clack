@@ -1,4 +1,4 @@
-#Clack
+# Clack
 
 Clack is a full-stack web application based on [Slack][https://slack.com/]. On the frontend, it uses React.js to render the views and a Redux architecture to organize the data flows. On the backend, it uses Ruby on Rails, a PostgreSQL database, and jBuilder to build the data feeds.
 
