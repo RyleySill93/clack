@@ -1,8 +1,10 @@
 # Clack
+[Live App][live]
 
-Clack is a full-stack web application based on [Slack][https://slack.com/]. On the frontend, it uses React.js to render the views and a Redux architecture to organize the data flows. On the backend, it uses Ruby on Rails, a PostgreSQL database, and jBuilder to build the data feeds.
 
-[Live App][https://click-clack.herokuapp.com/#/messages/1]
+Clack is a full-stack web application based on [Slack][slack]. On the frontend, it uses React.js to render the views and a Redux architecture to organize the data flows. On the backend, it uses Ruby on Rails, a PostgreSQL database, and jBuilder to build the data feeds.
+[live]:[https://click-clack.herokuapp.com/#/messages/1]
+[slack]:[https://slack.com/]
 
 ![Giphy](/docs/README-gifs/login.gif)
 
@@ -20,10 +22,12 @@ otherwise the new message will pop up on the channel that they are viewing.
 ![Giphy](/docs/README-gifs/messaging.gif)
 
 ### Alerts
-By combining [React-Alert][https://www.npmjs.com/package/react-alert] and
+By combining [React-Alert][alert] and
 Action Cable, users receive pop-up notifications whenever a channel or
 direct message that they are subscribed to receives a new message.
 ![Giphy](/docs/README-gifs/alert.gif)
+
+[alert]:[https://www.npmjs.com/package/react-alert]
 
 ### Giphys
 Speaking with words is great but sometimes words aren't enough. Sometimes
@@ -57,10 +61,11 @@ parseGifUrl (body) {
 
 ### Emoticons & Reactions
 Sometimes you don't have the time to find the perfect Giphy to express yourself.
-With the help of [React-Emoji][https://github.com/banyan/react-emoji],
+With the help of [React-Emoji][emoji],
 users can easily include emojis in their messages and add reactions to their
 other members' messages.
 
+[emoji]: [https://github.com/banyan/react-emoji]
 ![Giphy](/docs/README-gifs/emoticon.gif)
 ![Giphy](/docs/README-gifs/reaction.gif)
 
@@ -103,7 +108,7 @@ Instead of searching through every user manually, Clack allows users to search a
 member names to find the person they are looking for.
 ![Giphy](/docs/README-gifs/directmessage.gif)
 
-The filtering happens on the frontend while users type in a username.
+As the user types in a username, users are filtered based on whether or not their names start with what the user has inputted.
 ```
 let userMatches = users.filter(user => (
   user.username.startsWith(this.state.searchName)
