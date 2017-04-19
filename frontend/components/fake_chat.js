@@ -12,7 +12,7 @@ export const fakeChat = (postMessage, currentUser) => {
 };
 
 const sendMessage = (channels, postMessage) => {
-  let channel = values(channels).find((chan) => chan.title === 'Ryley');
+  let channel = values(channels).find((chan) => chan.title === 'ryley');
   message1.channel_id = channel.id;
   window.setTimeout(() => postMessage(message1), 4000);
 };
