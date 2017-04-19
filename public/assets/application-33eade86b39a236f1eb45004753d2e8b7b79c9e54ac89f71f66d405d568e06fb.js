@@ -23657,6 +23657,8 @@ var _reactClickOutside = __webpack_require__(112);
 
 var _reactClickOutside2 = _interopRequireDefault(_reactClickOutside);
 
+var _reactRouter = __webpack_require__(21);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23680,8 +23682,8 @@ var styleOne = {
 };
 var styleTwo = {
   position: 'absolute',
-  right: '50%',
-  bottom: '50%',
+  right: '0px',
+  bottom: '35px',
   backgroundColor: 'white',
   width: '344px',
   height: '270px',
@@ -23725,15 +23727,22 @@ var MyEmojiInput = function (_React$Component) {
   }, {
     key: 'emojiPicker',
     value: function emojiPicker() {
+      var style = void 0;
+      if (this.props.style === 'chat') {
+        style = styleTwo;
+      } else {
+        style = styleOne;
+      }
       if (this.state.emojisOpen) {
         return _react2.default.createElement(_reactEmojiPicker2.default, {
-          style: this.props.style === 'chat' ? styleTwo : styleOne,
+          style: style,
           onSelect: this.setEmoji });
       }
     }
   }, {
     key: 'handleClickOutside',
-    value: function handleClickOutside() {
+    value: function handleClickOutside(e) {
+      e.stopPropagation();
       this.props.toggleEmojiPicker();
     }
   }, {
@@ -23750,7 +23759,7 @@ var MyEmojiInput = function (_React$Component) {
   return MyEmojiInput;
 }(_react2.default.Component);
 
-exports.default = (0, _reactClickOutside2.default)(MyEmojiInput);
+exports.default = (0, _reactRouter.withRouter)((0, _reactClickOutside2.default)(MyEmojiInput));
 
 /***/ }),
 /* 100 */
@@ -29242,7 +29251,7 @@ var loader = _react2.default.createElement(
   _react2.default.createElement(
     "div",
     { id: "loader" },
-    _react2.default.createElement("img", { src: "http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png",
+    _react2.default.createElement("img", { src: "https://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png",
       width: "50px", height: "50px" }),
     _react2.default.createElement(
       "div",
@@ -42080,7 +42089,7 @@ var ChannelList = function (_React$Component) {
       msg.show(message, {
         time: 4000,
         type: 'success',
-        icon: _react2.default.createElement('img', { src: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
+        icon: _react2.default.createElement('img', { src: 'https://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
       });
     }
   }, {
@@ -42096,10 +42105,8 @@ var ChannelList = function (_React$Component) {
         disconnected: function disconnected() {},
         received: function received(data) {
           if (data.message.channel_id === _this4.props.currentChannel.id) {
-            console.log('not sending alert');
             _this4.props.receiveMessage(data.message);
           } else {
-            console.log('sending alert');
             _this4.sendAlert(data);
           }
         }
@@ -42109,10 +42116,10 @@ var ChannelList = function (_React$Component) {
     key: 'sendAlert',
     value: function sendAlert(data) {
       this.props.requestPostNotification({ channel_id: data.message.channel_id });
-      var directMessageIds = (0, _values2.default)(this.props.channels).filter(function (channel) {
-        return channel.kind === "direct";
-      }).map(function (channel) {
-        return channel.id;
+      var directMessageIds = (0, _values2.default)(this.props.directMessages).filter(function (dm) {
+        return dm.kind === "direct";
+      }).map(function (dm) {
+        return dm.id;
       });
       if (directMessageIds.includes(data.message.channel_id)) {
         this.showAlert('New direct message from @' + data.message.author.username);
@@ -42496,6 +42503,7 @@ var ChannelModal = function (_React$Component) {
     _this.handleChange = _this.handleChange.bind(_this);
 
     _this.selectedUser = _this.selectedUser.bind(_this);
+    _this.userItem = _this.userItem.bind(_this);
 
     _this.alertChannelError = _this.alertChannelError.bind(_this);
     _this.alertDirectError = _this.alertDirectError.bind(_this);
@@ -42522,7 +42530,6 @@ var ChannelModal = function (_React$Component) {
     value: function componentDidUpdate() {
       var memberInput = document.getElementById("member-input");
       var channelName = document.getElementById("channel-input");
-      console.log("member input", memberInput);
       if (channelName) {
         channelName.focus();
       } else if (memberInput) {
@@ -42611,7 +42618,7 @@ var ChannelModal = function (_React$Component) {
         return msg.show(err, {
           time: 2000,
           type: 'success',
-          icon: _react2.default.createElement('img', { src: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
+          icon: _react2.default.createElement('img', { src: 'https://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
         });
       });
     }
@@ -42622,7 +42629,7 @@ var ChannelModal = function (_React$Component) {
         return msg.show(err, {
           time: 2000,
           type: 'success',
-          icon: _react2.default.createElement('img', { src: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
+          icon: _react2.default.createElement('img', { src: 'https://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
         });
       });
     }
@@ -42674,17 +42681,25 @@ var ChannelModal = function (_React$Component) {
       };
     }
   }, {
+    key: 'userItem',
+    value: function userItem(user, idx) {
+      return _react2.default.createElement(_user_list_item2.default, { key: idx,
+        user: user,
+        selectMember: this.selectMember(user),
+        id: this.selectedUser(user) });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this4 = this;
 
-      var userMatches = this.props.users.filter(function (user) {
+      var users = this.props.users;
+
+      var userMatches = users.filter(function (user) {
         return user.username.startsWith(_this4.state.searchName) && user.username !== _this4.props.currentUser.username;
-      }).map(function (user, idx) {
-        return _react2.default.createElement(_user_list_item2.default, { key: idx,
-          user: user,
-          selectMember: _this4.selectMember(user),
-          id: _this4.selectedUser(user) });
+      });
+      userMatches = userMatches.map(function (user, idx) {
+        return _this4.userItem(user, idx);
       });
 
       var selectedMembers = this.state.selectedMembers.map(function (member, idx) {
@@ -42811,14 +42826,6 @@ var ChatItem = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ChatItem.__proto__ || Object.getPrototypeOf(ChatItem)).call(this, props));
 
-    _this.handleClick = _this.handleClick.bind(_this);
-    _this.openModal = _this.openModal.bind(_this);
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.handleChange = _this.handleChange.bind(_this);
-    _this.addEmojiToReactions = _this.addEmojiToReactions.bind(_this);
-    _this.toggleEmojiPicker = _this.toggleEmojiPicker.bind(_this);
-    _this.toggleModal = _this.toggleModal.bind(_this);
-    _this.reactions = _this.reactions.bind(_this);
     _this.state = { editMode: false,
       body: _this.props.message.body,
       searchName: "",
@@ -42828,6 +42835,14 @@ var ChatItem = function (_React$Component) {
       modalIsOpen: false,
       emojisOpen: false };
     _this.showAlert = _this.showAlert.bind(_this);
+    _this.handleClick = _this.handleClick.bind(_this);
+    _this.openModal = _this.openModal.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.addEmojiToReactions = _this.addEmojiToReactions.bind(_this);
+    _this.toggleEmojiPicker = _this.toggleEmojiPicker.bind(_this);
+    _this.toggleModal = _this.toggleModal.bind(_this);
+    _this.reactions = _this.reactions.bind(_this);
     return _this;
   }
 
@@ -42872,7 +42887,7 @@ var ChatItem = function (_React$Component) {
       msg.show(message, {
         time: 2000,
         type: 'success',
-        icon: _react2.default.createElement('img', { src: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
+        icon: _react2.default.createElement('img', { src: 'https://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
       });
     }
   }, {
@@ -42960,6 +42975,7 @@ var ChatItem = function (_React$Component) {
       var gif = _react2.default.createElement(
         'div',
         { id: 'chat-gif-holder' },
+        _react2.default.createElement('div', { id: 'left-bar' }),
         _react2.default.createElement('img', { id: 'chat-gif', src: this.props.message.gif_url })
       );
 
@@ -43012,26 +43028,30 @@ var ChatItem = function (_React$Component) {
           'div',
           { id: 'chat-buttons-holder' },
           _react2.default.createElement(
-            'span',
-            { id: 'chat-buttons' },
+            'div',
+            { id: 'chat-buttons-absolute' },
+            this.state.emojisOpen ? emojiPicker : "",
             _react2.default.createElement(
-              'div',
-              { className: 'chat-button', id: 'emoji-button', onClick: this.handleClick },
-              _react2.default.createElement('i', { className: 'fa fa-smile-o', 'aria-hidden': 'true' })
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'chat-button', id: 'trash-button', onClick: this.handleClick },
-              _react2.default.createElement('i', { className: 'fa fa-trash-o', 'aria-hidden': 'true' })
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'chat-button', id: 'edit-button', onClick: this.handleClick },
-              _react2.default.createElement('i', { className: 'fa fa-pencil-square-o', 'aria-hidden': 'true' })
+              'span',
+              { id: 'chat-buttons', style: this.state.emojisOpen ? { display: 'flex', marginTop: -16 } : { alignItems: 'center' } },
+              _react2.default.createElement(
+                'div',
+                { className: 'chat-button', id: 'emoji-button', onClick: this.handleClick },
+                _react2.default.createElement('i', { className: 'fa fa-smile-o', 'aria-hidden': 'true' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'chat-button', id: 'trash-button', onClick: this.handleClick },
+                _react2.default.createElement('i', { className: 'fa fa-trash-o', 'aria-hidden': 'true' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'chat-button', id: 'edit-button', onClick: this.handleClick },
+                _react2.default.createElement('i', { className: 'fa fa-pencil-square-o', 'aria-hidden': 'true' })
+              )
             )
           )
         ),
-        this.state.emojisOpen ? emojiPicker : "",
         this.state.modalIsOpen ? modal : ""
       );
     }
@@ -43134,6 +43154,7 @@ var Chatbox = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Chatbox.__proto__ || Object.getPrototypeOf(Chatbox)).call(this, props));
 
     _this.chatList = _this.chatList.bind(_this);
+    _this.checkUpdate = _this.checkUpdate.bind(_this);
     return _this;
   }
 
@@ -43145,7 +43166,7 @@ var Chatbox = function (_React$Component) {
     }
   }, {
     key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
+    value: function componentDidUpdate(prevProps) {
       if (this.chats) {
         this.chats.scrollTop = 99999;
       }
@@ -43159,11 +43180,22 @@ var Chatbox = function (_React$Component) {
       }
     }
   }, {
-    key: 'scrollToBottom',
-    value: function scrollToBottom() {
-      if (this.chats) {
-        this.chats.scrollTop = 99999;
-      }
+    key: 'checkUpdate',
+    value: function checkUpdate(prevProps) {
+      //Highly inefficient hack
+      var start = 0;
+      var end = 0;
+      this.props.messages.forEach(function (message) {
+        message.reactions.forEach(function (reaction) {
+          start += reaction.likes;
+        });
+      });
+      prevProps.messages.forEach(function (message) {
+        message.reactions.forEach(function (reaction) {
+          end += reaction.likes;
+        });
+      });
+      return start === end;
     }
   }, {
     key: 'chatList',
@@ -43208,7 +43240,7 @@ var Chatbox = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { id: 'loader' },
-          _react2.default.createElement('img', { src: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png',
+          _react2.default.createElement('img', { src: 'https://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png',
             width: '50px', height: '50px' }),
           _react2.default.createElement(
             'div',
@@ -43409,7 +43441,7 @@ var _channel_api_util = __webpack_require__(162);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var message1 = {
-  author_id: 51,
+  author_id: 1,
   body: "Hi I'm Ryley, welcome to clack! :blush:"
 };
 
@@ -43421,7 +43453,7 @@ var fakeChat = exports.fakeChat = function fakeChat(postMessage, currentUser) {
 
 var sendMessage = function sendMessage(channels, postMessage) {
   var channel = (0, _values2.default)(channels).find(function (chan) {
-    return chan.title === 'ryley_sill';
+    return chan.title === 'ryley';
   });
   message1.channel_id = channel.id;
   window.setTimeout(function () {
@@ -43828,7 +43860,8 @@ var GiphysSearch = function (_React$Component) {
     }
   }, {
     key: 'handleClickOutside',
-    value: function handleClickOutside() {
+    value: function handleClickOutside(e) {
+      e.stopPropagation();
       this.props.toggleGiphysSearch();
     }
   }, {
@@ -43886,7 +43919,7 @@ var GiphysSearch = function (_React$Component) {
         'form',
         { id: 'giphy-search', onSubmit: this.handleSubmit },
         _react2.default.createElement('img', { id: 'giphy-logo',
-          src: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1490215417/Giphy_Logo_lobqbg.png' }),
+          src: 'https://res.cloudinary.com/dwqeotsx5/image/upload/v1490215417/Giphy_Logo_lobqbg.png' }),
         this.props.loading === 'giphys' ? this.loader() : this.giphysHolder(),
         _react2.default.createElement('input', { type: 'text',
           id: 'giphy-input',
@@ -44646,7 +44679,7 @@ var SessionForm = function (_React$Component) {
       return _react2.default.createElement(
         'header',
         { id: 'splash-header' },
-        _react2.default.createElement('img', { id: 'logo', src: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1489542773/clack_monochrome_white_n5w0fo.png', height: '68px' }),
+        _react2.default.createElement('img', { id: 'logo', src: 'https://res.cloudinary.com/dwqeotsx5/image/upload/v1489542773/clack_monochrome_white_n5w0fo.png', height: '68px' }),
         _react2.default.createElement(
           'nav',
           { id: 'login-signup' },
@@ -44897,7 +44930,6 @@ var TeamHeader = function (_React$Component) {
   }, {
     key: 'handleClick',
     value: function handleClick(e) {
-      console.log('handling click');
       if (e) {
         e.preventDefault();
       }
@@ -44909,7 +44941,7 @@ var TeamHeader = function (_React$Component) {
       msg.show('Some text or component', {
         time: 2000,
         type: 'success',
-        icon: _react2.default.createElement('img', { src: 'http://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
+        icon: _react2.default.createElement('img', { src: 'https://res.cloudinary.com/dwqeotsx5/image/upload/v1490042404/Slack-icon_rkfwqj.png', width: '32px', height: '32px' })
       });
     }
   }, {
@@ -45041,7 +45073,8 @@ var UserDetail = function (_React$Component) {
 
   _createClass(UserDetail, [{
     key: 'handleClickOutside',
-    value: function handleClickOutside() {
+    value: function handleClickOutside(e) {
+      e.stopPropagation();
       this.props.openModal();
     }
   }, {
