@@ -35,6 +35,7 @@ class ChannelModal extends React.Component {
     this.handleChange = this.handleChange.bind(this);
 
     this.selectedUser = this.selectedUser.bind(this);
+    this.userItem = this.userItem.bind(this);
 
     this.alertChannelError = this.alertChannelError.bind(this);
     this.alertDirectError = this.alertDirectError.bind(this);
@@ -189,15 +190,23 @@ class ChannelModal extends React.Component {
     };
   }
 
+  userItem (user, idx) {
+    return (
+      <UserListItem key={idx}
+                user={user}
+                selectMember={this.selectMember(user)}
+                id={this.selectedUser(user)}/>
+            );
+  }
+
   render () {
-    const userMatches = this.props.users
-      .filter(user => (user.username.startsWith(this.state.searchName)
-      && user.username !== this.props.currentUser.username))
-      .map((user, idx) => (
-        <UserListItem key={idx}
-                      user={user}
-                      selectMember={this.selectMember(user)}
-                      id={this.selectedUser(user)}/> ));
+    const { users, selectedMembers } = this.props;
+    let userMatches = users.filter(user => (
+      user.username.startsWith(this.state.searchName)
+      && user.username !== this.props.currentUser.username
+    ));
+    userMatches = userMatches.map((user, idx) => this.userItem(user, idx));
+
 
     const selectedMembers = this.state.selectedMembers.map((member, idx) =>
       <MemberToken key={idx}

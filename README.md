@@ -3,11 +3,13 @@
 Clack is a full-stack web application based on [Slack][https://slack.com/]. On the frontend, it uses React.js to render the views and a Redux architecture to organize the data flows. On the backend, it uses Ruby on Rails, a PostgreSQL database, and jBuilder to build the data feeds.
 
 [Live App][https://click-clack.herokuapp.com/#/messages/1]
+
 ![Giphy](/docs/README-gifs/login.gif)
 
-##Live Chat
+## Live Chat
+Live chat is the core of
 
-###Messaging
+### Messaging
 Clack incorporates the Action Cable protocol to enable real-time messaging.
 Unlike HTTP, WebSockets enables the client and the server to keep an open
 connection so they can directly stream data between each other. As soon as
@@ -17,13 +19,13 @@ a channel that they are not currently logged into, they will receive an alert,
 otherwise the new message will pop up on the channel that they are viewing.
 ![Giphy](/docs/README-gifs/messaging.gif)
 
-###Alerts
+### Alerts
 By combining [React-Alert][https://www.npmjs.com/package/react-alert] and
 Action Cable, users receive pop-up notifications whenever a channel or
 direct message that they are subscribed to receives a new message.
 ![Giphy](/docs/README-gifs/alert.gif)
 
-###Giphys
+### Giphys
 Speaking with words is great but sometimes words aren't enough. Sometimes
 you need a more powerful form of human expression. Something universally
 understood by all. A language of the future. Giphys are that language.
@@ -53,7 +55,7 @@ parseGifUrl (body) {
 }
 ```
 
-###Emoticons & Reactions
+### Emoticons & Reactions
 Sometimes you don't have the time to find the perfect Giphy to express yourself.
 With the help of [React-Emoji][https://github.com/banyan/react-emoji],
 users can easily include emojis in their messages and add reactions to their
@@ -90,13 +92,35 @@ def reaction_params
 end
 ```
 
-##Channels & Direct Messages
+## Channels & Direct Messages
 
-###Notifications
+### Notifications
 In order to show a user that they have unread messages in one of their channels or direct messages groups, notifications are displayed next to the channel name.
 ![Giphy](/docs/README-gifs/notification.gif)
 
-###User Lookup
+### User Lookup
+Instead of searching through every user manually, Clack allows users to search all
+member names to find the person they are looking for.
 ![Giphy](/docs/README-gifs/directmessage.gif)
 
-##User Authentication
+The filtering happens on the frontend while users type in a username.
+```
+let userMatches = users.filter(user => (
+  user.username.startsWith(this.state.searchName)
+  && user.username !== this.props.currentUser.username
+));
+userMatches = userMatches.map((user, idx) => this.userItem(user, idx));
+
+...
+
+userItem (user, idx) {
+  return (
+    <UserListItem key={idx}
+              user={user}
+              selectMember={this.selectMember(user)}
+              id={this.selectedUser(user)}/>
+          );
+}
+```
+
+## User Authentication
