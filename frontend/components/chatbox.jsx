@@ -34,7 +34,6 @@ class Chatbox extends React.Component {
       this.props.receiveLoadingState('chatbox');
       this.props.requestGetMessages(nextProps.params.channelId).then(() => this.scrollToBottom());
     }
-
   }
 
   checkUpdate (prevProps) {

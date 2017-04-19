@@ -27,7 +27,7 @@ class GiphysSearch extends React.Component {
   handleSubmit (e) {
     e.preventDefault();
     this.props.fetchSearchGiphys(this.state.searchTerm);
-    // this.props.receiveLoadingState('giphys');
+    this.props.receiveLoadingState('giphys');
   }
 
   selectGiphy (giphy) {
@@ -49,6 +49,7 @@ class GiphysSearch extends React.Component {
   }
 
   loader () {
+    console.log('showing loader');
     return (
       <div id="loader-holder">
         <div id="loader">
