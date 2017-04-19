@@ -1,9 +1,9 @@
 # Clack
 [Live App][live]
-
+[live]:[https://click-clack.herokuapp.com/#/messages/1]
 
 Clack is a full-stack web application based on [Slack][slack]. On the frontend, it uses React.js to render the views and a Redux architecture to organize the data flows. On the backend, it uses Ruby on Rails, a PostgreSQL database, and jBuilder to build the data feeds.
-[live]:[https://click-clack.herokuapp.com/#/messages/1]
+
 [slack]:[https://slack.com/]
 
 ![Giphy](/docs/README-gifs/login.gif)
