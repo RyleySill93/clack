@@ -23682,8 +23682,8 @@ var styleOne = {
 };
 var styleTwo = {
   position: 'absolute',
-  right: '30px',
-  bottom: '70px',
+  right: '0px',
+  bottom: '35px',
   backgroundColor: 'white',
   width: '344px',
   height: '270px',
@@ -23728,7 +23728,7 @@ var MyEmojiInput = function (_React$Component) {
     key: 'emojiPicker',
     value: function emojiPicker() {
       var style = void 0;
-      if (this.props.location.pathname.endsWith('details')) {
+      if (this.props.style === 'chat') {
         style = styleTwo;
       } else {
         style = styleOne;
@@ -42503,6 +42503,7 @@ var ChannelModal = function (_React$Component) {
     _this.handleChange = _this.handleChange.bind(_this);
 
     _this.selectedUser = _this.selectedUser.bind(_this);
+    _this.userItem = _this.userItem.bind(_this);
 
     _this.alertChannelError = _this.alertChannelError.bind(_this);
     _this.alertDirectError = _this.alertDirectError.bind(_this);
@@ -42680,17 +42681,25 @@ var ChannelModal = function (_React$Component) {
       };
     }
   }, {
+    key: 'userItem',
+    value: function userItem(user, idx) {
+      return _react2.default.createElement(_user_list_item2.default, { key: idx,
+        user: user,
+        selectMember: this.selectMember(user),
+        id: this.selectedUser(user) });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this4 = this;
 
-      var userMatches = this.props.users.filter(function (user) {
+      var users = this.props.users;
+
+      var userMatches = users.filter(function (user) {
         return user.username.startsWith(_this4.state.searchName) && user.username !== _this4.props.currentUser.username;
-      }).map(function (user, idx) {
-        return _react2.default.createElement(_user_list_item2.default, { key: idx,
-          user: user,
-          selectMember: _this4.selectMember(user),
-          id: _this4.selectedUser(user) });
+      });
+      userMatches = userMatches.map(function (user, idx) {
+        return _this4.userItem(user, idx);
       });
 
       var selectedMembers = this.state.selectedMembers.map(function (member, idx) {
@@ -43021,9 +43030,10 @@ var ChatItem = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { id: 'chat-buttons-absolute' },
+            this.state.emojisOpen ? emojiPicker : "",
             _react2.default.createElement(
               'span',
-              { id: 'chat-buttons' },
+              { id: 'chat-buttons', style: this.state.emojisOpen ? { display: 'flex', marginTop: -16 } : { alignItems: 'center' } },
               _react2.default.createElement(
                 'div',
                 { className: 'chat-button', id: 'emoji-button', onClick: this.handleClick },
@@ -43042,7 +43052,6 @@ var ChatItem = function (_React$Component) {
             )
           )
         ),
-        this.state.emojisOpen ? emojiPicker : "",
         this.state.modalIsOpen ? modal : ""
       );
     }
@@ -43146,18 +43155,30 @@ var Chatbox = function (_React$Component) {
 
     _this.chatList = _this.chatList.bind(_this);
     _this.checkUpdate = _this.checkUpdate.bind(_this);
+    _this.scrollToBottom = _this.scrollToBottom.bind(_this);
     return _this;
   }
 
   _createClass(Chatbox, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.props.requestGetMessages(this.props.params.channelId);
+      var _this2 = this;
+
+      this.props.requestGetMessages(this.props.params.channelId).then(function () {
+        return _this2.scrollToBottom();
+      });
       this.props.receiveLoadingState('client');
     }
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
+      if (prevProps.messages.length !== this.props.messages.length) {
+        this.scrollToBottom();
+      }
+    }
+  }, {
+    key: 'scrollToBottom',
+    value: function scrollToBottom() {
       if (this.chats) {
         this.chats.scrollTop = 99999;
       }
@@ -43165,9 +43186,13 @@ var Chatbox = function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
+      var _this3 = this;
+
       if (nextProps.params.channelId !== this.props.params.channelId) {
         this.props.receiveLoadingState('chatbox');
-        this.props.requestGetMessages(nextProps.params.channelId);
+        this.props.requestGetMessages(nextProps.params.channelId).then(function () {
+          return _this3.scrollToBottom();
+        });
       }
     }
   }, {
@@ -43212,12 +43237,12 @@ var Chatbox = function (_React$Component) {
   }, {
     key: 'chatboxContent',
     value: function chatboxContent() {
-      var _this2 = this;
+      var _this4 = this;
 
       return _react2.default.createElement(
         'ul',
         { id: 'chat-list', ref: function ref(r) {
-            _this2.chats = r;
+            _this4.chats = r;
           } },
         this.chatList()
       );
@@ -43444,7 +43469,7 @@ var fakeChat = exports.fakeChat = function fakeChat(postMessage, currentUser) {
 
 var sendMessage = function sendMessage(channels, postMessage) {
   var channel = (0, _values2.default)(channels).find(function (chan) {
-    return chan.title === 'Ryley';
+    return chan.title === 'ryley';
   });
   message1.channel_id = channel.id;
   window.setTimeout(function () {
