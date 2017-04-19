@@ -2,7 +2,7 @@ Channel.create!([
   {title: "general", kind: "channel"},
   {title: "outdoors", kind: "channel"},
   {title: "food", kind: "channel"},
-  {title: "doggy 911", kind: "channel"},
+  {title: "doggy 911", kind: "channel"}
 ])
 User.create!([
   {username: "ryley", password_digest: "$2a$10$LEIHrnIjcn/4JWD./9LRc.bLjeXUCoo.yddsVWxUAknaetcWfNsQ.", session_token: "fzXR_Bc0qKvCIMMWH4BkQQ", image: "https://res.cloudinary.com/dwqeotsx5/image/upload/v1490378548/Ryley_Sill_omsfin.png"},
@@ -44,7 +44,7 @@ User.create!([
   {username: "frankie", password_digest: "$2a$10$ldOsbuu8HLEk26uXZmNJzuWZoJabUvVnbYk5qHsDCRJJzqihfRSe.", session_token: "HfHeWeJHxe6W_qb7ELPqCw", image: "https://res.cloudinary.com/dwqeotsx5/image/upload/v1492283593/eyoMG92k_rqocvh.jpg"},
   {username: "romeo", password_digest: "$2a$10$5F.3zFcYHeynFE.UD.T1S.sBfipmPqqjev/UmYKi7CwhYtjUaJi.S", session_token: "xCwbol_ZJnMbOqRHNg4I4A", image: "https://res.cloudinary.com/dwqeotsx5/image/upload/v1492283593/scroll0015_cdfpgz.jpg"},
   {username: "lucky", password_digest: "$2a$10$o5DWgl2EmOudRFUm2yRBuecWJr/iLnb4KoFBSdH6QaYLZqFwZF1zW", session_token: "nO7hYsNGVjC-MjK7tLuE-A", image: "https://res.cloudinary.com/dwqeotsx5/image/upload/v1492283592/scroll004_qmtr3r.jpg"},
-  {username: "rex", password_digest: "$2a$10$WvAuXGLOhcbxhKRClYyYiu.bJXR5txkzo6GFxtny20PppIlZUdbFG", session_token: "4OfSEEXk_VxZDZ56Vy8dpA", image: "https://res.cloudinary.com/dwqeotsx5/image/upload/v1492283594/thul-f334512b-dcfb-5fe8-be45-184c992739e8_kp6sbx.jpg"},
+  {username: "rex", password_digest: "$2a$10$WvAuXGLOhcbxhKRClYyYiu.bJXR5txkzo6GFxtny20PppIlZUdbFG", session_token: "I-u4T9Y1AfnrpuP0ix8IJw", image: "https://res.cloudinary.com/dwqeotsx5/image/upload/v1492283594/thul-f334512b-dcfb-5fe8-be45-184c992739e8_kp6sbx.jpg"},
   {username: "doggy 911", password_digest: "$2a$10$aAgglBl2eekirYE/Hz4we.7WHqUZvOmYWBj3AGtJhUug5FgH/PDN.", session_token: "0ru-eJYhKLyfE3V0KajBNw", image: "https://res.cloudinary.com/dwqeotsx5/image/upload/v1492285370/abcb475f22e4cd21a67dfccb18599e5c_hrmgla.jpg"}
 ])
 Membership.create!([
@@ -151,7 +151,7 @@ Membership.create!([
   {channel_id: 4, user_id: 17},
   {channel_id: 4, user_id: 18},
   {channel_id: 4, user_id: 19},
-  {channel_id: 4, user_id: 23},
+  {channel_id: 4, user_id: 23}
 ])
 Message.create!([
   {body: "Doggy 911, what's ur emergency?", author_id: 41, channel_id: 4, gif_url: ""},
@@ -224,8 +224,6 @@ Message.create!([
   {body: "BEST DAY EVER", author_id: 36, channel_id: 1, gif_url: ""},
   {body: "LOVE CAR RIDES", author_id: 36, channel_id: 1, gif_url: ""}
 ])
-Notification.create!([
-])
 Reaction.create!([
   {user_id: 32, message_id: 8, image: ":joy:", likes: nil},
   {user_id: 32, message_id: 8, image: ":yum:", likes: nil},
@@ -237,5 +235,35 @@ Reaction.create!([
   {user_id: 32, message_id: 29, image: ":dizzy_face:", likes: nil},
   {user_id: 32, message_id: 16, image: ":astonished:", likes: nil},
   {user_id: 32, message_id: 16, image: ":scream_cat:", likes: nil},
-  {user_id: 32, message_id: 12, image: ":scream_cat:", likes: nil}
+  {user_id: 32, message_id: 12, image: ":scream_cat:", likes: nil},
+  {user_id: 40, message_id: 64, image: ":joy:", likes: nil},
+  {user_id: 40, message_id: 64, image: ":joy:", likes: nil},
+  {user_id: 40, message_id: 64, image: ":stuck_out_tongue_closed_eyes:", likes: nil},
+  {user_id: 40, message_id: 59, image: ":flushed:", likes: nil},
+  {user_id: 40, message_id: 53, image: ":tired_face:", likes: nil},
+  {user_id: 40, message_id: 61, image: ":grimacing:", likes: nil},
+  {user_id: 40, message_id: 50, image: ":unamused:", likes: nil},
+  {user_id: 40, message_id: 48, image: ":heart_eyes:", likes: nil},
+  {user_id: 40, message_id: 64, image: ":joy:", likes: nil},
+  {user_id: 40, message_id: 67, image: ":stuck_out_tongue_winking_eye:", likes: nil},
+  {user_id: 40, message_id: 64, image: ":100:", likes: nil},
+  {user_id: 40, message_id: 64, image: ":sweat_smile:", likes: nil},
+  {user_id: 40, message_id: 64, image: ":satisfied:", likes: nil},
+  {user_id: 40, message_id: 64, image: ":satisfied:", likes: nil},
+  {user_id: 40, message_id: 58, image: ":joy:", likes: nil},
+  {user_id: 40, message_id: 53, image: ":triumph:", likes: nil},
+  {user_id: 40, message_id: 53, image: ":triumph:", likes: nil},
+  {user_id: 40, message_id: 52, image: ":scream:", likes: nil},
+  {user_id: 40, message_id: 43, image: ":blush:", likes: nil},
+  {user_id: 40, message_id: 38, image: ":hear_no_evil:", likes: nil},
+  {user_id: 40, message_id: 38, image: ":grin:", likes: nil},
+  {user_id: 40, message_id: 38, image: ":hear_no_evil:", likes: nil},
+  {user_id: 40, message_id: 33, image: ":sweat_smile:", likes: nil},
+  {user_id: 40, message_id: 41, image: ":scream:", likes: nil},
+  {user_id: 40, message_id: 41, image: ":stuck_out_tongue_closed_eyes:", likes: nil},
+  {user_id: 40, message_id: 41, image: ":ok_hand:", likes: nil},
+  {user_id: 40, message_id: 41, image: ":ok_hand:", likes: nil},
+  {user_id: 40, message_id: 27, image: ":sweat:", likes: nil},
+  {user_id: 40, message_id: 27, image: ":confounded:", likes: nil},
+  {user_id: 40, message_id: 27, image: ":disappointed_relieved:", likes: nil}
 ])
