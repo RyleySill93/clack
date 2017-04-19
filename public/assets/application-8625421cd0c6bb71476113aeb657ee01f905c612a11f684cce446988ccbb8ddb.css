@@ -23,6 +23,7 @@
   position: absolute;
  }
 
+
 #loader-holder {
   display: flex;
   flex-grow: 1;
@@ -279,8 +280,14 @@
 }
 
 #chat-gif-holder {
-  border-left: 4px solid #E8E8E8;
   margin-top: 10px;
+  display: flex;
+}
+
+#left-bar {
+  width: 4px;
+  background-color: #E8E8E8;
+  height: 200px;
 }
 
 #chat-gif {
@@ -629,6 +636,7 @@
 }
 
 #DM-lookup-container {
+  max-height: 91%;
   margin-top: 9%;
   display: flex;
   flex-direction: column;
@@ -886,7 +894,7 @@ html, body, root {
 
 #channel-title-name:hover {
   color: #fff;
-  cursor: pointer;
+  cursor: default;
 }
 
 #channel-title-name:hover div {
@@ -916,8 +924,6 @@ html, body, root {
   margin-top: 4px;
   display: flex;
   flex-grow: 1;
-  min-height: 28px;
-  max-height: 28px;
 }
 
 #member-input {
@@ -989,7 +995,7 @@ html, body, root {
 
 #messages-title-name:hover {
   color: #fff;
-  cursor: pointer;
+  cursor: default;
 }
 
 #messages {
@@ -1334,19 +1340,26 @@ html, body, root {
 }
 
 #chat-buttons-holder {
-  display: none;
   position: relative;
   bottom: 10px;
-  margin-right: 16px;
+}
+
+#chat-item:hover #chat-buttons {
+  display: flex;
+}
+
+#chat-buttons-absolute {
+  position: absolute;
+  right: 16px;
 }
 
 #chat-buttons {
+  display: none;
   width: 99px;
   height: 31px;
   border-radius: 7px;
   border: 1px solid #E0E0E0;
   background-color: white;
-  display: flex;
   justify-content: space-around;
   color: #555459;
   align-items: center;
@@ -1385,10 +1398,6 @@ html, body, root {
 
 #chat-item:hover {
   background-color: #F9F9F9;
-}
-
-#chat-item:hover #chat-buttons-holder {
-  display: block;
 }
 
 #pic-holder {
