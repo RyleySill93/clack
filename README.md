@@ -3,7 +3,6 @@
 
 Clack is a full-stack web application based on [Slack](https://slack.com/). On the frontend, it uses React.js to render the views and a Redux architecture to organize the data flows. On the backend, it uses Ruby on Rails, a PostgreSQL database, and jBuilder to build the data feeds.
 
-
 ![Giphy](/docs/README-gifs/login.gif)
 
 ## Live Chat
@@ -23,12 +22,14 @@ otherwise the new message will pop up on the channel that they are viewing.
 By combining [React-Alert](https://www.npmjs.com/package/react-alert) and
 Action Cable, users receive pop-up notifications whenever a channel or
 direct message that they are subscribed to receives a new message.
+
 ![Giphy](/docs/README-gifs/alert.gif)
 
 ### Giphys
 Speaking with words is great but sometimes words aren't enough. Sometimes
 you need a more powerful form of human expression. Something universally
 understood by all. A language of the future. Giphys are that language.
+
 ![Giphy](/docs/README-gifs/giphy.gif)
 
 Users can select a Giphy of their choosing by searching for and selecting
@@ -60,9 +61,9 @@ Sometimes you don't have the time to find the perfect Giphy to express yourself.
 With the help of [React-Emoji](https://github.com/banyan/react-emoji),
 users can easily include emojis in their messages and add reactions to their
 other members' messages.
+|------------------------------------------|------------------------------------------|
+| ![Giphy](/docs/README-gifs/emoticon.gif) | ![Giphy](/docs/README-gifs/reaction.gif) |
 
-![Giphy](/docs/README-gifs/emoticon.gif)
-![Giphy](/docs/README-gifs/reaction.gif)
 
 When a user adds a reaction to a message, the frontend fires off an AJAX request to the backend.
 
