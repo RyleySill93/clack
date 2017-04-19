@@ -12,4 +12,4 @@ json.channel_id message.channel_id
 json.channel_name message.channel.title
 json.author message.author
 json.created_at message.created_at
-json.post_time message.created_at.strftime('%l:%M %p')
+json.post_time (message.created_at - 7.hours).strftime('%l:%M %p')
