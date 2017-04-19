@@ -49,7 +49,6 @@ class GiphysSearch extends React.Component {
   }
 
   loader () {
-    console.log('showing loader');
     return (
       <div id="loader-holder">
         <div id="loader">
