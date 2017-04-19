@@ -99,11 +99,40 @@ end
 
 ### Notifications
 In order to show a user that they have unread messages in one of their channels or direct messages groups, notifications are displayed next to the channel name.
+
 ![Giphy](/docs/README-gifs/notification.gif)
+
+When a user is not currently viewing a channel and a message is posted, an AJAX request is fired off to the backend to create a new notification for the user. Once the user clicks on that channel, another AJAX request is fired off which destroys all of the notifications for that channel.
+
+```
+class Api::NotificationsController < ApplicationController
+  def create
+    channel_id = params[:channel_id]
+    user_id = current_user.id
+    @notification = Notification.new
+    @notification.channel_id = channel_id
+    @notification.user_id = user_id
+
+    if @notification.save
+      render :show
+    else
+      render json: @notification.errors.full_messages, status: 422
+    end
+  end
+
+  def destroy
+    @notifications = Notification.where(channel_id: params[:id])
+      .where(user_id: current_user.id)
+    @notifications.destroy_all
+    render json: "Complete", status: 200
+  end
+end
+```
 
 ### User Lookup
 Instead of searching through every user manually, Clack allows users to search all
 member names to find the person they are looking for.
+
 ![Giphy](/docs/README-gifs/directmessage.gif)
 
 As the user types in a username, users are filtered based on whether or not their names start with what the user has inputted.
@@ -126,4 +155,14 @@ userItem (user, idx) {
 }
 ```
 
-## User Authentication
+## Future Directions for the Project
+I plan to continually update this project with new features and functionality. Here are the next steps:
+
+### Teams
+Teams are another core part of Slack that would allow different groups of users form their own teams. These teams would have their own users, channels, and direct messages which will be separate from all of the other teams using the application.
+
+### File Upload
+A convenient feature of Slack is the ability of users to upload and share files with other team members. Ideally, file upload would support a variety of file formats from Excel sheets, to PDFs, to PowerPoints.
+
+### Message Search
+Another convenient feature of Slack is message search. Instead of digging through endless amounts of messages, this search functionality would allow users to search based on keywords or usernames to identify past messages. The user would be able to identify a particular message and select it to view its entire context within its channel.  

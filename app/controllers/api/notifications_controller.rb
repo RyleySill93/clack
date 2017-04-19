@@ -19,5 +19,4 @@ class Api::NotificationsController < ApplicationController
     @notifications.destroy_all
     render json: "Complete", status: 200
   end
-
 end
