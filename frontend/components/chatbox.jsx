@@ -9,23 +9,30 @@ class Chatbox extends React.Component {
     super(props);
     this.chatList = this.chatList.bind(this);
     this.checkUpdate = this.checkUpdate.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
   }
 
   componentWillMount () {
-    this.props.requestGetMessages(this.props.params.channelId);
+    this.props.requestGetMessages(this.props.params.channelId).then(() => this.scrollToBottom());
     this.props.receiveLoadingState('client');
   }
 
   componentDidUpdate (prevProps) {
+
+  }
+
+  scrollToBottom () {
+    console.log('almsot');
     if (this.chats) {
       this.chats.scrollTop = 99999;
+      console.log('yes!');
     }
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.params.channelId !== this.props.params.channelId) {
       this.props.receiveLoadingState('chatbox');
-      this.props.requestGetMessages(nextProps.params.channelId);
+      this.props.requestGetMessages(nextProps.params.channelId).then(() => this.scrollToBottom());
     }
   }
 
