@@ -45,14 +45,14 @@ export const receiveChannel = (channelId) => ({
 
 //thunk action creators
 export const requestSignup = (user) => (dispatch) => {
-  dispatch(receiveLoadingState('client'));
+  // dispatch(receiveLoadingState('client'));
   return signup(user).then(currentUser => {
     return dispatch(receiveCurrentUser(currentUser));
   }).fail(errors => dispatch(receiveErrors(errors)));
 };
 
 export const requestLogin = (user) => (dispatch) => {
-  dispatch(receiveLoadingState('client'));
+  // dispatch(receiveLoadingState('client'));
   return login(user).then(currentUser => {
     dispatch(receiveCurrentUser(currentUser));
   }).fail(errors => dispatch(receiveErrors(errors)));
