@@ -576,6 +576,11 @@
   color: #555459;
 }
 
+#login-form a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 #login-modal {
   display: flex;
   justify-content: center;
@@ -599,6 +604,7 @@
   color: #fff;
   cursor: pointer;
   outline-width: 0;
+  margin-bottom: 5px;
 }
 
 #username {

@@ -169,6 +169,7 @@ class SessionForm extends React.Component {
                placeholder="Password"
                value={this.state.password}></input>
              <input id="login-button" type="submit" value={this.state.modalType}></input>
+             <p>Don't have an account? <a onClick={this.handleClick}>Demo login here!</a></p>
              { prompt }
              <ul id="login-errors">{ errors }</ul>
       </form>
